@@ -1,6 +1,6 @@
 # react-mobx-vm
 
-<center><img src="./logo.png"/></center>
+<center><img src="./logo.svg"/></center>
 
 [![build status](https://img.shields.io/travis/imcuttle/react-mobx-vm/master.svg?style=flat-square)](https://travis-ci.org/imcuttle/react-mobx-vm)
 [![Test coverage](https://img.shields.io/codecov/c/github/imcuttle/react-mobx-vm.svg?style=flat-square)](https://codecov.io/github/imcuttle/react-mobx-vm?branch=master)
