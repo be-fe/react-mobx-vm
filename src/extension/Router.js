@@ -5,7 +5,7 @@
  * @description:
  */
 import React from 'react'
-import createElement from './mixedRenderer'
+import createElement from '../renderer/mixedRenderer'
 import { RouterContext, Router } from 'react-router'
 
 

@@ -17,9 +17,10 @@
     "no-eval": ["error"],
     "no-use-before-define": ["error"],
     "no-undef": ["error"],
+    "no-unused-vars": ["error", { "varsIgnorePattern": "^h$" }],
     "array-bracket-spacing": ["error", "never"],
     "object-curly-spacing": ["error", "always"],
-    "react/prop-types": [ true, { "ignore": ["children"] }]
+    "react/prop-types": [true, { "ignore": ["children"] }]
   },
   "parserOptions": {
     "ecmaVersion": 8,
@@ -33,6 +34,6 @@
     "es6": true,
     "browser": true,
     "node": true,
-    "mocha": true
+    "jest": true
   }
 }

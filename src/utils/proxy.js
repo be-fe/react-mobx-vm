@@ -6,8 +6,9 @@
  */
 import { get, set } from 'lodash'
 
-export default function proxy(ref, path, overwrite) {
-    const old = get(ref, path)
-    const _new = overwrite(old)
-    set(ref, path, _new)
+export default function proxy(host, path, getValue) {
+  const old = get(host, path)
+  const newVal = getValue(old)
+  set(host, path, newVal)
+  return newVal
 }

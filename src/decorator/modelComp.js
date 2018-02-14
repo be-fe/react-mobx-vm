@@ -4,7 +4,7 @@
  */
 export const symbol = typeof Symbol === 'function' ? Symbol('model-comp') : '__model-comp__'
 
-export function isViewModel(Comp) {
+export function isViewModelComponent(Comp) {
   return !!Comp[symbol]
 }
 
@@ -15,7 +15,7 @@ function slice(props) {
 }
 
 export default function modelComp(CompClass) {
-  if (isViewModel(CompClass)) {
+  if (isViewModelComponent(CompClass)) {
     return CompClass
   }
 

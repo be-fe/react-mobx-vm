@@ -7,7 +7,7 @@
 import get from 'lodash/get'
 import set from 'lodash/set'
 import { action } from 'mobx'
-import { assertReactClass } from './utils/reactUtils'
+import { assertReactClass } from '../utils/reactUtils'
 
 const assign = action(function (rule, props, model) {
   // @action

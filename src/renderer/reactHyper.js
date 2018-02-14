@@ -4,7 +4,7 @@
  * @date: 2018/2/13
  * @description:
  */
-import { createElement, createFactory } from 'react'
+import { createElement } from 'react'
 
 const tags = [
   'div',
@@ -72,10 +72,15 @@ const tags = [
   'link'
 ]
 
-export default function hyper() {
+export default function hyper(tagName, classNameOrProps, props, ...children) {
+  if (typeof classNameOrProps === 'string') {
+    props = props || {}
+    props.className = props.className || classNameOrProps
+    return createElement.apply(this, [tagName, props, ...children])
+  }
   return createElement.apply(this, arguments)
 }
 
 tags.forEach(tag => {
-  hyper[tag] = createFactory(tag)
+  hyper[tag] = hyper.bind(null, tag)
 })

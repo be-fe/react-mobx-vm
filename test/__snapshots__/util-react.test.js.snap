@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`util-react util-react convertReactElement 1`] = `"<h1>Big</h1><div>convert<h1>Heading</h1></div>"`;

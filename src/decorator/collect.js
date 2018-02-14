@@ -5,7 +5,7 @@
  * @description:
  */
 import inject from './injectInverseInherit'
-import { assertReactClass } from './utils/reactUtils'
+import { assertReactClass } from '../utils/reactUtils'
 import get from 'lodash/get'
 import set from 'lodash/set'
 

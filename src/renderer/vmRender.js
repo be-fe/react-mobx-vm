@@ -26,6 +26,7 @@ export default function renderer(model, props = {}, ...children) {
   if (!model) {
     return null
   }
+  props = props || {}
   const Comp = props.comp || model.defaultComp
   props.local = model
   props.key = props.key || model.viewId

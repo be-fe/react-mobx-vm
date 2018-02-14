@@ -4,7 +4,7 @@
  * @date: 2018/2/7
  * @description:
  */
-import { isComponentClass, proxy } from '../utils/reactUtils'
+import { isComponentClass, proxy } from '../../utils/reactUtils'
 import * as React from 'react'
 
 const symbol = typeof Symbol === 'function' ? Symbol('bindable') : '__[[bindable]]__'

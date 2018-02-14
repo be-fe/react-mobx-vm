@@ -8,7 +8,7 @@ import { action, isObservable } from 'mobx'
 import * as React from 'react'
 import _ from 'lodash'
 import { getHandledProps } from './bindable'
-import { convertReactElement, isComponentClass, isComponentInstance } from '../utils/reactUtils'
+import { convertReactElement, isComponentClass, isComponentInstance } from '../../utils/reactUtils'
 
 function convert(element, fallbackScope) {
   return convertReactElement(element, [
@@ -149,7 +149,7 @@ export default function binding(element) {
 
   // binding(scope)(...element)
   if (
-    element !== null && typeof element === 'object' && !isComponentInstance(element)
+    element !== null && typeof element === 'object' && !React.isValidElement(element)
     // @thinking
     && isObservable(element)
   ) {

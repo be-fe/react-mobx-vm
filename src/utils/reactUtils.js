@@ -7,6 +7,8 @@
 import React from 'react'
 import _ from 'lodash'
 
+export const isValidElement = React.isValidElement
+
 export function isComponentInstance(instance) {
   return instance && instance instanceof React.Component
 }
@@ -37,8 +39,9 @@ export function convertReactElement(element, rules = [], parent = null, outerInd
     rules.forEach(([cond, handle]) => {
       if (cond(element, index, parent, children)) {
         let handledElem
+        // eslint-disable-next-line no-cond-assign
         if (
-          typeof(
+          typeof (
             handledElem = handle(element, index, parent, children)
           ) !== 'undefined'
         ) {
@@ -75,13 +78,6 @@ export function convertReactElement(element, rules = [], parent = null, outerInd
     : newElement
 }
 
-export function proxy(host, path, getValue) {
-  const old = _.get(host, path)
-  const newVal = getValue(old)
-  _.set(host, path, newVal)
-  return newVal
-}
-
 exports.isElementOf = Component => {
 
   // Trying to solve the problem with 'children: XXX.isRequired'
@@ -90,9 +86,7 @@ exports.isElementOf = Component => {
   Component.propTypes = void 0
 
   // Well known workaround
-  const elementType = (
-    <Component/>
-  ).type
+  const elementType = React.createElement(Component).type
 
   // Restore originalPropTypes
   Component.propTypes = originalPropTypes
