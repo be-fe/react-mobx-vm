@@ -39,7 +39,7 @@ describe('Model.basic', function () {
 
     expect(root.isEmpty()).toBeFalsy()
     const nested = new Root({
-      root: new Root({ s: '' }),
+      root: new Root({ s: 'ss' }).setValue(['s'], ''),
       arr: [],
       o: {}
     })

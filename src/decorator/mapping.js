@@ -61,9 +61,9 @@ export default function mapping(mapper) {
     assertReactClass(Component, 'mapping')
 
     class Mapping extends Component {
-      componentDidMount() {
+      componentWillMount() {
         assign(mapper, this.props, this.local)
-        super.componentDidMount && super.componentDidMount.apply(this, arguments)
+        super.componentWillMount && super.componentWillMount.apply(this, arguments)
       }
 
       componentWillReceiveProps(newProps) {

@@ -20,8 +20,7 @@ export default function bindView(View) {
   if (typeof View !== 'function') {
     throw new TypeError('bindView require View is function, but ' + typeof View)
   }
-  assertReactClass(View, 'bindView')
-
+  // observer convert to react Class from function
   View = observer(View)
   View = m(View)
 
@@ -43,5 +42,6 @@ export default function bindView(View) {
         configurable: true
       }
     )
+    return State
   }
 }
