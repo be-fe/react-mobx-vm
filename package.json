@@ -48,6 +48,7 @@
     "sinon": "^4.3.0"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "collectCoverage": true,
     "setupTestFrameworkScriptFile": "<rootDir>/test/setup/react.js",
     "coverageReporters": [

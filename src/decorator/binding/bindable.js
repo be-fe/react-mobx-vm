@@ -4,13 +4,13 @@
  * @date: 2018/2/7
  * @description:
  */
-import { isComponentClass, proxy } from '../../utils/reactUtils'
+import { isComponentClass } from '../../utils/reactUtils'
+import proxy from '../../utils/proxy'
 import * as React from 'react'
 
 const symbol = typeof Symbol === 'function' ? Symbol('bindable') : '__[[bindable]]__'
 
 const bindableTags = {}
-
 export function unBindable(CompOrTagName) {
   if (typeof CompOrTagName === 'string') {
     delete bindableTags[CompOrTagName]
@@ -19,15 +19,6 @@ export function unBindable(CompOrTagName) {
     delete CompOrTagName[symbol]
   }
 }
-
-export const DEFAULT_OPTIONS = normalizeOptions({
-  // 该批次 process 的条件判断
-  cond: null,
-  // value 对应的属性名
-  prop: ['value'],
-  // value 改变的事件名
-  event: ['onChange']
-})
 
 function normalize(value) {
   // 支持 string
@@ -62,6 +53,15 @@ function normalizeOptions(options = {}) {
   }
 }
 
+export const DEFAULT_OPTIONS = normalizeOptions({
+  // 该批次 process 的条件判断
+  cond: null,
+  // value 对应的属性名
+  prop: ['value'],
+  // value 改变的事件名
+  event: ['onChange']
+})
+
 /**
  *
  * @param Component elem/Comp/tagName
@@ -80,7 +80,7 @@ export function getOptionsList(Component) {
 export function getHandledProps(ctx, elementOrComponent, oldProps) {
   let optList = getOptionsList(elementOrComponent) || [DEFAULT_OPTIONS]
 
-  const props = {}
+  const props = { ...oldProps }
   optList.some(opt => {
     if (
       typeof opt.cond === 'function'

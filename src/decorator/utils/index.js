@@ -24,13 +24,3 @@ export function invokedWithArgsForClass(args) {
     || typeof args[0] !== 'function'
   )
 }
-
-export function log() {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(...arguments)
-  }
-}
-
-export function warn() {
-  console.warn(...arguments)
-}

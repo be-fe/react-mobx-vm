@@ -4,7 +4,8 @@
  * @date: 2018/1/23
  * @description:
  */
-import { get, set } from 'lodash'
+import get from 'lodash/get'
+import set from 'lodash/set'
 
 export default function proxy(host, path, getValue) {
   const old = get(host, path)

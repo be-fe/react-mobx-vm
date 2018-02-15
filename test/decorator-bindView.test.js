@@ -10,8 +10,8 @@ import { observable } from 'mobx'
 import { mount } from 'enzyme'
 import bindView, { getView } from '../src/decorator/bindView'
 
-describe('decorator-bindView', function () {
 
+describe('decorator-bindView', function () {
   class View extends React.Component {
     render() {
       return <div>

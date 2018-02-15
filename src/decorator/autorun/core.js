@@ -4,13 +4,9 @@
  * @author yucong02
  */
 import {
-  observable,
-  action,
-  computed,
-  reaction,
-  runInAction,
   autorun
 } from 'mobx'
+import logger from '../../utils/logger'
 
 export default (opt = {}, target, property, description) => {
   const { initKey = 'init', exitKey = 'exit' } = opt
@@ -18,6 +14,7 @@ export default (opt = {}, target, property, description) => {
     let dispose
 
     function release() {
+      logger.debug('dispose autorun `' + property + '`')
       dispose && dispose()
       dispose = null
     }
@@ -33,7 +30,6 @@ export default (opt = {}, target, property, description) => {
 
 
     target[exitKey] = wrapMethod(target[exitKey], function () {
-      console.log('dispose autorun `' + property + '`')
       release()
     })
 
@@ -41,14 +37,15 @@ export default (opt = {}, target, property, description) => {
       if (dispose) {
         return
       }
-      console.log('load autorun `' + property + '`')
+      logger.debug('load autorun `' + property + '`')
       dispose = autorun(() => {
         target[property].call(this, dispose)
       })
     })
 
-  } else {
-    throw new Error('`autorun` 请使用在成员方法中')
+  }
+  else {
+    throw new Error('`autorun` should be used in member method')
   }
 
   return description && { ...description, configurable: true }

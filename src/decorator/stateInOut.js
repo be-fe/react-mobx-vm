@@ -4,7 +4,7 @@
  */
 import { toJS } from 'mobx'
 
-export default function (StateClass, keyName = 'localState', initData = {}) {
+export default function (StateClass, keyName = 'local', initData = {}) {
   return componentClass => {
     if (typeof initData === 'function') {
       initData = initData()

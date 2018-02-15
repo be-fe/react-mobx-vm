@@ -5,10 +5,11 @@
  * @description:
  */
 import { action, isObservable } from 'mobx'
+import { observer } from 'mobx-react'
 import * as React from 'react'
 import _ from 'lodash'
 import { getHandledProps } from './bindable'
-import { convertReactElement, isComponentClass, isComponentInstance } from '../../utils/reactUtils'
+import { convertReactElement, isComponentClass } from '../../utils/reactUtils'
 
 function convert(element, fallbackScope) {
   return convertReactElement(element, [
@@ -17,10 +18,6 @@ function convert(element, fallbackScope) {
         return elem && elem.props && elem.props['data-bind']
       },
       (elem) => {
-        if (!elem || !elem.props || !elem.props['data-bind']) {
-          return elem
-        }
-
         let bind = elem.props['data-bind']
         const dataScope = elem.props['data-scope'] || fallbackScope
         if (process.env.NODE_ENV !== 'production' && !isObservable(dataScope)) {
@@ -107,20 +104,21 @@ function bindMemberMethod(maybeScope) {
 function bindClassOrFunc(maybeScope) {
   return function (element) {
     if (isComponentClass(element)) {
-      return class Binding extends element {
+      class Binding extends element {
         render() {
           return convert(super.render(), maybeScope || this.local)
         }
       }
+      return observer(Binding)
     }
     if (typeof element === 'function') {
-      return function wrappedBinding() {
+      return observer(function wrappedBinding() {
         // maybeScope -> scope
         return convert(
           element.apply(this, arguments),
           maybeScope || this.local
         )
-      }
+      })
     }
   }
 }
