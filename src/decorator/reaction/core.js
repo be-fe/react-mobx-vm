@@ -6,10 +6,6 @@ import {
   action,
   reaction
 } from 'mobx'
-import {
-  invokedWithArgs,
-  newError
-} from '../utils/index'
 import logger from '../../utils/logger'
 import { get, hasIn } from 'lodash'
 
@@ -35,7 +31,7 @@ export default ({ init = 'init', exit = 'exit' }, ...keyNames) => {
     let dispose
     let originInit = target[init]
     target[init] = action(function () {
-      logger.debug(`reaction initialized : ${property}`)
+      // logger.debug(`reaction initialized : ${property}`)
       // 置前的原因请参考 autorun 置前的原因
       const rlt = originInit && originInit.apply(this, arguments)
 
@@ -54,7 +50,7 @@ export default ({ init = 'init', exit = 'exit' }, ...keyNames) => {
 
     let originExit = target[exit]
     target[exit] = function () {
-      logger.debug(`dispose reaction : ${property}`)
+      // logger.debug(`dispose reaction : ${property}`)
       dispose && dispose()
       return originExit && originExit.apply(this, arguments)
     }

@@ -6,4 +6,7 @@
  */
 import core from './core'
 
-export default core.bind(null, {})
+export default core.bind(null, {
+  exit: 'exit',
+  init: 'init'
+})
