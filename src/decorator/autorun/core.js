@@ -14,7 +14,7 @@ export default (opt = {}, target, property, description) => {
     let dispose
 
     function release() {
-      logger.debug('dispose autorun `' + property + '`')
+      // logger.debug('dispose autorun `' + property + '`')
       dispose && dispose()
       dispose = null
     }
@@ -37,7 +37,7 @@ export default (opt = {}, target, property, description) => {
       if (dispose) {
         return
       }
-      logger.debug('load autorun `' + property + '`')
+      // logger.debug('load autorun `' + property + '`')
       dispose = autorun(() => {
         target[property].call(this, dispose)
       })
