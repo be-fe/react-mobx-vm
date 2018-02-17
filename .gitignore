@@ -3,9 +3,10 @@
 dist/
 coverage/
 node_modules/
-examples/.entry/
-examples/.dist/
+**/.entry/
+**/.dist/
 cypress/videos/
 cypress/screenshots/
 cypress/fixtures/
 lib/
+**/.DS_Store
