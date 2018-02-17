@@ -8,12 +8,30 @@ import h from '../src/renderer/mixedRenderer'
 import { mount } from 'enzyme'
 import React from 'react'
 import { Provider } from 'mobx-react'
+// import { promisify } from 'util'
 import collect from '../src/decorator/collect'
-import { promisify } from 'util'
 
 function tick(data, callback) {
   setTimeout(callback.bind(null, null), 0, data)
 }
+
+function promisify(func) {
+  return function p(...args) {
+    return new Promise((resolve, reject) => {
+      func.apply(this, args.concat(
+        function (error, data) {
+          if (error) {
+            reject(error)
+          }
+          else {
+            resolve(data)
+          }
+        })
+      )
+    })
+  }
+}
+
 const p = promisify(tick)
 
 describe('decroator-collect', function () {

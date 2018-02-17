@@ -112,7 +112,7 @@ function bindClassOrFunc(maybeScope) {
       return observer(Binding)
     }
     if (typeof element === 'function') {
-      return observer(function wrappedBinding() {
+      return observer(function WrappedBinding() {
         // maybeScope -> scope
         return convert(
           element.apply(this, arguments),

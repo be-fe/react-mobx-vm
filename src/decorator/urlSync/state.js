@@ -10,7 +10,7 @@ import { invokedWithArgs } from '../utils'
 
 const keyMap = {
   initKey: 'init',
-  updateKey: 'update',
+  // updateKey: 'update',
   exitKey: 'exit'
 }
 

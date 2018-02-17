@@ -5,7 +5,7 @@
  * @description:
  */
 import React from 'react'
-import createElement from '../renderer/mixedRenderer'
+import h from '../renderer/mixedRenderer'
 import { RouterContext, Router } from 'react-router'
 
 
@@ -28,7 +28,7 @@ function render(props) {
         if (model['__[[actual]]__']) {
           model = model['__[[actual]]__']
         }
-        return createElement.call(this, model, rest, children)
+        return h.call(this, model, rest, children)
       }}
     />
   )

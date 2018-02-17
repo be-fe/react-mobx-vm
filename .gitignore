@@ -3,4 +3,7 @@
 dist/
 coverage/
 node_modules/
-
+examples/.entry/
+examples/.dist/
+cypress/videos/
+cypress/fixtures/

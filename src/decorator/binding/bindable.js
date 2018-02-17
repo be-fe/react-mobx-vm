@@ -129,6 +129,12 @@ export function getHandledProps(ctx, elementOrComponent, oldProps) {
   return props
 }
 
+/**
+ *
+ * @param options
+ * @param tagName {String|Function}
+ * @return {Bindable}
+ */
 export default function bindable(options, tagName) {
   options = options || DEFAULT_OPTIONS
   options = normalizeOptions(options)
@@ -136,12 +142,17 @@ export default function bindable(options, tagName) {
     options = [options]
   }
 
+
   if (typeof tagName === 'string') {
     bindableTags[tagName.toLowerCase()] = options
     return
   }
+  if (typeof tagName === 'function') {
+    tagName[symbol] = options
+    return tagName
+  }
 
-  return function registerBindable(Component) {
+  return function Bindable(Component) {
     Component[symbol] = options
     return Component
   }

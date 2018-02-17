@@ -4,10 +4,14 @@
  * @date: 2018/2/15
  * @description:
  */
-import { debuglog } from 'util'
+// import { debuglog } from 'util'
 
 export default {
-  debug: debuglog('react-mobx-vm'),
+  debug: function (...args) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(...args)
+    }
+  },
   warn: function (...args) {
     if (process.env.NODE_ENV !== 'production') {
       console.warn(...args)

@@ -11,8 +11,7 @@ import { invokedWithArgs } from '../utils'
 const keyMap = {
   initKey: 'componentDidMount',
   updateKey: 'componentWillReceiveProps',
-  exitKey: 'componentWillUnmount',
-  loose: true
+  exitKey: 'componentWillUnmount'
 }
 
 export default function (urlKeyOrTarget, property, descriptor) {

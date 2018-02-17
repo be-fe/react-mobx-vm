@@ -5,10 +5,11 @@ node_js:
   - 7
   - 8
   - stable
-  
+
 cache:
   bundle: true
   directories:
+    - ~/.npm
     - node_modules
 
 install:
@@ -17,6 +18,6 @@ install:
 before_script:
   - npm install codecov
 script:
-  - npm test
+  - npm test & npm run test:cy:ci $CYPRESS_RECORD_KEY
 after_script:
   - codecov --token=$CODECOV_TOKEN

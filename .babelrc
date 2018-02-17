@@ -30,7 +30,7 @@
       "transform-runtime",
       {
         "polyfill": false,
-        "regenerator": true
+        "regenerator": false
       }
     ]
   ],

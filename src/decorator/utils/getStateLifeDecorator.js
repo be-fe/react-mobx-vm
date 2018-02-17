@@ -12,66 +12,73 @@ import {
   isObservable
 } from 'mobx'
 
+export const assignState = action(
+  function (self, property, val) {
+    const setVal = (value = val) => {
+      if (self[property] !== value) {
+        // console.log(name + ' set', property, value)
+        self[property] = value
+      }
+    }
+
+    if (typeof val !== 'undefined') {
+      // console.log('before load url: `' + property + '`:', this[property]);
+      if (val == null) {
+        setVal()
+      }
+      else if (typeof self[property] === 'object' && self[property] !== null) {
+        if (typeof val === 'object') {
+          if (self[property] instanceof Array) {
+            setVal()
+          }
+          else {
+            let Class = self[property].constructor
+            // 细化赋值操作，
+            // 防止 state change -> url change
+            // -> update -> state change (新的实例)
+            if (typeof self[property].assign === 'function') {
+              self[property].assign(val)
+            }
+            else {
+              setVal(new Class(val))
+            }
+          }
+        }
+      }
+      else if (typeof self[property] === 'number') {
+        setVal(parseFloat(val))
+      }
+      else if (typeof self[property] === 'boolean') {
+        setVal(typeof val === 'boolean' ? val : val === 'true')
+      }
+      else {
+        setVal()
+      }
+
+      // console.log('after loaded url: `' + property + '`:', this[property]);
+    }
+  }
+)
 
 export default (config = {}, name = 'state-life') => {
   config = config || {}
 
   return (urlKey, options = {}, target, property, descriptor) => {
+    if (typeof urlKey !== 'string') {
+      options = urlKey
+      urlKey = property
+    }
     options = options || {}
-    const { initKey = 'init', loose = false, exitKey = 'exit', updateKey = 'update' } = options
-
-    const assignState = action(function assignState() {
-      let urlValue = config.get(urlKey)
-
-      const setVal = (value = urlValue) => {
-        if (this[property] !== value) {
-          // console.log(name + ' set', property, value)
-          this[property] = value
-        }
-      }
-
-      if (urlValue !== undefined) {
-        // console.log('before load url: `' + property + '`:', this[property]);
-        if (urlValue == null) {
-          setVal()
-        }
-        else if (typeof this[property] === 'object' && this[property] !== null) {
-          if (typeof urlValue === 'object') {
-            if (this[property] instanceof Array) {
-              setVal()
-            }
-            else {
-              let Class = this[property].constructor
-              // 细化赋值操作，
-              // 防止 state change -> url change
-              // -> update -> state change (新的实例)
-              if (typeof this[property].assign === 'function') {
-                this[property].assign(urlValue)
-              }
-              else {
-                setVal(new Class(urlValue))
-              }
-            }
-          }
-        }
-        else if (typeof this[property] === 'number') {
-          setVal(parseFloat(urlValue))
-        }
-        else if (typeof this[property] === 'boolean') {
-          setVal(typeof urlValue === 'boolean' ? urlValue : urlValue === 'true')
-        }
-        else {
-          setVal()
-        }
-
-        // console.log('after loaded url: `' + property + '`:', this[property]);
-      }
-    })
+    const { initKey = 'init', exitKey = 'exit', updateKey } = options
+    const assignStateValue = function () {
+      return assignState.call(null, this, property, config.get(urlKey))
+    }
 
     if (typeof target[property] === 'function') {
-      throw new Error('`' + name + '` 不能使用在成员方法中')
+      throw new Error('`' + name + '` can NOT use in member method')
     }
     else {
+
       let dispose
       let syncUrlTimer
       let syncUrlFn
@@ -90,32 +97,32 @@ export default (config = {}, name = 'state-life') => {
 
       let originExit = target[exitKey]
       target[exitKey] = function (...args) {
-        console.log('dispose ' + name + ' `' + property + '`')
+        config.exit && config.exit(this, property, urlKey)
+        // console.log('dispose ' + name + ' `' + property + '`')
         release()
         return originExit && originExit.call(this, ...args)
       }
 
-      let origin = target[initKey]
       // eslint-disable-next-line no-use-before-define
-      target[initKey] = init(origin, 'init')
+      target[initKey] = init(target[initKey], 'init')
 
-      origin = target[updateKey]
-      if (loose || origin) {
+      if (updateKey) {
         target[updateKey] = (
           function (origin) {
             return action(function (...args) {
-              assignState.call(this)
+              assignStateValue.call(this)
               return origin && origin.call(this, ...args)
             })
           }
         )(target[updateKey])
       }
 
-
-      // eslint-disable-next-line no-inner-declarations
+      // eslint-disable-next-line no-inner-declarations,no-unused-vars
       function init(origin, actionType) {
         return action(function (...args) {
-          console.log(actionType + ' ' + name + ' `' + property + '`')
+          config.init && config.init(this, property, urlKey)
+
+          // console.log(actionType + ' ' + name + ' `' + property + '`')
           release()
 
           if (!isObservable(this, property)) {
@@ -125,7 +132,7 @@ export default (config = {}, name = 'state-life') => {
             })
           }
 
-          assignState.call(this)
+          assignStateValue.call(this)
 
           let isFirst = true
           dispose = autorun(
@@ -145,16 +152,16 @@ export default (config = {}, name = 'state-life') => {
                 console.error('[Stringify]', obj, 'Error happened:', err)
               }
 
-
-              syncUrlFn = () => {
-                config.save(urlKey, this[property], config.fetch())
+              syncUrlFn = (isFirst = false) => {
+                let save = isFirst ? (config.saveFirstTime || config.save) : config.save
+                save.call(config, urlKey, this[property], config.fetch())
                 syncUrlTimer = void 0
                 syncUrlFn = void 0
               }
 
               if (isFirst) {
                 if (options.initialWrite) {
-                  syncUrlFn()
+                  syncUrlFn(true)
                 }
                 isFirst = false
                 return
