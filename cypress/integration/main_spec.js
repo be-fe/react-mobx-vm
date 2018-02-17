@@ -38,12 +38,12 @@ describe('ViewModel Main Spec', function () {
       cy.visit('/binding.js')
     })
 
-    it('should render successfully', function () {
-      cy.get('#container').should('have.class', 'bar')
-
-      cy.get('#container input')
-        .should('have.value', 'name')
-    })
+    // it('should render successfully', function () {
+    //   cy.get('#container').should('have.class', 'bar')
+    //
+    //   cy.get('#container input')
+    //     .should('have.value', 'name')
+    // })
 
     it('should input type receives correct feedback', function () {
       cy.get('#container input')

@@ -1,7 +1,7 @@
 {
   "name": "react-mobx-vm",
   "version": "0.0.0",
-  "description": "View & Model are mixed now! via react mobx",
+  "description": "View & Model are mixed now via react mobx",
   "scripts": {
     "babel": "rm -rf lib/ && cross-env BABEL_ENV=babel babel src/ -d lib/ -D",
     "watch": "npm run babel -- -w",
