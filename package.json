@@ -6,7 +6,7 @@
   "scripts": {
     "babel": "babel src/ -d lib/ -D",
     "watch": "npm run babel -- -w",
-    "rollup": "BABEL_ENV=rollup rollup -c",
+    "rollup": "rollup -c",
     "prepare": "npm run babel",
     "test": "jest",
     "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",
@@ -61,6 +61,7 @@
     "react-dom": "^16.2.0",
     "react-router": "^3.2.0",
     "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.3.0",
     "rollup-plugin-node-resolve": "^3.0.3",
     "sinon": "^4.3.0"
   },
