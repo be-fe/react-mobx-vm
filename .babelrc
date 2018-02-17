@@ -1,5 +1,21 @@
 {
   "env": {
+    "rollup": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "6",
+              "browsers": ["ie>=9"]
+            },
+            "loose": true,
+            "useBuiltIns": true
+          }
+        ],
+        "react"
+      ]
+    }
   },
   "presets": [
     [
@@ -16,6 +32,7 @@
     "react"
   ],
   "plugins": [
+    "external-helpers",
     [
       "transform-react-jsx", {
         "pragma": "h"
