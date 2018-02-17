@@ -16,7 +16,6 @@
     "react"
   ],
   "plugins": [
-    "add-module-exports",
     [
       "transform-react-jsx", {
       "pragma": "h"
@@ -31,7 +30,7 @@
       "transform-runtime",
       {
         "polyfill": false,
-        "regenerator": false
+        "regenerator": true
       }
     ]
   ],

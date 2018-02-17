@@ -10,13 +10,12 @@ import Root from './index'
 class GlobalModel extends Root {
   pageA = () => new Promise(resolve => {
     require.ensure([], require => {
-      resolve(require('../pageAModel'))
+      resolve(require('../pageAModel').default || require('../pageAModel'))
     }, 'pageA')
   })
   pageB = () => new Promise(resolve => {
     require.ensure([], require => {
-      console.log(require('../pageBModel'))
-      resolve(require('../pageBModel'))
+      resolve(require('../pageBModel').default || require('../pageAModel'))
     }, 'pageB')
   })
 }

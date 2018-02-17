@@ -4,8 +4,7 @@
  * @date: 2018/2/6
  * @description:
  */
-import React from 'react'
-import _ from 'lodash'
+import * as React from 'react'
 
 export const isValidElement = React.isValidElement
 
@@ -78,7 +77,7 @@ export function convertReactElement(element, rules = [], parent = null, outerInd
     : newElement
 }
 
-exports.isElementOf = Component => {
+export function isElementOf(Component) {
 
   // Trying to solve the problem with 'children: XXX.isRequired'
   // (https://github.com/gaearon/react-hot-loader/issues/710). This does not work for me :(

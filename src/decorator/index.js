@@ -15,6 +15,7 @@ export reaction from './reaction'
 export autorun from './autorun'
 export binding from './binding'
 export bindable from './binding/bindable'
+export { unBindable, DEFAULT_OPTIONS } from './binding/bindable'
 
 export urlSync from './urlSync'
 export { register as registerUrlSync } from './urlSync/core'

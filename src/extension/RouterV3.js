@@ -4,7 +4,7 @@
  * @date: 2018/1/27
  * @description:
  */
-import React from 'react'
+import * as React from 'react'
 import h from '../renderer/mixedRenderer'
 import { RouterContext, Router } from 'react-router'
 

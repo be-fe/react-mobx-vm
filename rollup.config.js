@@ -13,7 +13,7 @@ import uglify from 'rollup-plugin-uglify'
 const plugins = [
   babel({
     exclude: 'node_modules/**',
-    runtimeHelpers: false,
+    runtimeHelpers: true,
     babelrc: false,
     'presets': [
       [
@@ -31,7 +31,8 @@ const plugins = [
       'react'
     ],
     'plugins': [
-      'add-module-exports',
+      'external-helpers',
+      // 'add-module-exports',
       [
         'transform-react-jsx', {
           'pragma': 'h'
@@ -41,7 +42,15 @@ const plugins = [
       'transform-decorators-legacy',
       'transform-class-properties',
       'transform-object-rest-spread',
-      'transform-export-extensions'
+      'transform-export-extensions',
+      [
+        'transform-runtime',
+        {
+          helpers: false,
+          'polyfill': false,
+          'regenerator': true
+        }
+      ]
     ]
   }),
   resolve({
@@ -64,8 +73,8 @@ export default [
     output: {
       file: 'dist/react-mobx-vm.js',
       format: 'umd',
-      name: 'reactMobxVM',
-      exports: 'named'
+      name: 'reactMobxVM'
+      // exports: 'named'
     },
     external,
     plugins
@@ -75,8 +84,8 @@ export default [
     output: {
       file: 'dist/react-mobx-vm.min.js',
       format: 'umd',
-      name: 'reactMobxVM',
-      exports: 'named'
+      name: 'reactMobxVM'
+      // exports: 'named'
     },
     external,
     plugins: plugins.concat(uglify())
@@ -86,8 +95,8 @@ export default [
     output: {
       file: 'dist/react-mobx-vm.es.js',
       format: 'es',
-      name: 'reactMobxVM',
-      exports: 'named'
+      name: 'reactMobxVM'
+      // exports: 'named'
     },
     external,
     plugins

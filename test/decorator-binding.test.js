@@ -5,14 +5,12 @@
  * @description:
  */
 
-import { observable, toJS } from 'mobx/lib/mobx'
+import { observable } from 'mobx/lib/mobx'
 import { mount } from 'enzyme'
 import React from 'react'
 import { observer } from 'mobx-react'
-import bindView from '../src/decorator/bindView'
-import binding from '../src/decorator/binding'
-import bindable, { DEFAULT_OPTIONS } from '../src/decorator/binding/bindable'
-import h from '../src/renderer/mixedRenderer'
+
+import { h, bindable, binding, DEFAULT_OPTIONS, bindView } from '../dist/react-mobx-vm'
 
 describe('decorator-binding', function () {
   test('spec binding(scope)(...elements)', () => {
