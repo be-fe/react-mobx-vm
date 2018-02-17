@@ -6,8 +6,8 @@
   "scripts": {
     "babel": "babel src/ -d lib/ -D",
     "watch": "npm run babel -- -w",
-    "rollup": "cross-env BABEL_ENV=rollup rollup -c",
-    "prepare": "npm run build",
+    "rollup": "BABEL_ENV=rollup rollup -c",
+    "prepare": "npm run babel",
     "test": "jest",
     "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",

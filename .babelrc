@@ -1,21 +1,5 @@
 {
   "env": {
-    "rollup": {
-      "presets": [
-        [
-          "env",
-          {
-            "targets": {
-              "node": "6",
-              "browsers": ["ie>=9"]
-            },
-            "loose": true,
-            "useBuiltIns": true
-          }
-        ],
-        "react"
-      ]
-    }
   },
   "presets": [
     [
