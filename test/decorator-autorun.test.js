@@ -8,11 +8,14 @@
 import { observable } from 'mobx/lib/mobx'
 import { mount } from 'enzyme'
 import React from 'react'
-import bindView from '../src/decorator/bindView'
-import Root from '../src/Model/Root'
-import autorun from '../src/decorator/autorun'
-import reactAuto from '../src/decorator/autorun/react'
-import h from '../src/renderer/mixedRenderer'
+
+// import { Root, autorun, bindView, h } from '../dist/react-mobx-vm.min'
+const { Root, autorun, bindView, h } = require('../dist/react-mobx-vm.min')
+// import Root from '../lib/Model/Root'
+// import autorun from '../lib/decorator/autorun'
+// import bindView from '../lib/decorator/bindView'
+import reactAuto from '../lib/decorator/autorun/react'
+// import h from '../lib/renderer/mixedRenderer'
 
 describe('decorator-autorun', function () {
   test('error', () => {

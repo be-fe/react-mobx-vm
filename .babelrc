@@ -16,11 +16,11 @@
     "react"
   ],
   "plugins": [
-    "external-helpers",
+    "add-module-exports",
     [
       "transform-react-jsx", {
-        "pragma": "h"
-      }
+      "pragma": "h"
+    }
     ],
     "lodash",
     "transform-decorators-legacy",

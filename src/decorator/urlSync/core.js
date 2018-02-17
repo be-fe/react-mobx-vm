@@ -8,8 +8,18 @@
 import { action } from 'mobx'
 import getStateLifeDecorator, { assignState } from '../utils/getStateLifeDecorator'
 import logger from '../../utils/logger'
-// import globalContext from '../../utils/globalContext'
+import { stringify as oStringify, parse as oParse } from 'qs'
+function stringify(obj) {
+  return '?' + oStringify(obj)
+}
 
+function parse(string = '') {
+  string = string.trim()
+  if (string.startsWith('?')) {
+    string = string.substring(1)
+  }
+  return oParse(string)
+}
 
 let useHistory, unlisten, collection = {}
 export function register(history) {
@@ -46,6 +56,7 @@ export default getStateLifeDecorator({
       action(
         location => {
           if (location.action === 'POP') {
+            location.query = parse(location.search)
             Object
               .keys(collection)
               .forEach(name => {
@@ -66,19 +77,23 @@ export default getStateLifeDecorator({
     assertHistory()
     useHistory.replace({
       ...data,
-      query: { ...data.query, [key]: value }
+      search: stringify({ ...data.query, [key]: value }),
+      query: null
     })
   },
   save(key, value, data) {
     assertHistory()
     useHistory.push({
       ...data,
-      query: { ...data.query, [key]: value }
+      search: stringify({ ...data.query, [key]: value }),
+      query: null
     })
   },
   fetch() {
     assertHistory()
-    return useHistory.getCurrentLocation()
+    const location = useHistory.getCurrentLocation()
+    location.query = parse(location.search)
+    return location
   },
   get(key) {
     assertHistory()

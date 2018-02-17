@@ -18,6 +18,7 @@ export default class View extends React.Component {
         <span name="bValue">{ this.local.value }</span>
         <input data-bind="value" id="bValue-input" />
         <br/>
+
         <span name="aValue">{ this.app.pageA.value }</span>
         <input data-bind="value" id="aValue-input" data-scope={this.app.pageA} />
         <br/>

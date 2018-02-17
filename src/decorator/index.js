@@ -19,3 +19,8 @@ export bindable from './binding/bindable'
 export urlSync from './urlSync'
 export { register as registerUrlSync } from './urlSync/core'
 export storageSync from './storageSync'
+
+export reactStorageSync from './storageSync/react'
+export reactUrlSync from './urlSync/react'
+export reactReaction from './reaction/react'
+export reactAutorun from './autorun/react'

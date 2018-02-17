@@ -7,13 +7,14 @@
 import React from 'react'
 import { Provider as OProvider } from 'mobx-react'
 
-export default app => function Provider({ children, ...props }) {
-  return React
-    .createElement(
-      OProvider, {
-        ...props,
-        app
-      },
-      children
-    )
-}
+export default app =>
+  function Provider({ children, ...props }) {
+    return React
+      .createElement(
+        OProvider, {
+          ...props,
+          app
+        },
+        children
+      )
+  }

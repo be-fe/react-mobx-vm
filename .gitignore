@@ -7,3 +7,4 @@ examples/.entry/
 examples/.dist/
 cypress/videos/
 cypress/fixtures/
+lib/

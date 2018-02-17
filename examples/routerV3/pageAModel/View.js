@@ -18,6 +18,18 @@ export default class View extends React.Component {
         <input data-bind="value" id="aValue-input" />
         <br/>
 
+        <span name="pageTotal">{ this.local.page.total }</span>
+        <input data-bind="page.total" id="pageTotal" />
+        <br/>
+
+        <span name="pageSize">{ this.local.page.size }</span>
+        <input data-bind="page.size" id="pageSize" />
+        <br/>
+
+        <span name="pageNumber">{ this.local.page.number }</span>
+        <input data-bind="page.number" id="pageNumber" />
+        <br/>
+
       </div>
     )
   }
