@@ -1,5 +1,5 @@
 /**
- * @file: collect
+ * @file: binding
  * @author: Cuttle Cong
  * @date: 2018/1/28
  * @description:

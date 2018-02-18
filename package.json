@@ -13,7 +13,8 @@
     "test:cy:open": "run-p gojs cy:open",
     "gojs": "gojs examples --noopen -p 8001",
     "cy:run": "cypress run",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "api-docs": "sh scripts/api-docs.sh"
   },
   "main": "lib/index.js",
   "module": "dist/franxx.es.js",
@@ -54,6 +55,7 @@
     "create-react-class": "^15.6.3",
     "cross-env": "^5.1.3",
     "cypress": "^1.4.2",
+    "documentation": "^5.4.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.17.0",
