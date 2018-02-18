@@ -46,7 +46,7 @@ describe('ViewModel Main Spec', function () {
         .type('{selectall}{del}')
         .type('var')
       cy.get('#val')
-        .contains('var')
+        .contains('default')
     })
 
   })
@@ -57,9 +57,9 @@ describe('ViewModel Main Spec', function () {
     })
 
     it('should render successfully', function () {
-      // cy.get('#container').should('have.class', 'bar')
+      cy.get('#container').should('have.class', 'bar')
 
-      cy.get('input')
+      cy.get('#container input')
         .should('have.value', 'name')
     })
 
