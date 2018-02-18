@@ -1,3 +1,5 @@
+import { displayName } from '../utils/reactUtils'
+
 /**
  * @file: model-comp-v2.js
  * @author: Liang
@@ -20,12 +22,11 @@ export default function modelComp(CompClass) {
   }
 
   class WrappedComp extends CompClass {
+    static displayName = `VM-${displayName(CompClass)}`
     get local() {
       return this.props.local
     }
-
     static [symbol] = true
-
     componentDidMount() {
       if (this.props.local) {
         this.props.local.init && this.props.local.init(slice(this.props))

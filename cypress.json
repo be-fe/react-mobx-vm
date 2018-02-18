@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:8001",
-  "videoRecording": false,
-  "projectId": "89e1yo"
+  "videoRecording": true,
+  "projectId": "89e1yo",
+  "pageLoadTimeout": 200000
 }

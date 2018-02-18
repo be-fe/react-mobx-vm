@@ -19,5 +19,12 @@ module.exports = [
     query: {
       cacheDirectory: true
     }
+  },
+  {
+    test: /\.json$/,
+    loader: 'json-loader',
+    include: [
+      nps.join(__dirname, '..')
+    ]
   }
 ]

@@ -5,5 +5,6 @@
  * @description:
  */
 module.exports = {
-  '/routerV3/browserHistory.js/*': '/routerV3/browserHistory.js'
+  '/routerV3/browserHistory.js/*': '/routerV3/browserHistory.js',
+  '/dist': '../dist/'
 }

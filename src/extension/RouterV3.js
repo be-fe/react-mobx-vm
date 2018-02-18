@@ -8,7 +8,6 @@ import * as React from 'react'
 import h from '../renderer/mixedRenderer'
 import { RouterContext, Router } from 'react-router'
 
-
 function render(props) {
   const components = props.components.map(comp => {
     if (comp && typeof comp === 'object') {

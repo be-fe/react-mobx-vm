@@ -12,8 +12,18 @@ export function isComponentInstance(instance) {
   return instance && instance instanceof React.Component
 }
 
-export function isComponentClass(com) {
-  return com && isComponentInstance(com.prototype)
+// https://discuss.reactjs.org/t/how-to-determine-if-js-object-is-react-component/2825/5
+export function isComponentClass(component) {
+  return (
+    component && component.prototype
+    && component.prototype.isReactComponent
+    && typeof component.prototype.isReactComponent === 'object'
+    && !Array.isArray(component.prototype.isReactComponent)
+  ) || (
+    // legacy ?
+    component && component.prototype
+    && isComponentInstance(component.prototype)
+  )
 }
 
 export function assertReactClass(Component, message) {
@@ -91,4 +101,14 @@ export function isElementOf(Component) {
   Component.propTypes = originalPropTypes
 
   return element => element && element.type === elementType
+}
+
+export function displayName(component) {
+  return (
+    component.displayName ||
+    component.name ||
+    (
+      component.type && ( component.type.displayName || component.type.name )
+    ) || 'Unknown'
+  )
 }

@@ -9,7 +9,7 @@ import { observer } from 'mobx-react'
 import * as React from 'react'
 import _ from 'lodash'
 import { getHandledProps } from './bindable'
-import { convertReactElement, isComponentClass } from '../../utils/reactUtils'
+import { convertReactElement, displayName, isComponentClass } from '../../utils/reactUtils'
 
 function convert(element, fallbackScope) {
   return convertReactElement(element, [
@@ -105,6 +105,7 @@ function bindClassOrFunc(maybeScope) {
   return function (element) {
     if (isComponentClass(element)) {
       class Binding extends element {
+        static displayName = `Binding-${displayName(element)}`
         render() {
           return convert(super.render(), maybeScope || this.local)
         }

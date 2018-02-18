@@ -9,10 +9,22 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import filesize from 'rollup-plugin-filesize'
 import uglify from 'rollup-plugin-uglify'
+import json from 'rollup-plugin-json'
+import replace from 'rollup-plugin-replace'
+
+import { join } from 'path'
 
 const plugins = [
+  replace({
+    'process.env.NODE_ENV': JSON.stringify( 'production' )
+  }),
+  json(),
   babel({
-    exclude: 'node_modules/**',
+    include: [
+      join(__dirname, 'src', '**', '*.js')
+      // /\.json$/,
+      // 'node_modules/**'
+    ],
     runtimeHelpers: true,
     babelrc: false,
     'presets': [
@@ -74,7 +86,6 @@ export default [
       file: 'dist/react-mobx-vm.js',
       format: 'umd',
       name: 'reactMobxVM'
-      // exports: 'named'
     },
     external,
     plugins
@@ -85,7 +96,6 @@ export default [
       file: 'dist/react-mobx-vm.min.js',
       format: 'umd',
       name: 'reactMobxVM'
-      // exports: 'named'
     },
     external,
     plugins: plugins.concat(uglify())
@@ -96,7 +106,6 @@ export default [
       file: 'dist/react-mobx-vm.es.js',
       format: 'es',
       name: 'reactMobxVM'
-      // exports: 'named'
     },
     external,
     plugins

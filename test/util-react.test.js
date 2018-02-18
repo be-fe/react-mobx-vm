@@ -5,9 +5,10 @@
  * @date: 2018/2/14
  * @description: $END$
  */
-import React from 'react'
+import * as React from 'react'
 import { render } from 'enzyme'
 import sinon from 'sinon'
+import createReactClass from 'create-react-class'
 import h from '../src/renderer/mixedRenderer'
 import proxy from '../src/utils/proxy'
 import * as util from '../src/utils/reactUtils'
@@ -22,11 +23,41 @@ class Component extends React.Component {
 }
 
 describe('util-react', function () {
+  test('util-react displayName', () => {
+    class ABC extends React.Component {
+      render() {
+        return <div>
+          { this.props.name }
+          { this.props.children }
+        </div>
+      }
+    }
+
+    function CBA() {
+    }
+
+
+    expect(util.displayName(ABC)).toBe('ABC')
+    expect(util.displayName(<ABC/>)).toBe('ABC')
+    expect(util.displayName(<CBA/>)).toBe('CBA')
+    expect(util.displayName(CBA)).toBe('CBA')
+    expect(util.displayName(() => {})).toBe('Unknown')
+  })
+
   test('util-react isComponentInstance', () => {
     expect(util.isComponentInstance(Component.prototype)).toBeTruthy()
   })
 
   test('util-react isComponentClass', () => {
+    // eslint-disable-next-line react/display-name
+    expect(util.isComponentClass(
+      // eslint-disable-next-line react/display-name
+      createReactClass({
+        render: function() {
+          return null
+        }
+      })
+    )).toBeTruthy()
     expect(util.isComponentClass(<Component/>)).toBeFalsy()
     expect(util.isComponentClass(Component)).toBeTruthy()
   })

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UMD</title>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdn.bootcss.com/react/16.2.0/umd/react.production.min.js"></script>
+<script src="https://cdn.bootcss.com/react-dom/16.3.0-alpha.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.bootcss.com/mobx/3.5.1/mobx.umd.min.js"></script>
+<script src="https://cdn.bootcss.com/mobx-react/4.3.5/index.min.js"></script>
+<script src="https://cdn.bootcss.com/prop-types/15.6.0/prop-types.min.js"></script>
+<script src="https://unpkg.com/create-react-class@15.6.3/create-react-class.min.js"></script>
+<script src="/dist/react-mobx-vm.js"></script>
+
+<script>
+  // console.log(React, mobxReact, PropTypes, mobx, reactMobxVM)
+  var vm = reactMobxVM
+  var h = vm.h
+  function Model() {
+    mobx.extendObservable(this, {
+      val: 'default'
+    })
+  }
+  Model.prototype = new vm.Root()
+  Model.prototype.constructor = Model
+
+  var View = createReactClass({
+    render: function() {
+      return (
+        h('div', 'class-name', { id: 'umd' },
+          h.div({},
+            h.span({ id: 'val' }, this.local.val),
+            h('br'),
+            h.input({ 'data-bind': 'val' })
+          )
+        )
+      )
+    }
+  })
+  View.displayName = 'View'
+
+  View = vm.binding(View)
+  Model = vm.bindView(View)(Model)
+
+  ReactDOM.render(
+    h(new Model()),
+    window.root
+  )
+</script>
+</body>
+</html>

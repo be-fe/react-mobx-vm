@@ -5,6 +5,7 @@
  * @description:
  */
 import PropTypes from 'prop-types'
+import { displayName } from '../utils/reactUtils'
 
 export default function (...props) {
   if (!props.length) {
@@ -16,7 +17,8 @@ export default function (...props) {
   })
 
   return function (Comp) {
-    return class injectInverseInherit extends Comp {
+    return class Inject extends Comp {
+      static displayName = `Inject-${displayName(Comp)}`
       static contextTypes = {
         ...Comp.contextTypes,
         mobxStores: PropTypes.any

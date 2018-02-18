@@ -7,7 +7,7 @@
 import get from 'lodash/get'
 import set from 'lodash/set'
 import { action } from 'mobx'
-import { assertReactClass } from '../utils/reactUtils'
+import { assertReactClass, displayName } from '../utils/reactUtils'
 
 const assign = action(function (rule, props, model) {
   // @action
@@ -61,6 +61,7 @@ export default function mapping(mapper) {
     assertReactClass(Component, 'mapping')
 
     class Mapping extends Component {
+      static displayName = `Mapping-${displayName(Component)}`
       componentWillMount() {
         assign(mapper, this.props, this.local)
         super.componentWillMount && super.componentWillMount.apply(this, arguments)

@@ -3,6 +3,7 @@
  * @author yucong02
  */
 import { toJS } from 'mobx'
+import { displayName } from '../utils/reactUtils'
 
 export default function (StateClass, keyName = 'local', initData = {}) {
   return componentClass => {
@@ -10,6 +11,7 @@ export default function (StateClass, keyName = 'local', initData = {}) {
       initData = initData()
     }
     return class SIO extends componentClass {
+      static displayName = `SIO-${displayName(componentClass)}`
       // [refAPI]
       getState() {
         return this[keyName]

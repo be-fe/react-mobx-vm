@@ -1,3 +1,4 @@
+import { displayName } from '../utils/reactUtils'
 /**
  * @file: injectExt
  * @author: Cuttle Cong
@@ -14,6 +15,7 @@ export default function injectExt(name, action) {
   return function (Comp) {
     @inject(name)
     class InjectExt extends Comp {
+      static displayName = `Ext-${displayName(Comp)}`
       constructor(...p) {
         super(...p)
         action && action.call(this, this.store[name])

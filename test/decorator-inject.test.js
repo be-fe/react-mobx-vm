@@ -37,6 +37,7 @@ describe('decorator-inject', function () {
   const InjectedExtView = injectExt(
     app => app.gName = 'fixedName'
   )(View)
+
   const app = new Global
   const provider = (
     <Provider app={app}>
@@ -60,6 +61,12 @@ describe('decorator-inject', function () {
     </Provider>
   )
   const wrapper = mount(provider)
+
+  test('displayName', () => {
+    expect(View.name).toBe('View')
+    expect(InjectedView.displayName).toBe('Inject-View')
+    expect(InjectedExtView.displayName).toBe('Inject-Ext-View')
+  })
 
   test('unInjected', () => {
     expect(unInjected.app).toBeUndefined()

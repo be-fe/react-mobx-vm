@@ -5,7 +5,7 @@
  * @description:
  */
 import inject from './injectInverseInherit'
-import { assertReactClass } from '../utils/reactUtils'
+import { assertReactClass, displayName } from '../utils/reactUtils'
 import get from 'lodash/get'
 import set from 'lodash/set'
 
@@ -35,6 +35,7 @@ export default function (...paths) {
     }
 
     class Collect extends Comp {
+      static displayName = `Collect-${displayName(Comp)}`
       constructor(...args) {
         super(...args)
         Promise.all(

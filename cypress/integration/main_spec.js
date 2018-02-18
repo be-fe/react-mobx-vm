@@ -33,6 +33,24 @@ function runTests () {
 }
 
 describe('ViewModel Main Spec', function () {
+  context('iife environment', () => {
+    beforeEach(function () {
+      cy.visit('/iife.html')
+    })
+
+    it('simple test', () => {
+      cy.get('#val')
+        .contains('default')
+
+      cy.get('input')
+        .type('{selectall}{del}')
+        .type('var')
+      cy.get('#val')
+        .contains('var')
+    })
+
+  })
+
   context('binding', function () {
     beforeEach(function () {
       cy.visit('/binding.js')
@@ -181,6 +199,7 @@ describe('ViewModel Main Spec', function () {
       })
 
     })
+
   })
 
 })
