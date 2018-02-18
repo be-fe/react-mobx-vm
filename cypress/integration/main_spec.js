@@ -57,9 +57,9 @@ describe('ViewModel Main Spec', function () {
     })
 
     it('should render successfully', function () {
-      cy.get('#container').should('have.class', 'bar')
+      // cy.get('#container').should('have.class', 'bar')
 
-      cy.get('#container input')
+      cy.get('input')
         .should('have.value', 'name')
     })
 
