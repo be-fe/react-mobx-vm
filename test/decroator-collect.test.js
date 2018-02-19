@@ -1,8 +1,8 @@
 /**
- * @file: decroator-collect
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file decroator-collect
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 import h from '../src/renderer/mixedRenderer'
 import { mount } from 'enzyme'

@@ -1,8 +1,8 @@
 /**
- * @file: decorator-mapping
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file decorator-mapping
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 import { mount } from 'enzyme'
 import React from 'react'

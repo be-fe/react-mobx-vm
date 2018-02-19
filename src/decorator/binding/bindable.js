@@ -1,8 +1,8 @@
 /**
- * @file: bindable
- * @author: Cuttle Cong
- * @date: 2018/2/7
- * @description:
+ * @file bindable
+ * @author Cuttle Cong
+ * @date 2018/2/7
+ * @description
  */
 import { isComponentClass } from '../../utils/reactUtils'
 import proxy from '../../utils/proxy'

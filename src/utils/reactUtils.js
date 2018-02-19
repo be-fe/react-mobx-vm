@@ -1,8 +1,8 @@
 /**
- * @file: reactUtils
- * @author: Cuttle Cong
- * @date: 2018/2/6
- * @description:
+ * @file reactUtils
+ * @author Cuttle Cong
+ * @date 2018/2/6
+ * @description
  */
 import * as React from 'react'
 

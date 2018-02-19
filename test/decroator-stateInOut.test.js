@@ -1,8 +1,8 @@
 /**
- * @file: decroator-stateInOut
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file decroator-stateInOut
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 import sio from '../src/decorator/stateInOut'
 import h from '../src/renderer/mixedRenderer'

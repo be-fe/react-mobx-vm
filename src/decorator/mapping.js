@@ -1,8 +1,8 @@
 /**
- * @file: collect
- * @author: Cuttle Cong
- * @date: 2018/1/28
- * @description:
+ * @file collect
+ * @author Cuttle Cong
+ * @date 2018/1/28
+ * @description
  */
 import get from 'lodash/get'
 import set from 'lodash/set'

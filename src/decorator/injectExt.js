@@ -1,9 +1,9 @@
 import { displayName } from '../utils/reactUtils'
 /**
- * @file: injectExt
- * @author: Cuttle Cong
- * @date: 2018/1/28
- * @description:
+ * @file injectExt
+ * @author Cuttle Cong
+ * @date 2018/1/28
+ * @description
  */
 import inject from './injectInverseInherit'
 

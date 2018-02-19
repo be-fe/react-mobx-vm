@@ -14,7 +14,7 @@
     "gojs": "gojs examples --noopen -p 8001",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "api-docs": "sh scripts/api-docs.sh"
+    "picidae": "picidae start"
   },
   "main": "lib/index.js",
   "module": "dist/franxx.es.js",
@@ -34,10 +34,10 @@
   "author": "imcuttle",
   "license": "MIT",
   "peerDependencies": {
-    "mobx-react": "^4.0.0",
-    "mobx": "^3.0.0",
-    "react": "^15.0.0",
-    "prop-types": "^15.0.0"
+    "mobx-react": "*",
+    "mobx": "*",
+    "react": "*",
+    "prop-types": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -68,6 +68,8 @@
     "mobx": "^3.5.1",
     "mobx-react": "^4.3.5",
     "npm-run-all": "^4.1.2",
+    "picidae": "^2.1.15",
+    "picidae-theme-haier": "0.0.3",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -94,5 +96,13 @@
   },
   "dependencies": {
     "qs": "^6.5.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imcuttle/react-mobx-vm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/imcuttle/react-mobx-vm/issues"
+  },
+  "homepage": "https://github.com/imcuttle/react-mobx-vm#readme"
 }

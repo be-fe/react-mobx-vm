@@ -1,8 +1,8 @@
 /**
- * @file: react
- * @author: Cuttle Cong
- * @date: 2018/2/14
- * @description:
+ * @file react
+ * @author Cuttle Cong
+ * @date 2018/2/14
+ * @description
  */
 
 import { configure } from 'enzyme'

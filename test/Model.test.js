@@ -1,8 +1,8 @@
 /**
- * @file: Model.test
- * @author: Cuttle Cong
- * @date: 2018/2/14
- * @description: $END$
+ * @file Model.test
+ * @author Cuttle Cong
+ * @date 2018/2/14
+ * @description $END$
  */
 import React from 'react'
 import { mount } from 'enzyme'

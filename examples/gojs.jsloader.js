@@ -1,8 +1,8 @@
 /**
- * @file: gojs.jsloader.js
- * @author: Cuttle Cong
- * @date: 2018/2/16
- * @description:
+ * @file gojs.jsloader.js
+ * @author Cuttle Cong
+ * @date 2018/2/16
+ * @description
  */
 const nps = require('path')
 

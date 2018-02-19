@@ -1,9 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 /**
- * @file: stateless
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file stateless
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 import h from '../src/renderer/mixedRenderer'
 import { observable } from 'mobx'

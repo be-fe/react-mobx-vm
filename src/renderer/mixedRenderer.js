@@ -1,8 +1,8 @@
 /**
- * @file: mixedRenderer
- * @author: Cuttle Cong
- * @date: 2018/1/27
- * @description:
+ * @file mixedRenderer
+ * @author Cuttle Cong
+ * @date 2018/1/27
+ * @description
  */
 import r from './vmRender'
 import h from './reactHyper'

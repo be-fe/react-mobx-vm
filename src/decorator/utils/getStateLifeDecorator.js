@@ -1,8 +1,8 @@
 /**
- * @file: stateLife
- * @author: Cuttle Cong
- * @date: 2018/2/4
- * @description:
+ * @file stateLife
+ * @author Cuttle Cong
+ * @date 2018/2/4
+ * @description
  */
 
 import {

@@ -1,8 +1,8 @@
 /**
- * @file: bindView
- * @author: Cuttle Cong
- * @date: 2018/1/27
- * @description:
+ * @file bindView
+ * @author Cuttle Cong
+ * @date 2018/1/27
+ * @description
  */
 import m from './modelComp'
 import { observer } from 'mobx-react'

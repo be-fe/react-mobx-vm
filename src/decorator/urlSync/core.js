@@ -1,9 +1,9 @@
 /* eslint-disable */
 /**
- * @file: index
- * @author: Cuttle Cong
- * @date: 2017/11/6
- * @description:
+ * @file index
+ * @author Cuttle Cong
+ * @date 2017/11/6
+ * @description
  */
 import { action } from 'mobx'
 import getStateLifeDecorator, { assignState } from '../utils/getStateLifeDecorator'

@@ -1,8 +1,8 @@
 /**
- * @file: react-hyper
- * @author: Cuttle Cong
- * @date: 2018/2/13
- * @description:
+ * @file react-hyper
+ * @author Cuttle Cong
+ * @date 2018/2/13
+ * @description
  */
 import { createElement } from 'react'
 

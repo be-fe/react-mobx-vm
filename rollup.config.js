@@ -1,8 +1,8 @@
 /**
- * @file: rollup.config.js
- * @author: Cuttle Cong
- * @date: 2018/2/13
- * @description:
+ * @file rollup.config.js
+ * @author Cuttle Cong
+ * @date 2018/2/13
+ * @description
  */
 import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'

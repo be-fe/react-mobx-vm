@@ -1,8 +1,8 @@
 /**
- * @file: binding
- * @author: Cuttle Cong
- * @date: 2018/1/28
- * @description:
+ * @file binding
+ * @author Cuttle Cong
+ * @date 2018/1/28
+ * @description
  */
 import { action, isObservable } from 'mobx'
 import { observer } from 'mobx-react'

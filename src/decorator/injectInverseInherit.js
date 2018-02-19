@@ -1,8 +1,8 @@
 /**
- * @file: injectInverseInherit
- * @author: Cuttle Cong
- * @date: 2018/1/27
- * @description:
+ * @file injectInverseInherit
+ * @author Cuttle Cong
+ * @date 2018/1/27
+ * @description
  */
 import PropTypes from 'prop-types'
 import { displayName } from '../utils/reactUtils'

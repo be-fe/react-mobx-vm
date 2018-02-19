@@ -1,6 +1,6 @@
 /**
- * @file: model-renderer-v2.js
- * @author: Liang
+ * @file model-renderer-v2.js
+ * @author Liang
  */
 
 import h from './reactHyper'

@@ -1,8 +1,8 @@
 /**
- * @file: collect
- * @author: Cuttle Cong
- * @date: 2018/1/28
- * @description:
+ * @file collect
+ * @author Cuttle Cong
+ * @date 2018/1/28
+ * @description
  */
 import inject from './injectInverseInherit'
 import { assertReactClass, displayName } from '../utils/reactUtils'

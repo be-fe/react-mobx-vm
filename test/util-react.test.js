@@ -1,9 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 /**
- * @file: util-react.test
- * @author: Cuttle Cong
- * @date: 2018/2/14
- * @description: $END$
+ * @file util-react.test
+ * @author Cuttle Cong
+ * @date 2018/2/14
+ * @description $END$
  */
 import * as React from 'react'
 import { render } from 'enzyme'

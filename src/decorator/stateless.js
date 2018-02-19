@@ -1,8 +1,8 @@
 /**
- * @file: stateless
- * @author: Cuttle Cong
- * @date: 2018/2/7
- * @description:
+ * @file stateless
+ * @author Cuttle Cong
+ * @date 2018/2/7
+ * @description
  */
 
 /**

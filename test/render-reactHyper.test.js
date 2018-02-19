@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 /**
- * @file: react-reactHyper
- * @author: Cuttle Cong
- * @date: 2018/2/14
- * @description:
+ * @file react-reactHyper
+ * @author Cuttle Cong
+ * @date 2018/2/14
+ * @description
  * @jest-environment jsdom
  */
 import React from 'react'

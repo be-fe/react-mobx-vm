@@ -1,8 +1,8 @@
 /**
- * @file: decorator-inject
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file decorator-inject
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 
 import { observable } from 'mobx/lib/mobx'

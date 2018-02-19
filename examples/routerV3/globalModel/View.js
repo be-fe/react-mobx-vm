@@ -1,8 +1,8 @@
 /**
- * @file: View
- * @author: Cuttle Cong
- * @date: 2018/2/16
- * @description:
+ * @file View
+ * @author Cuttle Cong
+ * @date 2018/2/16
+ * @description
  */
 
 import React from 'react'

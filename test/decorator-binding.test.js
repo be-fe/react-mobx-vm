@@ -1,8 +1,8 @@
 /**
- * @file: decorator-binding
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file decorator-binding
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 
 import { observable, toJS } from 'mobx/lib/mobx'

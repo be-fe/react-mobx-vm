@@ -1,8 +1,8 @@
 /**
- * @file: proxy
- * @author: Cuttle Cong
- * @date: 2018/1/23
- * @description:
+ * @file proxy
+ * @author Cuttle Cong
+ * @date 2018/1/23
+ * @description
  */
 import get from 'lodash/get'
 import set from 'lodash/set'

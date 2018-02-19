@@ -1,8 +1,8 @@
 /**
- * @file: Piped
- * @author: Cuttle Cong
- * @date: 2018/1/29
- * @description:
+ * @file Piped
+ * @author Cuttle Cong
+ * @date 2018/1/29
+ * @description
  */
 import Root from './Root'
 

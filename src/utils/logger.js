@@ -1,8 +1,8 @@
 /**
- * @file: debugLogger
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file debugLogger
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 // import { debuglog } from 'util'
 

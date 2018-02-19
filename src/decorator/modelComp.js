@@ -1,8 +1,8 @@
 import { displayName } from '../utils/reactUtils'
 
 /**
- * @file: model-comp-v2.js
- * @author: Liang
+ * @file model-comp-v2.js
+ * @author Liang
  */
 export const symbol = typeof Symbol === 'function' ? Symbol('model-comp') : '__model-comp__'
 

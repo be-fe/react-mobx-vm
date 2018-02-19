@@ -1,8 +1,8 @@
 /**
- * @file: Router
- * @author: Cuttle Cong
- * @date: 2018/1/27
- * @description:
+ * @file Router
+ * @author Cuttle Cong
+ * @date 2018/1/27
+ * @description
  */
 import * as React from 'react'
 import h from '../renderer/mixedRenderer'

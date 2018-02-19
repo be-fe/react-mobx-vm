@@ -1,8 +1,8 @@
 /**
- * @file: GlobalModel
- * @author: Cuttle Cong
- * @date: 2018/2/16
- * @description:
+ * @file GlobalModel
+ * @author Cuttle Cong
+ * @date 2018/2/16
+ * @description
  */
 
 import { observable } from 'mobx'

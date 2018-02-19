@@ -1,8 +1,8 @@
 /**
- * @file: decorator-bindView
- * @author: Cuttle Cong
- * @date: 2018/2/15
- * @description:
+ * @file decorator-bindView
+ * @author Cuttle Cong
+ * @date 2018/2/15
+ * @description
  */
 import React from 'react'
 import h from '../src/renderer/mixedRenderer'

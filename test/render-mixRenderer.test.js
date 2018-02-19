@@ -1,9 +1,9 @@
 /* eslint-disable indent */
 /**
- * @file: render-mixRenderer.test
- * @author: Cuttle Cong
- * @date: 2018/2/14
- * @description:
+ * @file render-mixRenderer.test
+ * @author Cuttle Cong
+ * @date 2018/2/14
+ * @description
  * @jest-environment jsdom
  */
 import React from 'react'
