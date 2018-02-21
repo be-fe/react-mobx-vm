@@ -9,5 +9,6 @@ cypress/videos/
 cypress/screenshots/
 cypress/fixtures/
 lib/
+!picidae-transformer-exec/lib/
 **/.DS_Store
 public/
