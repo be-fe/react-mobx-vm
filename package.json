@@ -9,6 +9,7 @@
     "prepare": "run-p babel rollup clean-picidae",
     "clean-picidae": "(cd picidae-transformer-exec && npm install) && rm -rf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
     "test": "jest",
+    "postinstall": "[ \"$NODE_ENV\" != production ] && npm run clean-picidae",
     "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",
     "test:cy:open": "run-p gojs cy:open",
