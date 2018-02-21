@@ -37,7 +37,7 @@ module.exports = {
   docRoot: './docs',
   theme: 'haier',
   themeConfigsRoot: './theme-configs',
-
+  publicPath: '/react-mobx-vm/',
   transformers: [
     'react-render?' + JSON.stringify({
       lang: 'jsx',
