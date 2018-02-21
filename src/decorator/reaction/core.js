@@ -6,7 +6,7 @@ import {
   action,
   reaction
 } from 'mobx'
-import logger from '../../utils/logger'
+// import logger from '../../utils/logger'
 import { get, hasIn } from 'lodash'
 
 export default ({ init = 'init', exit = 'exit' }, ...keyNames) => {

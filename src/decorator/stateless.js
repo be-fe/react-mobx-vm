@@ -6,10 +6,15 @@
  */
 
 /**
- * we can use
- *     export default stateless((local, props) => elem)
- * @param func  {function}
- * @param localKey {string}
+ * 用于书写一些无组件自身状态的简单组件
+ * @public
+ * @param func {function} (local, props) => ReactElement
+ * @param [localKey='local'] {string}
+ * @example
+ * export default stateless((local, props) =>
+ *   <div></div>
+ * )
+ * @returns {function} props => ReactElement
  */
 export default function stateless(func, localKey = 'local') {
   return function wrappedStateless(props) {

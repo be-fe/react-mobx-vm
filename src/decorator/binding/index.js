@@ -15,7 +15,7 @@ function convert(element, fallbackScope) {
   return convertReactElement(element, [
     [
       function cond(elem) {
-        return elem && elem.props && elem.props['data-bind']
+        return elem && elem.props && elem.props.hasOwnProperty('data-bind')
       },
       (elem) => {
         let bind = elem.props['data-bind']
@@ -32,9 +32,9 @@ function convert(element, fallbackScope) {
         if (typeof bind === 'function') {
           bind = bind(dataScope).toString()
         }
-
+        
         const get = function () {
-          return _.get(dataScope, bind)
+          return _.get(dataScope, bind.toString())
         }
         const set = action(function (val) {
           _.set(dataScope, bind, val)
@@ -45,9 +45,9 @@ function convert(element, fallbackScope) {
           scope: dataScope,
           bind
         }
-
+        
         if (
-          typeof bind === 'string' && _.hasIn(dataScope, bind)
+          bind !== '' && _.hasIn(dataScope, bind)
           || typeof bind === 'function'
         ) {
           const handledProps = getHandledProps(ctx, elem, elem.props)
@@ -125,13 +125,53 @@ function bindClassOrFunc(maybeScope) {
 }
 
 /**
+ * 
+ * 简易的双向绑定写法，默认绑定 `value/onChange` 的一个闭环
+ * @public
+ * @name binding
  * @example
- *      1. use in class wrap  @binding(?scope) Component
- *      2. use in element wrap  binding(...element)
- *      3. use in element wrap  binding(scope)(...element)
- *      4. use in member render method or getter element
- * @param element
- * @return View
+ * \@bindView(View)
+ * class Model extends Root {
+ *    \@observable abc = '123'
+ * }
+ * // 一劳永逸的用法
+ * \@binding
+ * class View extends React.Component {
+ *    render() {
+ *      return (
+ *        <div>
+ *          <input data-bind="abc" />
+ *        </div>
+ *      )
+ *    }
+ * }
+ *
+ * class View extends React.Component {
+ *    // 在成员方法里面修饰
+ *    \@binding
+ *    renderSomething() {
+ *      // return ...
+ *    }
+ *    // 在getter方法里面修饰
+ *    \@binding
+ *    get Something() {
+ *      // return ...
+ *    }
+ *    render() {
+ *      // 或者绑定指定的 react-element
+ *      return (
+ *        <div>
+ *          {binding(this.local)(
+ *            <input data-bind="abc" />
+ *          )}
+ *          // 或者直接传入 element
+ *          // 注意：需要绑定 `data-scope` 作用域
+ *          {binding(<input data-bind="abc" data-scope={this.local} />)}
+ *        </div>
+ *      )
+ *    }
+ * }
+ * 
  */
 export default function binding(element) {
 

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Picidae </title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="__root__">
+    <div class="" data-reactroot="" data-reactid="1" data-react-checksum="1387333955"><style type="text/css" data-reactid="2">
+footer .copyright {
+  color: rgba(255, 255, 255, .4)
+}
+footer.nav-footer {
+  background-color: #808080
+}
+.showcaseSection .prose h1,
+.productShowcaseSection h2,
+nav.toc .toggleNav ul li a.navItemActive,
+.container .wrapper h3,
+.container .wrapper h2,
+.homeContainer,
+h1, h2, h3, h4,
+a,
+.container .wrapper h4,
+nav.toc .toggleNav ul li a:hover, nav.toc .toggleNav ul li a:focus {
+  color: #2265b1
+}
+body {
+  color: #393939
+}
+blockquote {
+  border-left-color: #bcd5f2;
+  background-color: #e3edfa;
+}
+code {
+  box-shadow: 2px 0 #e7f0fa, -2px 0 #e7f0fa;
+  background-color: #e7f0fa
+}
+.fixedHeaderContainer,
+.button:hover,
+nav.toc .toggleNav .navGroup.navGroupActive h3,
+.navigationSlider .slidingNav ul li &gt; a:focus,
+.navigationSlider .slidingNav ul li &gt; a:hover,
+.navigationSlider .slidingNav ul li &gt; a,
+.mainContainer .wrapper .post .docPagination,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header .algolia-docsearch-suggestion--highlight,
+ul#languages-dropdown-items {
+  background-color: #2265b1
+}
+.navigationSlider .slidingNav ul {
+  background-color: #2265b1
+}
+.highlightBackground {
+  background-color: #2265b1
+}
+.button {
+  color: #2265b1;
+  border-color: #2265b1;
+}
+pre code {
+  border-left-color: #2265b1;
+}
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--title .algolia-docsearch-suggestion--highlight,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--subcategory-column .algolia-docsearch-suggestion--highlight,
+.darkBackground a,
+.darkBackground code {
+  color: #2f7ed7
+}
+@media only screen and (max-width: 735px) {
+  ul#languages-dropdown-items,
+  .reactNavSearchWrapper input#doc-search-input:focus, .reactNavSearchWrapper input#doc-search-input:active {
+    background-color: #2265b1
+  }
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #dd2f3d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #dd2f3d, 0 0 5px #dd2f3d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #dd2f3d;
+  border-left-color: #dd2f3d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style><div class="fixedHeaderContainer" data-reactid="3"><div class="headerWrapper wrapper" data-reactid="4"><header data-reactid="5"><a href="/" data-reactid="6"><img class="logo" src="https://raw.githubusercontent.com/imcuttle/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="7"/><h2 class="headerTitle" data-reactid="8">React Mobx VM</h2></a><div class="navigationWrapper navigationSlider" data-reactid="9"><nav class="slidingNav" data-reactid="10"><ul class="nav-site nav-site-internal" data-reactid="11"><li data-reactid="12"><a href="/guide/" data-reactid="13">指引</a></li><li data-reactid="14"><a href="/api/decorator" data-reactid="15">API</a></li><li data-reactid="16"><a href="https://github.com/imcuttle/react-mobx-vm" target="_self" data-reactid="17">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher" data-reactid="18"><div class="docMainWrapper wrapper" data-reactid="19"><!-- react-empty: 20 --><div class="container docsNavContainer" data-reactid="21"><nav class="toc" data-reactid="22"><div class="toggleNav" data-reactid="23"><section class="navWrapper wrapper" data-reactid="24"><div class="navBreadcrumb wrapper" data-reactid="25"><div class="navToggle" data-reactid="26"><i data-reactid="27"></i></div><h2 data-reactid="28"><i data-reactid="29">&gt;</i><span data-reactid="30">API</span></h2></div><div class="navGroups" data-reactid="31"><div class="navGroupActive navGroup" data-reactid="32"><h3 data-reactid="33">指引</h3><ul data-reactid="34"><li class="navListItem" data-reactid="35"><a class="" href="/guide/contrast" data-reactid="36">对比于 Redux 和 Mobx State Tree</a></li><li class="navListItem" data-reactid="37"><a class="" href="/guide/index" data-reactid="38">什么是 react-mobx-vm ？</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="39"><h3 data-reactid="40">API</h3><ul data-reactid="41"><li class="navListItem" data-reactid="42"><a class="" href="/api/decorator" data-reactid="43">修饰器相关</a></li><li class="navListItem navItemActive" data-reactid="44"><a class="navItemActive" href="/api/others" data-reactid="45">其他相关</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="46"><h3 data-reactid="47">可编辑的例子</h3><ul data-reactid="48"><li class="navListItem" data-reactid="49"><a class="" href="/examples/binding" data-reactid="50">binding</a></li><li class="navListItem" data-reactid="51"><a class="" href="/examples/inject-collect" data-reactid="52">inject &amp; collect</a></li><li class="navListItem" data-reactid="53"><a class="" href="/examples/url-sync" data-reactid="54">urlSync</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="55"><h3 data-reactid="56">高阶说明</h3><ul data-reactid="57"><li class="navListItem" data-reactid="58"><a class="" href="/advanced/life-cycle" data-reactid="59">生命周期</a></li><li class="navListItem" data-reactid="60"><a class="" href="/advanced/mixed-renderer" data-reactid="61">怎么用 JSX 渲染 VM？</a></li></ul></div></div></section></div></nav></div><div class="container mainContainer" data-reactid="62"><div class="wrapper" data-reactid="63"><div class="post" data-reactid="64"><header class="postHeader" data-reactid="65"><a href="https://github.com/imcuttle/react-mobx-vm/blob/master/docs/api/others.md" class="edit-page-link button" target="_blank" data-reactid="66">编辑</a><h1 data-reactid="67">其他相关</h1></header><article data-reactid="68"><div class="picidae-toc" data-reactid="69"><!-- react-text: 70 -->
+<!-- /react-text --><ul data-reactid="71"><!-- react-text: 72 -->
+<!-- /react-text --><li data-reactid="73"><!-- react-text: 74 -->
+<!-- /react-text --><a href="#model" data-reactid="75">Model</a><!-- react-text: 76 -->
+<!-- /react-text --><ul data-reactid="77"><!-- react-text: 78 -->
+<!-- /react-text --><li data-reactid="79"><!-- react-text: 80 -->
+<!-- /react-text --><a href="#piped" data-reactid="81">Piped</a><!-- react-text: 82 -->
+<!-- /react-text --></li><!-- react-text: 83 -->
+<!-- /react-text --><li data-reactid="84"><!-- react-text: 85 -->
+<!-- /react-text --><a href="#root" data-reactid="86">Root</a><!-- react-text: 87 -->
+<!-- /react-text --><ul data-reactid="88"><!-- react-text: 89 -->
+<!-- /react-text --><li data-reactid="90"><!-- react-text: 91 -->
+<!-- /react-text --><a href="#create" data-reactid="92">create</a><!-- react-text: 93 -->
+<!-- /react-text --></li><!-- react-text: 94 -->
+<!-- /react-text --><li data-reactid="95"><!-- react-text: 96 -->
+<!-- /react-text --><a href="#init" data-reactid="97">init</a><!-- react-text: 98 -->
+<!-- /react-text --></li><!-- react-text: 99 -->
+<!-- /react-text --><li data-reactid="100"><!-- react-text: 101 -->
+<!-- /react-text --><a href="#update" data-reactid="102">update</a><!-- react-text: 103 -->
+<!-- /react-text --></li><!-- react-text: 104 -->
+<!-- /react-text --><li data-reactid="105"><!-- react-text: 106 -->
+<!-- /react-text --><a href="#exit" data-reactid="107">exit</a><!-- react-text: 108 -->
+<!-- /react-text --></li><!-- react-text: 109 -->
+<!-- /react-text --><li data-reactid="110"><!-- react-text: 111 -->
+<!-- /react-text --><a href="#tojson" data-reactid="112">toJSON</a><!-- react-text: 113 -->
+<!-- /react-text --></li><!-- react-text: 114 -->
+<!-- /react-text --><li data-reactid="115"><!-- react-text: 116 -->
+<!-- /react-text --><a href="#action" data-reactid="117">action</a><!-- react-text: 118 -->
+<!-- /react-text --></li><!-- react-text: 119 -->
+<!-- /react-text --><li data-reactid="120"><!-- react-text: 121 -->
+<!-- /react-text --><a href="#clone" data-reactid="122">clone</a><!-- react-text: 123 -->
+<!-- /react-text --></li><!-- react-text: 124 -->
+<!-- /react-text --><li data-reactid="125"><!-- react-text: 126 -->
+<!-- /react-text --><a href="#isequal" data-reactid="127">isEqual</a><!-- react-text: 128 -->
+<!-- /react-text --></li><!-- react-text: 129 -->
+<!-- /react-text --><li data-reactid="130"><!-- react-text: 131 -->
+<!-- /react-text --><a href="#assign" data-reactid="132">assign</a><!-- react-text: 133 -->
+<!-- /react-text --></li><!-- react-text: 134 -->
+<!-- /react-text --><li data-reactid="135"><!-- react-text: 136 -->
+<!-- /react-text --><a href="#assigndeep" data-reactid="137">assignDeep</a><!-- react-text: 138 -->
+<!-- /react-text --></li><!-- react-text: 139 -->
+<!-- /react-text --><li data-reactid="140"><!-- react-text: 141 -->
+<!-- /react-text --><a href="#isempty" data-reactid="142">isEmpty</a><!-- react-text: 143 -->
+<!-- /react-text --></li><!-- react-text: 144 -->
+<!-- /react-text --></ul><!-- react-text: 145 -->
+<!-- /react-text --></li><!-- react-text: 146 -->
+<!-- /react-text --></ul><!-- react-text: 147 -->
+<!-- /react-text --></li><!-- react-text: 148 -->
+<!-- /react-text --><li data-reactid="149"><!-- react-text: 150 -->
+<!-- /react-text --><a href="#renderer" data-reactid="151">Renderer</a><!-- react-text: 152 -->
+<!-- /react-text --><ul data-reactid="153"><!-- react-text: 154 -->
+<!-- /react-text --><li data-reactid="155"><!-- react-text: 156 -->
+<!-- /react-text --><a href="#h" data-reactid="157">h</a><!-- react-text: 158 -->
+<!-- /react-text --></li><!-- react-text: 159 -->
+<!-- /react-text --></ul><!-- react-text: 160 -->
+<!-- /react-text --></li><!-- react-text: 161 -->
+<!-- /react-text --><li data-reactid="162"><!-- react-text: 163 -->
+<!-- /react-text --><a href="#extension" data-reactid="164">Extension</a><!-- react-text: 165 -->
+<!-- /react-text --><ul data-reactid="166"><!-- react-text: 167 -->
+<!-- /react-text --><li data-reactid="168"><!-- react-text: 169 -->
+<!-- /react-text --><a href="#providerfactory" data-reactid="170">providerFactory</a><!-- react-text: 171 -->
+<!-- /react-text --></li><!-- react-text: 172 -->
+<!-- /react-text --><li data-reactid="173"><!-- react-text: 174 -->
+<!-- /react-text --><a href="#router" data-reactid="175">Router</a><!-- react-text: 176 -->
+<!-- /react-text --></li><!-- react-text: 177 -->
+<!-- /react-text --></ul><!-- react-text: 178 -->
+<!-- /react-text --></li><!-- react-text: 179 -->
+<!-- /react-text --></ul><!-- react-text: 180 -->
+<!-- /react-text --></div><!-- react-text: 181 -->
+<!-- /react-text --><hr data-reactid="182"/><!-- react-text: 183 -->
+<!-- /react-text --><h1 data-reactid="184"><a class="anchor" aria-hidden="true" name="model" data-reactid="185"></a><a href="#model" aria-hidden="true" class="hash-link" data-reactid="186"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="187"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="188"></path></svg></a><!-- react-text: 189 -->Model<!-- /react-text --></h1><!-- react-text: 190 -->
+<!-- /react-text --><!-- react-text: 191 -->
+<!-- /react-text --><h2 data-reactid="192"><a class="anchor" aria-hidden="true" name="piped" data-reactid="193"></a><a href="#piped" aria-hidden="true" class="hash-link" data-reactid="194"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="195"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="196"></path></svg></a><!-- react-text: 197 -->Piped<!-- /react-text --></h2><!-- react-text: 198 -->
+<!-- /react-text --><p data-reactid="199"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Piped.js#L19-L27" title="Source code on GitHub" data-reactid="200">src/Model/Piped.js:19-27</a></p><!-- react-text: 201 -->
+<!-- /react-text --><p data-reactid="202"><strong data-reactid="203">Extends Root</strong></p><!-- react-text: 204 -->
+<!-- /react-text --><p data-reactid="205">其对 Root 中的 init/update 进行的无差别的赋值，
+如果你需要对 View 中的 props 一股脑都同步至 Model 中，
+则可以通过继承该类来实现</p><!-- react-text: 206 -->
+<!-- /react-text --><h2 data-reactid="207"><a class="anchor" aria-hidden="true" name="root" data-reactid="208"></a><a href="#root" aria-hidden="true" class="hash-link" data-reactid="209"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="210"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="211"></path></svg></a><!-- react-text: 212 -->Root<!-- /react-text --></h2><!-- react-text: 213 -->
+<!-- /react-text --><p data-reactid="214"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L20-L178" title="Source code on GitHub" data-reactid="215">src/Model/Root.js:20-178</a></p><!-- react-text: 216 -->
+<!-- /react-text --><p data-reactid="217">建议所以的 Model 都继承自该类，提供了一些方法</p><!-- react-text: 218 -->
+<!-- /react-text --><h3 data-reactid="219"><a class="anchor" aria-hidden="true" name="create" data-reactid="220"></a><a href="#create" aria-hidden="true" class="hash-link" data-reactid="221"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="222"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="223"></path></svg></a><!-- react-text: 224 -->create<!-- /react-text --></h3><!-- react-text: 225 -->
+<!-- /react-text --><p data-reactid="226"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L34-L36" title="Source code on GitHub" data-reactid="227">src/Model/Root.js:34-36</a></p><!-- react-text: 228 -->
+<!-- /react-text --><p data-reactid="229"><!-- react-text: 230 -->建议使用给方法创建实例对象，而不是 <!-- /react-text --><code data-reactid="231">new Model()</code><!-- react-text: 232 --> 原因参看 <!-- /react-text --><a href="https://github.com/imcuttle/babel-plugin-class-properties-default-value" data-reactid="233">https://github.com/imcuttle/babel-plugin-class-properties-default-value</a></p><!-- react-text: 234 -->
+<!-- /react-text --><p data-reactid="235"><strong data-reactid="236">Parameters</strong></p><!-- react-text: 237 -->
+<!-- /react-text --><ul data-reactid="238"><!-- react-text: 239 -->
+<!-- /react-text --><li data-reactid="240"><code data-reactid="241">init</code><!-- react-text: 242 --> <!-- /react-text --><strong data-reactid="243"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="244">object</a></strong><!-- react-text: 245 -->  (optional, default <!-- /react-text --><code data-reactid="246">{}</code><!-- react-text: 247 -->)<!-- /react-text --></li><!-- react-text: 248 -->
+<!-- /react-text --></ul><!-- react-text: 249 -->
+<!-- /react-text --><p data-reactid="250"><strong data-reactid="251">Examples</strong></p><!-- react-text: 252 -->
+<!-- /react-text --><pre data-reactid="253"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="254"><span class="hljs-class" data-reactid="255"><span class="hljs-keyword" data-reactid="256">class</span><!-- react-text: 257 --> <!-- /react-text --><span class="hljs-title" data-reactid="258">Model</span><!-- react-text: 259 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="260">extends</span><!-- react-text: 261 --> <!-- /react-text --><span class="hljs-title" data-reactid="262">Root</span><!-- react-text: 263 --> <!-- /react-text --></span><!-- react-text: 264 -->{
+   val = <!-- /react-text --><span class="hljs-number" data-reactid="265">123</span><!-- react-text: 266 -->
+}
+<!-- /react-text --><span class="hljs-keyword" data-reactid="267">const</span><!-- react-text: 268 --> model = Model.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="269">val</span><!-- react-text: 270 -->: <!-- /react-text --><span class="hljs-string" data-reactid="271">&#x27;345&#x27;</span><!-- react-text: 272 --> })<!-- /react-text --></code></pre><!-- react-text: 273 -->
+<!-- /react-text --><p data-reactid="274"><!-- react-text: 275 -->Returns <!-- /react-text --><strong data-reactid="276"><a href="#root" data-reactid="277">Root</a></strong><!-- react-text: 278 --> <!-- /react-text --></p><!-- react-text: 279 -->
+<!-- /react-text --><h3 data-reactid="280"><a class="anchor" aria-hidden="true" name="init" data-reactid="281"></a><a href="#init" aria-hidden="true" class="hash-link" data-reactid="282"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="283"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="284"></path></svg></a><!-- react-text: 285 -->init<!-- /react-text --></h3><!-- react-text: 286 -->
+<!-- /react-text --><p data-reactid="287"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L43-L44" title="Source code on GitHub" data-reactid="288">src/Model/Root.js:43-44</a></p><!-- react-text: 289 -->
+<!-- /react-text --><p data-reactid="290">该方法对应与 React 的 componentDidMount 生命周期</p><!-- react-text: 291 -->
+<!-- /react-text --><p data-reactid="292"><strong data-reactid="293">Parameters</strong></p><!-- react-text: 294 -->
+<!-- /react-text --><ul data-reactid="295"><!-- react-text: 296 -->
+<!-- /react-text --><li data-reactid="297"><code data-reactid="298">props</code><!-- react-text: 299 --> <!-- /react-text --><strong data-reactid="300"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="301">object</a></strong><!-- react-text: 302 --> View 中的 <!-- /react-text --><code data-reactid="303">this.props</code></li><!-- react-text: 304 -->
+<!-- /react-text --></ul><!-- react-text: 305 -->
+<!-- /react-text --><h3 data-reactid="306"><a class="anchor" aria-hidden="true" name="update" data-reactid="307"></a><a href="#update" aria-hidden="true" class="hash-link" data-reactid="308"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="309"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="310"></path></svg></a><!-- react-text: 311 -->update<!-- /react-text --></h3><!-- react-text: 312 -->
+<!-- /react-text --><p data-reactid="313"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L51-L52" title="Source code on GitHub" data-reactid="314">src/Model/Root.js:51-52</a></p><!-- react-text: 315 -->
+<!-- /react-text --><p data-reactid="316">该方法对应与 React 的 componentWillReceiveProps 生命周期</p><!-- react-text: 317 -->
+<!-- /react-text --><p data-reactid="318"><strong data-reactid="319">Parameters</strong></p><!-- react-text: 320 -->
+<!-- /react-text --><ul data-reactid="321"><!-- react-text: 322 -->
+<!-- /react-text --><li data-reactid="323"><code data-reactid="324">props</code><!-- react-text: 325 --> <!-- /react-text --><strong data-reactid="326"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="327">object</a></strong><!-- react-text: 328 --> View 中的 <!-- /react-text --><code data-reactid="329">nextProps</code></li><!-- react-text: 330 -->
+<!-- /react-text --></ul><!-- react-text: 331 -->
+<!-- /react-text --><h3 data-reactid="332"><a class="anchor" aria-hidden="true" name="exit" data-reactid="333"></a><a href="#exit" aria-hidden="true" class="hash-link" data-reactid="334"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="335"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="336"></path></svg></a><!-- react-text: 337 -->exit<!-- /react-text --></h3><!-- react-text: 338 -->
+<!-- /react-text --><p data-reactid="339"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L59-L60" title="Source code on GitHub" data-reactid="340">src/Model/Root.js:59-60</a></p><!-- react-text: 341 -->
+<!-- /react-text --><p data-reactid="342">该方法对应与 React 的 componentWillUnmount 生命周期</p><!-- react-text: 343 -->
+<!-- /react-text --><p data-reactid="344"><strong data-reactid="345">Parameters</strong></p><!-- react-text: 346 -->
+<!-- /react-text --><ul data-reactid="347"><!-- react-text: 348 -->
+<!-- /react-text --><li data-reactid="349"><code data-reactid="350">props</code><!-- react-text: 351 --> <!-- /react-text --><strong data-reactid="352"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="353">object</a></strong><!-- react-text: 354 --> View 中的 <!-- /react-text --><code data-reactid="355">this.props</code></li><!-- react-text: 356 -->
+<!-- /react-text --></ul><!-- react-text: 357 -->
+<!-- /react-text --><h3 data-reactid="358"><a class="anchor" aria-hidden="true" name="tojson" data-reactid="359"></a><a href="#tojson" aria-hidden="true" class="hash-link" data-reactid="360"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="361"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="362"></path></svg></a><!-- react-text: 363 -->toJSON<!-- /react-text --></h3><!-- react-text: 364 -->
+<!-- /react-text --><p data-reactid="365"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L66-L68" title="Source code on GitHub" data-reactid="366">src/Model/Root.js:66-68</a></p><!-- react-text: 367 -->
+<!-- /react-text --><p data-reactid="368">将 this 转换为 JSON</p><!-- react-text: 369 -->
+<!-- /react-text --><h3 data-reactid="370"><a class="anchor" aria-hidden="true" name="action" data-reactid="371"></a><a href="#action" aria-hidden="true" class="hash-link" data-reactid="372"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="373"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="374"></path></svg></a><!-- react-text: 375 -->action<!-- /react-text --></h3><!-- react-text: 376 -->
+<!-- /react-text --><p data-reactid="377"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L85-L85" title="Source code on GitHub" data-reactid="378">src/Model/Root.js:85-85</a></p><!-- react-text: 379 -->
+<!-- /react-text --><p data-reactid="380">设置当前对象中 key 的值</p><!-- react-text: 381 -->
+<!-- /react-text --><p data-reactid="382"><strong data-reactid="383">Parameters</strong></p><!-- react-text: 384 -->
+<!-- /react-text --><ul data-reactid="385"><!-- react-text: 386 -->
+<!-- /react-text --><li data-reactid="387"><code data-reactid="388">key</code><!-- react-text: 389 --> <!-- /react-text --><strong data-reactid="390"><!-- react-text: 391 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="392">string</a><!-- react-text: 393 --> | <!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array" data-reactid="394">array</a><!-- react-text: 395 -->)<!-- /react-text --></strong><!-- react-text: 396 --> <!-- /react-text --></li><!-- react-text: 397 -->
+<!-- /react-text --><li data-reactid="398"><code data-reactid="399">value</code><!-- react-text: 400 --> <!-- /react-text --><strong data-reactid="401">any</strong><!-- react-text: 402 --> <!-- /react-text --></li><!-- react-text: 403 -->
+<!-- /react-text --></ul><!-- react-text: 404 -->
+<!-- /react-text --><p data-reactid="405"><strong data-reactid="406">Examples</strong></p><!-- react-text: 407 -->
+<!-- /react-text --><pre data-reactid="408"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="409"><!-- react-text: 410 -->Root
+ .create()
+ .setValue(<!-- /react-text --><span class="hljs-string" data-reactid="411">&#x27;a&#x27;</span><!-- react-text: 412 -->, {})
+ .setValue(<!-- /react-text --><span class="hljs-string" data-reactid="413">&#x27;a.b&#x27;</span><!-- react-text: 414 -->, <!-- /react-text --><span class="hljs-string" data-reactid="415">&#x27;123&#x27;</span><!-- react-text: 416 -->)
+ .setValue([<!-- /react-text --><span class="hljs-string" data-reactid="417">&#x27;a&#x27;</span><!-- react-text: 418 -->, <!-- /react-text --><span class="hljs-string" data-reactid="419">&#x27;b&#x27;</span><!-- react-text: 420 -->], <!-- /react-text --><span class="hljs-string" data-reactid="421">&#x27;456&#x27;</span><!-- react-text: 422 -->)<!-- /react-text --></code></pre><!-- react-text: 423 -->
+<!-- /react-text --><p data-reactid="424"><!-- react-text: 425 -->Returns <!-- /react-text --><strong data-reactid="426"><a href="#root" data-reactid="427">Root</a></strong><!-- react-text: 428 --> <!-- /react-text --></p><!-- react-text: 429 -->
+<!-- /react-text --><h3 data-reactid="430"><a class="anchor" aria-hidden="true" name="clone" data-reactid="431"></a><a href="#clone" aria-hidden="true" class="hash-link" data-reactid="432"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="433"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="434"></path></svg></a><!-- react-text: 435 -->clone<!-- /react-text --></h3><!-- react-text: 436 -->
+<!-- /react-text --><p data-reactid="437"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L111-L113" title="Source code on GitHub" data-reactid="438">src/Model/Root.js:111-113</a></p><!-- react-text: 439 -->
+<!-- /react-text --><p data-reactid="440">拷贝当前对象</p><!-- react-text: 441 -->
+<!-- /react-text --><p data-reactid="442"><!-- react-text: 443 -->Returns <!-- /react-text --><strong data-reactid="444"><a href="#root" data-reactid="445">Root</a></strong><!-- react-text: 446 --> 一个新的实例<!-- /react-text --></p><!-- react-text: 447 -->
+<!-- /react-text --><h3 data-reactid="448"><a class="anchor" aria-hidden="true" name="isequal" data-reactid="449"></a><a href="#isequal" aria-hidden="true" class="hash-link" data-reactid="450"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="451"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="452"></path></svg></a><!-- react-text: 453 -->isEqual<!-- /react-text --></h3><!-- react-text: 454 -->
+<!-- /react-text --><p data-reactid="455"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L125-L128" title="Source code on GitHub" data-reactid="456">src/Model/Root.js:125-128</a></p><!-- react-text: 457 -->
+<!-- /react-text --><p data-reactid="458">对比两个对象是否相同</p><!-- react-text: 459 -->
+<!-- /react-text --><p data-reactid="460"><strong data-reactid="461">Parameters</strong></p><!-- react-text: 462 -->
+<!-- /react-text --><ul data-reactid="463"><!-- react-text: 464 -->
+<!-- /react-text --><li data-reactid="465"><code data-reactid="466">other</code><!-- react-text: 467 --> <!-- /react-text --><strong data-reactid="468">any</strong><!-- react-text: 469 --> <!-- /react-text --></li><!-- react-text: 470 -->
+<!-- /react-text --></ul><!-- react-text: 471 -->
+<!-- /react-text --><p data-reactid="472"><strong data-reactid="473">Examples</strong></p><!-- react-text: 474 -->
+<!-- /react-text --><pre data-reactid="475"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="476"><!-- react-text: 477 -->Root.create().isEqual({}) <!-- /react-text --><span class="hljs-comment" data-reactid="478">// true</span><!-- react-text: 479 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="480">a</span><!-- react-text: 481 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="482">1</span><!-- react-text: 483 -->, <!-- /react-text --><span class="hljs-number" data-reactid="484">3</span><!-- react-text: 485 -->] }).isEqual({ <!-- /react-text --><span class="hljs-attr" data-reactid="486">a</span><!-- react-text: 487 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="488">1</span><!-- react-text: 489 -->, <!-- /react-text --><span class="hljs-number" data-reactid="490">3</span><!-- react-text: 491 -->] }) <!-- /react-text --><span class="hljs-comment" data-reactid="492">// true</span><!-- react-text: 493 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="494">a</span><!-- react-text: 495 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="496">1</span><!-- react-text: 497 -->, <!-- /react-text --><span class="hljs-number" data-reactid="498">3</span><!-- react-text: 499 -->] }).isEqual(Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="500">a</span><!-- react-text: 501 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="502">1</span><!-- react-text: 503 -->, <!-- /react-text --><span class="hljs-number" data-reactid="504">3</span><!-- react-text: 505 -->] })) <!-- /react-text --><span class="hljs-comment" data-reactid="506">// true</span></code></pre><!-- react-text: 507 -->
+<!-- /react-text --><p data-reactid="508"><!-- react-text: 509 -->Returns <!-- /react-text --><strong data-reactid="510"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-reactid="511">boolean</a></strong><!-- react-text: 512 --> <!-- /react-text --></p><!-- react-text: 513 -->
+<!-- /react-text --><h3 data-reactid="514"><a class="anchor" aria-hidden="true" name="assign" data-reactid="515"></a><a href="#assign" aria-hidden="true" class="hash-link" data-reactid="516"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="517"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="518"></path></svg></a><!-- react-text: 519 -->assign<!-- /react-text --></h3><!-- react-text: 520 -->
+<!-- /react-text --><p data-reactid="521"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L139-L141" title="Source code on GitHub" data-reactid="522">src/Model/Root.js:139-141</a></p><!-- react-text: 523 -->
+<!-- /react-text --><p data-reactid="524">批量赋值</p><!-- react-text: 525 -->
+<!-- /react-text --><p data-reactid="526"><strong data-reactid="527">Parameters</strong></p><!-- react-text: 528 -->
+<!-- /react-text --><ul data-reactid="529"><!-- react-text: 530 -->
+<!-- /react-text --><li data-reactid="531"><code data-reactid="532">data</code><!-- react-text: 533 --> <!-- /react-text --><strong data-reactid="534"><!-- react-text: 535 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="536">object</a><!-- react-text: 537 --> | <!-- /react-text --><a href="#root" data-reactid="538">Root</a><!-- react-text: 539 -->)<!-- /react-text --></strong><!-- react-text: 540 --> <!-- /react-text --></li><!-- react-text: 541 -->
+<!-- /react-text --></ul><!-- react-text: 542 -->
+<!-- /react-text --><p data-reactid="543"><strong data-reactid="544">Examples</strong></p><!-- react-text: 545 -->
+<!-- /react-text --><pre data-reactid="546"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="547"><!-- react-text: 548 -->Root.create().assign({ <!-- /react-text --><span class="hljs-attr" data-reactid="549">a</span><!-- react-text: 550 -->: <!-- /react-text --><span class="hljs-string" data-reactid="551">&#x27;a&#x27;</span><!-- react-text: 552 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="553">b</span><!-- react-text: 554 -->: <!-- /react-text --><span class="hljs-string" data-reactid="555">&#x27;b&#x27;</span><!-- react-text: 556 --> })<!-- /react-text --></code></pre><!-- react-text: 557 -->
+<!-- /react-text --><p data-reactid="558"><!-- react-text: 559 -->Returns <!-- /react-text --><strong data-reactid="560"><a href="#root" data-reactid="561">Root</a></strong><!-- react-text: 562 --> <!-- /react-text --></p><!-- react-text: 563 -->
+<!-- /react-text --><h3 data-reactid="564"><a class="anchor" aria-hidden="true" name="assigndeep" data-reactid="565"></a><a href="#assigndeep" aria-hidden="true" class="hash-link" data-reactid="566"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="567"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="568"></path></svg></a><!-- react-text: 569 -->assignDeep<!-- /react-text --></h3><!-- react-text: 570 -->
+<!-- /react-text --><p data-reactid="571"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L152-L155" title="Source code on GitHub" data-reactid="572">src/Model/Root.js:152-155</a></p><!-- react-text: 573 -->
+<!-- /react-text --><ul data-reactid="574"><!-- react-text: 575 -->
+<!-- /react-text --><li data-reactid="576"><strong data-reactid="577"><!-- react-text: 578 -->See: <!-- /react-text --><a href="#assign" data-reactid="579">assign</a></strong></li><!-- react-text: 580 -->
+<!-- /react-text --></ul><!-- react-text: 581 -->
+<!-- /react-text --><p data-reactid="582">深拷贝批量赋值</p><!-- react-text: 583 -->
+<!-- /react-text --><p data-reactid="584"><strong data-reactid="585">Parameters</strong></p><!-- react-text: 586 -->
+<!-- /react-text --><ul data-reactid="587"><!-- react-text: 588 -->
+<!-- /react-text --><li data-reactid="589"><code data-reactid="590">data</code><!-- react-text: 591 --> <!-- /react-text --><strong data-reactid="592"><!-- react-text: 593 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="594">object</a><!-- react-text: 595 --> | <!-- /react-text --><a href="#root" data-reactid="596">Root</a><!-- react-text: 597 -->)<!-- /react-text --></strong><!-- react-text: 598 --> <!-- /react-text --></li><!-- react-text: 599 -->
+<!-- /react-text --></ul><!-- react-text: 600 -->
+<!-- /react-text --><p data-reactid="601"><strong data-reactid="602">Examples</strong></p><!-- react-text: 603 -->
+<!-- /react-text --><pre data-reactid="604"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="605"><span class="hljs-keyword" data-reactid="606">const</span><!-- react-text: 607 --> a = Root.create().assignDeep({ <!-- /react-text --><span class="hljs-attr" data-reactid="608">a</span><!-- react-text: 609 -->: <!-- /react-text --><span class="hljs-string" data-reactid="610">&#x27;a&#x27;</span><!-- react-text: 611 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="612">b</span><!-- react-text: 613 -->: <!-- /react-text --><span class="hljs-string" data-reactid="614">&#x27;b&#x27;</span><!-- react-text: 615 --> })<!-- /react-text --></code></pre><!-- react-text: 616 -->
+<!-- /react-text --><p data-reactid="617"><!-- react-text: 618 -->Returns <!-- /react-text --><strong data-reactid="619"><a href="#root" data-reactid="620">Root</a></strong><!-- react-text: 621 --> <!-- /react-text --></p><!-- react-text: 622 -->
+<!-- /react-text --><h3 data-reactid="623"><a class="anchor" aria-hidden="true" name="isempty" data-reactid="624"></a><a href="#isempty" aria-hidden="true" class="hash-link" data-reactid="625"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="626"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="627"></path></svg></a><!-- react-text: 628 -->isEmpty<!-- /react-text --></h3><!-- react-text: 629 -->
+<!-- /react-text --><p data-reactid="630"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/Model/Root.js#L170-L177" title="Source code on GitHub" data-reactid="631">src/Model/Root.js:170-177</a></p><!-- react-text: 632 -->
+<!-- /react-text --><ul data-reactid="633"><!-- react-text: 634 -->
+<!-- /react-text --><li data-reactid="635"><strong data-reactid="636"><!-- react-text: 637 -->See: <!-- /react-text --><a href="#assign" data-reactid="638">assign</a></strong></li><!-- react-text: 639 -->
+<!-- /react-text --></ul><!-- react-text: 640 -->
+<!-- /react-text --><p data-reactid="641">判断当前实例是否内容为空</p><!-- react-text: 642 -->
+<!-- /react-text --><p data-reactid="643"><strong data-reactid="644">Examples</strong></p><!-- react-text: 645 -->
+<!-- /react-text --><pre data-reactid="646"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="647"><!-- react-text: 648 -->Root.create().isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="649">// true</span><!-- react-text: 650 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="651">a</span><!-- react-text: 652 -->: <!-- /react-text --><span class="hljs-string" data-reactid="653">&#x27;&#x27;</span><!-- react-text: 654 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="655">b</span><!-- react-text: 656 -->: [] }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="657">// true</span><!-- react-text: 658 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="659">a</span><!-- react-text: 660 -->: <!-- /react-text --><span class="hljs-string" data-reactid="661">&#x27;&#x27;</span><!-- react-text: 662 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="663">b</span><!-- react-text: 664 -->: [], <!-- /react-text --><span class="hljs-attr" data-reactid="665">c</span><!-- react-text: 666 -->: Root.create() }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="667">// true</span><!-- react-text: 668 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="669">a</span><!-- react-text: 670 -->: <!-- /react-text --><span class="hljs-string" data-reactid="671">&#x27;a&#x27;</span><!-- react-text: 672 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="673">b</span><!-- react-text: 674 -->: [] }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="675">// false</span><!-- react-text: 676 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="677">a</span><!-- react-text: 678 -->: <!-- /react-text --><span class="hljs-string" data-reactid="679">&#x27;&#x27;</span><!-- react-text: 680 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="681">b</span><!-- react-text: 682 -->: [<!-- /react-text --><span class="hljs-string" data-reactid="683">&#x27;a&#x27;</span><!-- react-text: 684 -->] }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="685">// false</span></code></pre><!-- react-text: 686 -->
+<!-- /react-text --><p data-reactid="687"><!-- react-text: 688 -->Returns <!-- /react-text --><strong data-reactid="689"><a href="#root" data-reactid="690">Root</a></strong><!-- react-text: 691 --> <!-- /react-text --></p><!-- react-text: 692 -->
+<!-- /react-text --><h1 data-reactid="693"><a class="anchor" aria-hidden="true" name="renderer" data-reactid="694"></a><a href="#renderer" aria-hidden="true" class="hash-link" data-reactid="695"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="696"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="697"></path></svg></a><!-- react-text: 698 -->Renderer<!-- /react-text --></h1><!-- react-text: 699 -->
+<!-- /react-text --><p data-reactid="700"><code data-reactid="701">React.createElement</code><!-- react-text: 702 --> 是不能渲染一个 ViewModel 实例的，
+于是便提供了渲染方法来渲染 vm。<!-- /react-text --></p><!-- react-text: 703 -->
+<!-- /react-text --><!-- react-text: 704 -->
+<!-- /react-text --><h2 data-reactid="705"><a class="anchor" aria-hidden="true" name="h" data-reactid="706"></a><a href="#h" aria-hidden="true" class="hash-link" data-reactid="707"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="708"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="709"></path></svg></a><!-- react-text: 710 -->h<!-- /react-text --></h2><!-- react-text: 711 -->
+<!-- /react-text --><p data-reactid="712"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/renderer/mixedRenderer.js#L38-L52" title="Source code on GitHub" data-reactid="713">src/renderer/mixedRenderer.js:38-52</a></p><!-- react-text: 714 -->
+<!-- /react-text --><p data-reactid="715"><!-- react-text: 716 -->可以渲染 Vm 实例的方法，类似于 <!-- /react-text --><code data-reactid="717">React.createElement</code></p><!-- react-text: 718 -->
+<!-- /react-text --><p data-reactid="719"><strong data-reactid="720">Parameters</strong></p><!-- react-text: 721 -->
+<!-- /react-text --><ul data-reactid="722"><!-- react-text: 723 -->
+<!-- /react-text --><li data-reactid="724"><code data-reactid="725">model</code><!-- react-text: 726 --> <!-- /react-text --><strong data-reactid="727"><!-- react-text: 728 -->(VmInstance | ReactComponent | <!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="729">string</a><!-- react-text: 730 -->)<!-- /react-text --></strong><!-- react-text: 731 --> <!-- /react-text --></li><!-- react-text: 732 -->
+<!-- /react-text --><li data-reactid="733"><code data-reactid="734">propsOrClassName</code><!-- react-text: 735 --> <!-- /react-text --><strong data-reactid="736"><!-- react-text: 737 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="738">string</a><!-- react-text: 739 --> | <!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="740">object</a><!-- react-text: 741 -->)<!-- /react-text --></strong><!-- react-text: 742 --> <!-- /react-text --></li><!-- react-text: 743 -->
+<!-- /react-text --><li data-reactid="744"><code data-reactid="745">props</code><!-- react-text: 746 --> <!-- /react-text --><strong data-reactid="747"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="748">object</a></strong><!-- react-text: 749 --> <!-- /react-text --></li><!-- react-text: 750 -->
+<!-- /react-text --><li data-reactid="751"><code data-reactid="752">children</code><!-- react-text: 753 --> <!-- /react-text --><strong data-reactid="754">ReactElement</strong><!-- react-text: 755 --> <!-- /react-text --></li><!-- react-text: 756 -->
+<!-- /react-text --></ul><!-- react-text: 757 -->
+<!-- /react-text --><p data-reactid="758"><strong data-reactid="759">Examples</strong></p><!-- react-text: 760 -->
+<!-- /react-text --><pre data-reactid="761"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="762"><!-- react-text: 763 -->h(model, <!-- /react-text --><span class="hljs-string" data-reactid="764">&#x27;class-name&#x27;</span><!-- react-text: 765 -->, {}, 
+ <!-- /react-text --><span class="hljs-comment" data-reactid="766">// children</span><!-- react-text: 767 -->
+ <!-- /react-text --><span class="hljs-string" data-reactid="768">&#x27;1&#x27;</span><!-- react-text: 769 -->, <!-- /react-text --><span class="hljs-string" data-reactid="770">&#x27;2&#x27;</span><!-- react-text: 771 -->
+);
+h.div({}, <!-- /react-text --><span class="hljs-string" data-reactid="772">&#x27;inner&#x27;</span><!-- react-text: 773 -->)
+h(<!-- /react-text --><span class="hljs-string" data-reactid="774">&#x27;div&#x27;</span><!-- react-text: 775 -->, {}, <!-- /react-text --><span class="hljs-string" data-reactid="776">&#x27;inner&#x27;</span><!-- react-text: 777 -->)
+h(<!-- /react-text --><span class="hljs-string" data-reactid="778">&#x27;div&#x27;</span><!-- react-text: 779 -->, <!-- /react-text --><span class="hljs-string" data-reactid="780">&#x27;classname&#x27;</span><!-- react-text: 781 -->, {}, <!-- /react-text --><span class="hljs-string" data-reactid="782">&#x27;inner&#x27;</span><!-- react-text: 783 -->)
+h(Component, <!-- /react-text --><span class="hljs-string" data-reactid="784">&#x27;classname&#x27;</span><!-- react-text: 785 -->, {}, 
+   h.span()
+)<!-- /react-text --></code></pre><!-- react-text: 786 -->
+<!-- /react-text --><p data-reactid="787"><!-- react-text: 788 -->Returns <!-- /react-text --><strong data-reactid="789">ReactElement</strong><!-- react-text: 790 --> <!-- /react-text --></p><!-- react-text: 791 -->
+<!-- /react-text --><h1 data-reactid="792"><a class="anchor" aria-hidden="true" name="extension" data-reactid="793"></a><a href="#extension" aria-hidden="true" class="hash-link" data-reactid="794"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="795"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="796"></path></svg></a><!-- react-text: 797 -->Extension<!-- /react-text --></h1><!-- react-text: 798 -->
+<!-- /react-text --><p data-reactid="799">一些额外的扩展</p><!-- react-text: 800 -->
+<!-- /react-text --><!-- react-text: 801 -->
+<!-- /react-text --><h2 data-reactid="802"><a class="anchor" aria-hidden="true" name="providerfactory" data-reactid="803"></a><a href="#providerfactory" aria-hidden="true" class="hash-link" data-reactid="804"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="805"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="806"></path></svg></a><!-- react-text: 807 -->providerFactory<!-- /react-text --></h2><!-- react-text: 808 -->
+<!-- /react-text --><p data-reactid="809"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/extension/providerFactory.js#L25-L35" title="Source code on GitHub" data-reactid="810">src/extension/providerFactory.js:25-35</a></p><!-- react-text: 811 -->
+<!-- /react-text --><p data-reactid="812">用于产生一个 Provider，传入一个全局的 store</p><!-- react-text: 813 -->
+<!-- /react-text --><p data-reactid="814"><strong data-reactid="815">Examples</strong></p><!-- react-text: 816 -->
+<!-- /react-text --><pre data-reactid="817"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="818"><span class="hljs-keyword" data-reactid="819">const</span><!-- react-text: 820 --> app = AppVM.create()
+<!-- /react-text --><span class="hljs-keyword" data-reactid="821">const</span><!-- react-text: 822 --> Provider = providerFactory(app)
+
+ReactDOM.render(
+   <!-- /react-text --><span class="xml" data-reactid="823"><span class="hljs-tag" data-reactid="824"><!-- react-text: 825 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="826">Provider</span><!-- react-text: 827 -->&gt;<!-- /react-text --></span><!-- react-text: 828 -->
+     {...}
+   <!-- /react-text --><span class="hljs-tag" data-reactid="829"><!-- react-text: 830 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="831">Provider</span><!-- react-text: 832 -->&gt;<!-- /react-text --></span></span><!-- react-text: 833 -->,
+   <!-- /react-text --><span class="hljs-built_in" data-reactid="834">window</span><!-- react-text: 835 -->.root
+)<!-- /react-text --></code></pre><!-- react-text: 836 -->
+<!-- /react-text --><h2 data-reactid="837"><a class="anchor" aria-hidden="true" name="router" data-reactid="838"></a><a href="#router" aria-hidden="true" class="hash-link" data-reactid="839"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="840"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="841"></path></svg></a><!-- react-text: 842 -->Router<!-- /react-text --></h2><!-- react-text: 843 -->
+<!-- /react-text --><p data-reactid="844"><a href="https://github.com/imcuttle/react-mobx-vm/blob/988b14293ee14a50f7e876dc8ae8532a1a3bb274/src/extension/RouterV3.js#L43-L45" title="Source code on GitHub" data-reactid="845">src/extension/RouterV3.js:43-45</a></p><!-- react-text: 846 -->
+<!-- /react-text --><p data-reactid="847"><!-- react-text: 848 -->如果你依赖了 <!-- /react-text --><strong data-reactid="849">react-router v3</strong><!-- react-text: 850 -->，那么可以使用该 Router 定义，而不是 react-router 的 Router
+<!-- /react-text --><strong data-reactid="851">注意</strong><!-- react-text: 852 --> <!-- /react-text --><code data-reactid="853">import Router from &#x27;react-mobx-vm/extension/RouterV3&#x27;</code></p><!-- react-text: 854 -->
+<!-- /react-text --></article></div><div class="docs-prevnext" data-reactid="855"><a class="docs-prev button" href="/api/decorator" data-reactid="856">← 修饰器相关</a><a class="docs-next button" href="/examples/binding" data-reactid="857">binding →</a></div></div></div></div></div><footer class="nav-footer" data-reactid="858"><a href="https://github.com/imcuttle/react-mobx-vm" target="_blank" class="fbOpenSource" data-reactid="859"><img src="https://raw.githubusercontent.com/imcuttle/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="860"/></a><section class="copyright" data-reactid="861"><p style="margin-bottom:5px;" data-reactid="862">Copyright © 2018 - Built by Picidae</p><!-- react-text: 863 -->Powered by <!-- /react-text --><a href="https://github.com/picidaejs/picidae-theme-haier" target="_blank" data-reactid="864">🍔 Haier</a><!-- react-text: 865 -->.<!-- /react-text --></section></footer></div>
+</div>
+<script src="/PICIDAE_COMMON.js"></script>
+<script src="/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

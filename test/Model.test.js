@@ -68,6 +68,19 @@ describe('Model.basic', function () {
     expect(new Person().name).toBe('cuttle')
     expect(new Person({ name: 'CUTTLE' }).name).toBe('CUTTLE')
     expect(new Person().assign).toBe(new Root().assign)
+    expect(typeof Person.create).toBe('function')
+    expect(Person.create({ name: 'create' }) instanceof Person).toBe(true)
+
+    class Special extends Root {
+      name = 'ques'
+      @observable abc = 'jkl'
+    }
+    expect(new Special({ name: 'abc' }).name).toBe('ques')
+    expect(new Special({ abc: 'abc' }).abc).toBe('abc')
+    expect(Special.create({ abc: 'abc' }).abc).toBe('abc')
+    expect(Special.create({ name: 'abc' }).name).toBe('abc')
+    // console.log(Special.prototype)
+    // console.log(Special.__proto__)
   })
 
 })

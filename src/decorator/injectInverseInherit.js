@@ -5,9 +5,55 @@
  * @description
  */
 import PropTypes from 'prop-types'
-import { displayName } from '../utils/reactUtils'
+import { displayName, isComponentClass } from '../utils/reactUtils'
 
+function injectCore(Comp) {
+  return class Inject extends Comp {
+    static displayName = `Inject-${displayName(Comp)}`
+    static contextTypes = {
+      ...Comp.contextTypes,
+      mobxStores: PropTypes.any
+    }
+
+    get store() {
+      return this.context.mobxStores
+    }
+
+    constructor(...args) {
+      super(...args)
+      if (this.store.app) {
+        Object.defineProperty(this, 'app', {
+          get: function () {
+            return this.store.app
+          },
+          configurable: true
+        })
+      }
+    }
+  }
+}
+
+/**
+ * 视图上注入全局 store
+ * @public
+ * @export
+ * @name inject
+ * @param {...string} [props=['app']]
+ * @returns {function}
+ * (ReactComponent) => InjectedComponent
+ * @example
+ * \@inject
+ * class View extends React.Component {
+ *    render() {
+ *      // this.app
+ *    }
+ * }   
+ */
 export default function (...props) {
+  if (arguments.length === 1 && isComponentClass(arguments[0])) {
+    return injectCore(arguments[0])
+  }
+
   if (!props.length) {
     props = ['app']
   }
@@ -16,29 +62,5 @@ export default function (...props) {
     contextTypes[prop] = PropTypes.any
   })
 
-  return function (Comp) {
-    return class Inject extends Comp {
-      static displayName = `Inject-${displayName(Comp)}`
-      static contextTypes = {
-        ...Comp.contextTypes,
-        mobxStores: PropTypes.any
-      }
-
-      get store() {
-        return this.context.mobxStores
-      }
-
-      constructor(...args) {
-        super(...args)
-        if (this.store.app) {
-          Object.defineProperty(this, 'app', {
-            get: function () {
-              return this.store.app
-            },
-            configurable: true
-          })
-        }
-      }
-    }
-  }
+  return injectCore
 }

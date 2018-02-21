@@ -43,10 +43,18 @@ const assign = action(function (rule, props, model) {
 })
 
 /**
- * 将 View 层的 props 映射同步至 model
- * @param mapper {Array|Object|string}
- *      { propName: modelName } | [string, object]
- * @return View
+ * 将 View 层的 props 同步映射至 model
+ * @param mapper {[mapper] | {propName, modelName: string} | string}
+ * @public
+ * @returns {function} View => MappingView
+ * @example
+ * \@mapping(['abc.d', { 'prop': 'model' }])
+ * class View extends React.Component {
+ *    render() {
+ *      // this.local.abc.d === this.props.abc.d
+ *      // this.local.model === this.props.prop
+ *    }
+ * }
  */
 export default function mapping(mapper) {
   if (

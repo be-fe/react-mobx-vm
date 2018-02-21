@@ -18,3 +18,12 @@ script:
   - npm test
 after_script:
   - codecov --token=$CODECOV_TOKEN
+
+before_deploy:
+  - picidae build -f
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: ${GH_TOKEN} # Set in travis-ci.org dashboard
+  local_dir: public
+  # repo: $GH_REF

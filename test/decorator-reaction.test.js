@@ -71,13 +71,15 @@ describe('decorator-reaction', function () {
       }
     }
 
-    let obb = ''
+    let obb = '', aa = ''
     @bindView(View)
     class Model extends Root {
       @observable ob = 'ob'
-      @reaction('ob')
-      reactReaction(ob, dispose) {
+      @observable deep = { a: 'ob' }
+      @reaction('ob', 'deep.a')
+      reactReaction(ob, a, dispose) {
         obb = ob.toUpperCase()
+        aa = a
         dispose && dispose()
       }
     }
@@ -85,10 +87,13 @@ describe('decorator-reaction', function () {
     mount(<VM/>)
     expect(VM.ob).toBe('ob')
     expect(obb).toBe('')
+    expect(aa).toBe('')
     VM.ob = 'xyz'
     expect(obb).toBe('XYZ')
+    expect(aa).toBe('ob')
     VM.ob = 'xyzxx'
     expect(obb).toBe('XYZ')
+    expect(aa).toBe('ob')
   })
 
 })

@@ -7,7 +7,6 @@
 import m from './modelComp'
 import { observer } from 'mobx-react'
 import getViewId from '../utils/increaseId'
-import { assertReactClass } from '../utils/reactUtils'
 
 export function getView(Model) {
   if (typeof Model === 'function') {
@@ -16,6 +15,27 @@ export function getView(Model) {
   return Model && Model.defaultComp
 }
 
+/**
+ * 
+ * 用于绑定 ViewModel 中与 Model 中对应的 View
+ * @export
+ * @param {Function|ReactClass} View 
+ * @public
+ * @example
+ * class View extends React.Component {
+ *    render() {
+ *      this.local.abc === 'abc' // true
+ *      this.local.cde === 'cde' // true
+ *    }
+ * }
+ * \@bindView(View)
+ * class Model extends Root {
+ *    \@observable abc = 'abc'
+ *    cde = 'cde'
+ *    // ...
+ * }
+ * @returns {function} Model => BindedViewModel
+ */
 export default function bindView(View) {
   if (typeof View !== 'function') {
     throw new TypeError('bindView require View is function, but ' + typeof View)

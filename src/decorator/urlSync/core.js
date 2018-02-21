@@ -22,6 +22,20 @@ function parse(string = '') {
 }
 
 let useHistory, unlisten, collection = {}
+/**
+ * @namespace urlSync
+ * @example 
+ * @name registerUrlSync
+ * @public
+ * @export
+ * @param {RouterHistory} history  
+ *  [See more information](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/history.md)
+ * @example
+ * import { hashHistory, Router } from 'react-router'
+ * registerUrlSync(hashHistory)
+ * 
+ * <Router routes={routes} history={hashHistory} />
+ */
 export function register(history) {
   useHistory = history
 }

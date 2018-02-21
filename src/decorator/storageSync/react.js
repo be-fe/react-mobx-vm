@@ -14,6 +14,13 @@ const keyMap = {
   exitKey: 'componentWillUnmount'
 }
 
+/**
+ * View 层的数据（localStorage）存储同步
+ * @public
+ * @name reactStorageSync
+ * @param [storageKey=property] {string}
+ * @param options {string} 参考{@link #reacturlsync|reactUrlSync}
+ */
 export default function (urlKeyOrTarget, property, descriptor) {
   if (invokedWithArgs(arguments)) {
     let options = property

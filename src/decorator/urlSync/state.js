@@ -15,15 +15,20 @@ const keyMap = {
 }
 
 /**
- * @def: .urlsyncDecorator: withArgs | withoutArg
- *  withArgs: string => decorator
- *      decorator: target, property, descriptor => descriptor
- *  withoutArg: decorator
- *  example:
- *      @urlsync(null, )
+ * 用于同步状态至 URL
+ * @namespace urlSync
+ * @name urlSync
+ * @example
+ * class Model extends Root {
+ *   \@urlSync
+ *   \@observable sync = 'abc'
+ *   // 未使用 @observable 修饰, urlSync会自动将其转为 observable
+ *   \@urlSync('g')
+ *   value = 'abcdef'
+ * }
+ * @public
  */
-
-export default function (urlKeyOrTarget, property, descriptor) {
+function urlSync(urlKeyOrTarget, property, descriptor) {
   if (invokedWithArgs(arguments)) {
     let options = property
     return (target, property, descriptor) =>
@@ -32,3 +37,5 @@ export default function (urlKeyOrTarget, property, descriptor) {
 
   return urlsync(property, keyMap, urlKeyOrTarget, property, descriptor)
 }
+
+export default urlSync

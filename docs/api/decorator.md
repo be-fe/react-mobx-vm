@@ -1,5 +1,8 @@
 ---
-title: abc
+title: 修饰器相关
 ---
 
-<<EXEC documentation build src/decorator/index.js $DOC_ARG docs/api/decorator.md>>
+<toc>
+---
+
+<<EXEC doc.js  src/decorator/index.js>>

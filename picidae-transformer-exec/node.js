@@ -24,9 +24,14 @@ if (modulePath) {
   binPath = nps.join(modulePath, '.bin')
 }
 
-function extendedEnv(env) {
+function extendedEnv(env, paths = []) {
+  paths = paths.map(function (p) {
+    return nps.resolve(p)
+  })
   return Object.assign({}, process.env, {
-    PATH: [binPath, (process.env.PATH || '')].join(delimiter)
+    PATH: paths.concat(
+      [binPath, (process.env.PATH || '')]
+    ).join(delimiter)
   }, env)
 }
 
@@ -34,6 +39,7 @@ function getOptions(options) {
   return Object.assign({
     cache: true,
     env: {},
+    paths: [],
     cwd: 'curr' // file | path/to/cwd
   }, options)
 }
@@ -57,6 +63,8 @@ function getCwd(cwd, gift) {
   case 'file':
     cwd = nps.dirname(filename)
     break
+  default:
+    cwd = nps.resolve(cwd)
   }
   if (!fs.existsSync(cwd) || !fs.statSync(cwd).isDirectory()) {
     console.error('[picidae-transformer-exec] Error: ', cwd, 'is illegal.')
@@ -77,7 +85,7 @@ function convert(cwd, options, content) {
   var newContent = content.replace(/<<EXEC (.+?)>>/g, function (_, command) {
     hitted = true
     return cp.execSync(command, {
-      env: extendedEnv(options.env),
+      env: extendedEnv(options.env, options.paths),
       cwd: cwd
     }).toString()
   })
@@ -91,23 +99,25 @@ exports.markdownTransformer = function (options, gift, require) {
   var content = gift.data
   var receivedHash = md5(content)
   var cached = cache[filename]
+  var converted
 
-  if (options.cache) {
-    if (cached && cached.hash === receivedHash) {
+  if (cached && options.cache) {
+    if (cached.hash === receivedHash) {
       console.log('[exec]:', filename, 'cache works!')
       return cached.convertedContent
     }
-    else {
-      var converted = convert(cwd, options, content)
-      if (converted) {
-        cache[filename] = {
-          hash: receivedHash,
-          convertedContent: converted
-        }
+  }
 
-        return converted
+  converted = convert(cwd, options, content)
+  if (converted) {
+    if (options.cache) {
+      cache[filename] = {
+        hash: receivedHash,
+        convertedContent: converted
       }
     }
+
+    return converted
   }
 
   return gift.data

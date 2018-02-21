@@ -18,7 +18,56 @@ export async function fetch(source) {
 
 const symbol = typeof Symbol === 'function' ? Symbol('collect') : '--[[collect]]--'
 
-export default function (...paths) {
+/**
+ * 收集全局 Store 的数据，一般在需要修改其他页面数据的时候使用；
+ * 并且在使用了 webpack **异步加载VM**，搭配 `collect` 使用。  
+ * 
+ * 1. 支持直接调用 `const someVM = await collect(this.app.someVM)`
+ * 2. 支持修饰器形式调用
+ * @public
+ * @param {...string} paths 
+ * @example <caption>app.js</caption>
+ * \@bindView(ContainerView)
+ * export default class App extends Root {
+ *    // 懒加载，代码分割
+ *    editVM = () => new Primise(resolve => {
+ *      require.ensure([], () => resolve(require('./editVM')))
+ *    })
+ *    viewVM = () => new Primise(resolve => {
+ *      require.ensure([], () => resolve(require('./viewVM')))
+ *    })
+ * }
+ * @example <caption>routes.js</caption>
+ * export default {
+ *    path: '/',
+ *    component: app,
+ *    indexRoute: {
+ *      getComponent: app.editVM
+ *    },
+ *    childRoutes: [
+ *      {
+ *        path: 'view',
+ *        getComponent: app.viewVM
+ *      }
+ *    ]
+ * }
+ * @example <caption>View.js</caption>
+ * \@collect('editVM', 'viewVM')
+ * export default class View extends React.Component {
+ *    render() {
+ *      // 在这可以直接使用
+ *      // this.app.editVM
+ *      // this.app.viewVM
+ *    }
+ *    
+ *    // 在下面的生命周期中，不能直接使用
+ *    // 需要 await collect(this.app.editVM) 来异步使用
+ *    constructor() {}
+ *    componentDidMount() {}
+ *    componentWillMount() {}
+ * }
+ */
+export default function collect(...paths) {
   if (
     !Array.isArray(arguments[0]) && arguments[0]
     && (
@@ -28,7 +77,7 @@ export default function (...paths) {
     return fetch(arguments[0])
   }
 
-  return function collect(Comp) {
+  return function collectInner(Comp) {
     assertReactClass(Comp, 'collect')
     if (paths.length === 0) {
       return Comp

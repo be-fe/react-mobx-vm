@@ -18,8 +18,8 @@
   "plugins": [
     [
       "transform-react-jsx", {
-      "pragma": "h"
-    }
+        "pragma": "h"
+      }
     ],
     "lodash",
     "transform-decorators-legacy",

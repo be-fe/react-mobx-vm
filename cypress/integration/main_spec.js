@@ -46,7 +46,7 @@ describe('ViewModel Main Spec', function () {
         .type('{selectall}{del}')
         .type('var')
       cy.get('#val')
-        .contains('default')
+        .contains('var')
     })
 
   })

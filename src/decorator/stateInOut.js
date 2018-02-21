@@ -5,6 +5,23 @@
 import { toJS } from 'mobx'
 import { displayName } from '../utils/reactUtils'
 
+/**
+ * 绑定 Model 至 View 中，将会挂载一些 View 的[生命周期](../advanced/life-cycle.md)至 Model 中
+ * @public 
+ * @name stateInOut
+ * @export
+ * @param {function} StateClass 
+ * @param {string} [keyName='local'] 
+ * @param {object} [initData={}] 
+ * @returns {function} View => View
+ * @example
+ * \@stateInOut(StateClass)
+ * class View extends React.Component {
+ *    render() {
+ *      // this.local 可以访问 StateClass 的实例
+ *    }
+ * }
+ */
 export default function (StateClass, keyName = 'local', initData = {}) {
   return componentClass => {
     if (typeof initData === 'function') {

@@ -53,6 +53,12 @@ function normalizeOptions(options = {}) {
   }
 }
 
+/**
+ * 如果你需要写一些自定义的 bindable 规则，可能你需要用到默认的配置
+ * @see [bindable](#bindable)
+ * @public
+ * 
+ */
 export const DEFAULT_OPTIONS = normalizeOptions({
   // 该批次 process 的条件判断
   cond: null,
@@ -130,10 +136,65 @@ export function getHandledProps(ctx, elementOrComponent, oldProps) {
 }
 
 /**
- *
- * @param options
- * @param tagName {String|Function}
+ * 搭配[binding](#binding)使用，可以定义自己的 binding 规则
+ * @public
+ * @param [options=DEFAULT_OPTIONS] {object}
+ * @param [options.cond=null] {function} props => boolean  
+ *       是否匹配上
+ * @param [options.prop=['value']] {[[propName: string, transform: function] | string]}  
+ *       需要绑定的属性定义，可以通过 transform 进行转换
+ * @param [options.event=['onChange']] {[[propName: string, handler: function] | string]}  
+ *       需要绑定的属性定义，可以通过 transform 进行转换
+ * @param tagName {String | ReactComponent}  
+ *   被绑定的组件，可以为 HTML标签名 或 ReactComponent
  * @return {Bindable}
+ * @see [examples/binding#bindable](../examples/binding.md#bindable)
+ * @example
+ * bindable([{
+ *    cond: function (props) {
+ *      return props.type === 'checkbox'
+ *    },
+ *    prop: [
+ *      ['checked', function (modelValue, propVal, props) {
+ *        return modelValue.includes(props.name)
+ *      }]
+ *    ],
+ *    event: [
+ *      ['onChange', function (evt, ctx) {
+ *        const { target: { name, checked } } = evt
+ *        const list = ctx.get()
+ *        let i = list.indexOf(name)
+ *        i >= 0 && list.splice(i, 1)
+ *        if (checked) {
+ *          list.push(name)
+ *        }
+ *      }]
+ *    ]
+ *  }].concat(DEFAULT_OPTIONS), 'input')
+ *
+ *  class Scope {
+ *    \@observable value = 'val'
+ *    \@observable checkedList = []
+ *  }
+ *  const scope = new Scope
+ *
+ *  \@observer
+ *  class View extends React.Component {
+ *    render() {
+ *      return (
+ *        <div>
+ *          {binding(scope)(
+ *            <input type="text" id="text" data-bind="value" data-scope={scope}/>,
+ *            <input type="checkbox" id="a_0" data-bind="checkedList" name={'a'}/>,
+ *            <input type="checkbox" id="a_1" data-bind="checkedList" name={'a'}/>,
+ *            <input type="checkbox" id="b_0" data-bind="checkedList" name={'b'}/>,
+ *          )}
+ *          <input id="test" data-bind="value"/>
+ *        </div>
+ *      )
+ *    }
+ *  }
+ * 
  */
 export default function bindable(options, tagName) {
   options = options || DEFAULT_OPTIONS

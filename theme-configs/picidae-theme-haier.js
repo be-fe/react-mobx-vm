@@ -6,6 +6,7 @@
  */
 var nps = require('path')
 var remoteOriginUrl = require('remote-origin-url')
+var pack = require('../package.json')
 var remote = remoteOriginUrl.sync(nps.join(__dirname, '..'))
 if (remote) {
   remote = remote.replace(/\.git$/, '')
@@ -16,20 +17,27 @@ else {
 
 module.exports = {
   logo: {
-    src: remote + '/raw/master/logo.svg',
+    src: 'https://raw.githubusercontent.com/imcuttle/react-mobx-vm/master/logo.svg?sanitize=true',
     name: 'React Mobx VM'
   },
 
   // work on title
-  description: '🍔 The universal picidae theme for project / library / framework etc.',
+  description: pack.description,
+  defaultLang: 'zh',
 
   headers: [
-    'docs',
+    // 'docs',
+    {
+      i18n: {
+        en: 'guide',
+        zh: '指引'
+      },
+      url: '/guide/'
+    },
     'api',
-    /*'blog',*/
     // spec
-    'i18n',
-    'search',
+    // 'i18n',
+    // 'search',
     'github'
   ],
   // repository: 'picidaejs/picidae-theme-haier',
@@ -45,14 +53,14 @@ module.exports = {
   },
 
   style: {
-    loadingColor: '#dd2f3d'
-    // themeColor
+    loadingColor: '#dd2f3d',
+    themeColor: '#2265b1'
   },
 
   footer: {
     organization: {
-      to: 'https://github.com/picidaejs/picidaejs',
-      logo: 'https://github.com/picidaejs/picidaejs/raw/master/logo/picidae-2x.png'
+      to: remote,
+      logo: 'https://raw.githubusercontent.com/imcuttle/react-mobx-vm/master/logo.svg?sanitize=true'
     },
     copyright: 'Copyright © 2018 - Built by Picidae'
   }
