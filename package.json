@@ -7,7 +7,7 @@
     "watch": "npm run babel -- -w",
     "rollup": "rollup -c --silent",
     "prepare": "run-p babel rollup",
-    "postinstall": "rm -rf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
+    "postinstall": "(cd picidae-transformer-exec && npm install) && rm -rf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
     "test": "jest",
     "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",
