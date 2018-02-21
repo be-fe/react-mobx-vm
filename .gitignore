@@ -10,3 +10,4 @@ cypress/screenshots/
 cypress/fixtures/
 lib/
 **/.DS_Store
+public/
