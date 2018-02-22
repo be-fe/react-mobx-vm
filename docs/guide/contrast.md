@@ -1,5 +1,6 @@
 ---
 title: "对比于 Redux 和 Mobx State Tree"
+order: 3
 ---
 
 以一个简单的 TodoList 应用为例，分别使用 [Mobx State Tree](https://github.com/mobxjs/mobx-state-tree) 和 React Mobx VM 来实现一下，这样对比起来更明显
