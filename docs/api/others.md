@@ -20,4 +20,4 @@ title: 其他相关
 
 <<EXEC doc.js  src/extension/**/*.js -s>>
 
-<<EXEC doc.js  packages/**/*.js -s>>
+<<EXEC doc.js  srcPackages/**/*.js -s>>
