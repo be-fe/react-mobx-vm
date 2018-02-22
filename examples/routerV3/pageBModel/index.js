@@ -1,5 +1,5 @@
 import { observable } from 'mobx'
-import { bindView, storageSync, Root } from '../../../dist/react-mobx-vm'
+import { bindView, storageSync, Root } from '../../../'
 import View from './View'
 
 @bindView(View)

@@ -3,9 +3,10 @@
   "version": "0.0.8",
   "description": "View & Model are mixed now via react mobx",
   "scripts": {
+    "babel": "babel srcPackages -d packages -D",
     "rollup": "rollup -c --silent",
     "watch": "npm run rollup -- -w",
-    "prepare": "run-p rollup",
+    "prepare": "run-p rollup babel",
     "test:all": "run-p test test:cy:run",
     "test": "jest",
     "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",

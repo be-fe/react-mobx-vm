@@ -12,3 +12,4 @@ lib/
 !picidae-transformer-exec/lib/
 **/.DS_Store
 public/
+packages/

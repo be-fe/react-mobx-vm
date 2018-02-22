@@ -6,8 +6,8 @@
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { h, providerFactory, registerUrlSync } from '../../dist/react-mobx-vm'
-import Router from '../../packages/RouterV3'
+import { h, providerFactory, registerUrlSync } from '../../'
+import Router from '../../srcPackages/RouterV3'
 import app from './globalModel/async'
 import { createHistory } from 'history'
 import { useRouterHistory } from 'react-router'

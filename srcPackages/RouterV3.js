@@ -5,7 +5,7 @@
  * @description
  */
 import * as React from 'react'
-import { h } from '../dist/react-mobx-vm'
+import { h } from '../'
 import { RouterContext, Router } from 'react-router'
 
 function render(props) {

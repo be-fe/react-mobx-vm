@@ -13,7 +13,7 @@ var nps = require('path')
 cp.execSync('npm run clean-picidae', { stdio: 'inherit' })
 
 var alias = {
-  'react-mobx-vm': nps.resolve('./')
+  'react-mobx-vm': require.resolve('./')
 }
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
   webpackConfigUpdater: function (config, webpack) {
     config.entry.PICIDAE_ENTRY = [
       config.entry.PICIDAE_ENTRY,
-      nps.resolve('./src/index.js')
+      require.resolve('./')
     ]
     console.log(config.entry)
     config.resolve = config.resolve || {}
