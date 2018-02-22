@@ -35,8 +35,8 @@ function render(props) {
 
 
 /**
- * 如果你依赖了 **react-router v3**，那么可以使用该 Router 定义，而不是 react-router 的 Router
- * <br>**注意** `import Router from 'react-mobx-vm/extension/RouterV3'`
+ * 如果你依赖了 **react-router v3**，那么可以使用该 Router 定义，而不是 react-router 的 Router  <br>
+ * **注意** `import Router from 'react-mobx-vm/extension/RouterV3'`
  * @public
  * @name Router
  */
