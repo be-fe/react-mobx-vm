@@ -12,12 +12,12 @@ if (remote) {
   remote = remote.replace(/\.git$/, '')
 }
 else {
-  remote = 'https://github.com/imcuttle/react-mobx-vm'
+  remote = 'https://github.com/be-fe/react-mobx-vm'
 }
 
 module.exports = {
   logo: {
-    src: 'https://raw.githubusercontent.com/imcuttle/react-mobx-vm/master/logo.svg?sanitize=true',
+    src: 'https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true',
     name: 'React Mobx VM'
   },
 
@@ -60,7 +60,7 @@ module.exports = {
   footer: {
     organization: {
       to: remote,
-      logo: 'https://raw.githubusercontent.com/imcuttle/react-mobx-vm/master/logo.svg?sanitize=true'
+      logo: 'https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true'
     },
     copyright: 'Copyright © 2018 - Built by Picidae'
   }
