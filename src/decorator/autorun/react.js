@@ -1,5 +1,3 @@
-import logger from '../../utils/logger'
-/* eslint-disable */
 /**
  * @file   autorun
  * @author yucong02
@@ -15,7 +13,7 @@ const keyMap = {
   exitKey: 'componentWillUnmount'
 }
 
-/** 
+/**
  * 发生改变之后，将会触发该成员方法
  * @name reactAutorun
  * @public
@@ -23,7 +21,7 @@ const keyMap = {
  * class View extends React.Component {
  *    \@observable val = '123'
  *    \@observable deep = { key: '123' }
- * 
+ *
  *    \@autorun
  *    autorunMethod(dispose) {
  *      // 当 `this.val`

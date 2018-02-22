@@ -4,14 +4,17 @@
  * @date 2018/2/19
  * @description
  */
-
+var cp = require('child_process')
 var nps = require('path')
+
+// Clean picidea dependiencies
+// Why don't fire it on postinstall?
+// Bacause postinstall will trigger on `npm install react-mobx-vm` too.
+cp.execSync('npm run clean-picidae', { stdio: 'inherit' })
 
 var alias = {
   'react-mobx-vm': nps.resolve('./src')
 }
-
-console.log(alias)
 
 module.exports = {
   /* eslint-disable no-unused-vars */
@@ -26,7 +29,6 @@ module.exports = {
     return config
   },
   ssrWebpackConfigUpdater: function (config) {
-    
     var externals = config.externals || []
     externals = [{
       'react-mobx-vm': false
@@ -46,7 +48,7 @@ module.exports = {
     'file-syntax',
     'toc?test=<toc>',
     // '/Users/yucong02/self/picidae-transformer-import-tree',
-    './picidae-transformer-exec?' + JSON.stringify({
+    'exec?' + JSON.stringify({
       cwd: 'curr',
       cache: true,
       paths: ['./scripts'],
