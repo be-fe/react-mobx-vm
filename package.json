@@ -7,7 +7,7 @@
     "rollup": "rollup -c --silent",
     "watch": "npm run rollup -- -w",
     "prepare": "run-p rollup babel",
-    "test:all": "run-p test test:cy:run",
+    "test:all": "npm run prepare && run-p test test:cy:run",
     "test": "jest",
     "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",
