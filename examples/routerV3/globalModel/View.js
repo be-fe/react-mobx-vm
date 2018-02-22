@@ -8,8 +8,7 @@
 import React from 'react'
 import { observable } from 'mobx'
 import { Link } from 'react-router'
-import { binding, h } from '../../../src'
-import urlsync from '../../../src/decorator/urlSync/react'
+import { binding, h, reactUrlSync as urlsync } from '../../../dist/react-mobx-vm'
 
 @binding
 export default class View extends React.Component {

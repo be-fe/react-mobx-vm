@@ -83,7 +83,7 @@ export default [
   {
     input: 'src/index.js',
     output: {
-      file: 'dist/react-mobx-vm.js',
+      file: 'dist/react-mobx-vm.umd.js',
       format: 'umd',
       name: 'reactMobxVM'
     },
@@ -93,7 +93,7 @@ export default [
   {
     input: 'src/index.js',
     output: {
-      file: 'dist/react-mobx-vm.min.js',
+      file: 'dist/react-mobx-vm.umd.min.js',
       format: 'umd',
       name: 'reactMobxVM'
     },
@@ -104,8 +104,16 @@ export default [
     input: 'src/index.js',
     output: {
       file: 'dist/react-mobx-vm.es.js',
-      format: 'es',
-      name: 'reactMobxVM'
+      format: 'es'
+    },
+    external,
+    plugins
+  },
+  {
+    input: 'src/index.js',
+    output: {
+      file: 'dist/react-mobx-vm.js',
+      format: 'cjs'
     },
     external,
     plugins

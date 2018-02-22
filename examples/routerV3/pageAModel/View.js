@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { binding, h } from '../../../src'
+import { binding, h } from '../../../dist/react-mobx-vm'
 
 @binding
 export default class View extends React.Component {

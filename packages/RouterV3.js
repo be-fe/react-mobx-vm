@@ -5,7 +5,7 @@
  * @description
  */
 import * as React from 'react'
-import h from '../renderer/mixedRenderer'
+import { h } from '../dist/react-mobx-vm'
 import { RouterContext, Router } from 'react-router'
 
 function render(props) {
@@ -36,7 +36,9 @@ function render(props) {
 
 /**
  * 如果你依赖了 **react-router v3**，那么可以使用该 Router 定义，而不是 react-router 的 Router
- * **注意** `import Router from 'react-mobx-vm/extension/RouterV3'`
+ *
+ * **注意**: 请用以下方式引入
+ * `import Router from 'react-mobx-vm/packages/RouterV3'`
  * @public
  * @name Router
  */

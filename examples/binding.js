@@ -8,7 +8,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { observable } from 'mobx'
-import { h, stateless, bindView, binding, bindable, Root } from '../src'
+import { h, stateless, bindView, binding, bindable, Root } from '../dist/react-mobx-vm'
 
 const BindableSpan = bindable([
   {

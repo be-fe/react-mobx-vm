@@ -6,7 +6,7 @@
  */
 
 import { observable } from 'mobx'
-import { bindView, Root, urlSync } from '../../../src'
+import { bindView, Root, urlSync } from '../../../dist/react-mobx-vm'
 import View from './View'
 
 @bindView(View)

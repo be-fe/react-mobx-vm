@@ -3,9 +3,8 @@
   "version": "0.0.5",
   "description": "View & Model are mixed now via react mobx",
   "scripts": {
-    "babel": "rm -rf lib/ && cross-env BABEL_ENV=babel babel src/ -d lib/ -D",
-    "watch": "npm run babel -- -w",
     "rollup": "rollup -c --silent",
+    "watch": "npm run rollup -- -w",
     "prepare": "run-p babel rollup",
     "test": "jest",
     "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",
@@ -28,15 +27,15 @@
       "git add"
     ]
   },
-  "main": "lib/index.js",
-  "module": "dist/franxx.es.js",
-  "jsnext:main": "dist/franxx.es.js",
-  "cdn": "dist/react-mobx-vm.min.js",
-  "unpkg": "dist/react-mobx-vm.min.js",
-  "jsdelivr": "dist/react-mobx-vm.min.js",
+  "main": "dist/react-mobx-vm.js",
+  "module": "dist/react-mobx-vm.es.js",
+  "jsnext:main": "dist/react-mobx-vm.es.js",
+  "cdn": "dist/react-mobx-vm.umd.min.js",
+  "unpkg": "dist/react-mobx-vm.umd.min.js",
+  "jsdelivr": "dist/react-mobx-vm.umd.min.js",
   "files": [
-    "lib",
-    "dist"
+    "dist",
+    "packages"
   ],
   "keywords": [
     "imcuttle",

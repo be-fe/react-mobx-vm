@@ -13,7 +13,7 @@ collect 适用于获取挂载在全局 store 中懒加载的 VM。
 ```jsx ?editable&placement=bottom
 import * as React from 'react'
 import { h, binding, inject, observable, providerFactory, bindView, Root } from 'react-mobx-vm'
-import Router from 'react-mobx-vm/extension/RouterV3'
+import Router from 'react-mobx-vm/packages/RouterV3'
 import { hashHistory, createMemoryHistory, useRouterHistory } from 'react-router'
 
 const history = typeof document === 'undefined' ? useRouterHistory(createMemoryHistory)() : hashHistory

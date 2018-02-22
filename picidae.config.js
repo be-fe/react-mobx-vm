@@ -13,7 +13,7 @@ var nps = require('path')
 cp.execSync('npm run clean-picidae', { stdio: 'inherit' })
 
 var alias = {
-  'react-mobx-vm': nps.resolve('./src')
+  'react-mobx-vm': nps.resolve('./')
 }
 
 module.exports = {

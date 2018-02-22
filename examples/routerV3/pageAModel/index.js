@@ -1,8 +1,5 @@
 import { observable } from 'mobx'
-import Root from '../../../src/Model/Root'
-import bindView from '../../../src/decorator/bindView'
-import urlSync from '../../../src/decorator/urlSync'
-import autorun from '../../../src/decorator/autorun'
+import { bindView, urlSync, autorun, Root } from '../../../dist/react-mobx-vm'
 import View from './View'
 
 class PageInfo extends Root {

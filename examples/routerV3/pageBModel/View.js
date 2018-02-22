@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { binding, h, collect } from '../../../src'
+import { binding, h, collect } from '../../../dist/react-mobx-vm'
 
 @binding
 @collect('pageA')
