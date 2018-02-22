@@ -124,12 +124,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/imcuttle/react-mobx-vm.git"
+    "url": "git+https://github.com/be-fe/react-mobx-vm.git"
   },
   "bugs": {
-    "url": "https://github.com/imcuttle/react-mobx-vm/issues"
+    "url": "https://github.com/be-fe/react-mobx-vm/issues"
   },
-  "homepage": "https://github.com/imcuttle/react-mobx-vm#readme",
+  "homepage": "https://github.com/be-fe/react-mobx-vm#readme",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
