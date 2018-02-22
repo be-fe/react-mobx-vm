@@ -1,3 +1,13 @@
+<a name="0.0.10"></a>
+## [0.0.10](https://github.com/imcuttle/react-mobx-vm/compare/v0.0.9...v0.0.10) (2018-02-22)
+
+
+### Bug Fixes
+
+* packages/RouterV3 supports props.createElement ([4db9236](https://github.com/imcuttle/react-mobx-vm/commit/4db9236))
+
+
+
 <a name="0.0.9"></a>
 ## [0.0.9](https://github.com/imcuttle/react-mobx-vm/compare/v0.0.8...v0.0.9) (2018-02-22)
 
