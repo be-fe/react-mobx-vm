@@ -8,6 +8,7 @@ View & Model are mixed now via react mobx
 [![Test coverage](https://img.shields.io/codecov/c/github/be-fe/react-mobx-vm.svg?style=flat-square)](https://codecov.io/github/be-fe/react-mobx-vm?branch=master)
 [![NPM version](https://img.shields.io/npm/v/react-mobx-vm.svg?style=flat-square)](https://www.npmjs.com/package/react-mobx-vm)
 [![NPM Downloads](https://img.shields.io/npm/dm/react-mobx-vm.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/react-mobx-vm)
+[test e2e](https://dashboard.cypress.io/#/projects/runs)
 
 - UMD `reactMobxVM`
   - https://unpkg.com/react-mobx-vm
