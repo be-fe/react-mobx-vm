@@ -29,7 +29,7 @@ deploy:
   local_dir: public
   # repo: $GH_REF
 
-addons:
-  sauce_connect:
-    username: imcuttle
-    access_key: ${SAUCE_ACCESS}
+# addons:
+#   sauce_connect:
+#     username: imcuttle
+#     access_key: ${SAUCE_ACCESS}
