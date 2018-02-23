@@ -9,7 +9,7 @@
     "prepare": "run-p rollup babel",
     "test:all": "npm run prepare && run-p test test:cy:run",
     "test": "jest",
-    "test:cy:ci": "npm-run-all --race --parallel \"gojs -- -s\" \"cy:run -- --record --key {1}\" --",
+    "test:cy:ci": "npm-run-all --race --parallel \"gojs:open -- -s -i binding.js\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",
     "test:cy:open": "run-p gojs cy:open",
     "gojs": "gojs examples --noopen -p 8001",
