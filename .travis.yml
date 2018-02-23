@@ -31,5 +31,5 @@ deploy:
 
 addons:
   sauce_connect:
-  username: imcuttle
-  access_key: ${SAUCE_ACCESS}
+    username: imcuttle
+    access_key: ${SAUCE_ACCESS}
