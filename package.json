@@ -21,7 +21,9 @@
     "lint": "eslint ./src --fix",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "gen-release-note": "node scripts/gen-release-notes.js",
+    "version": "run-p changelog gen-release-note"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [

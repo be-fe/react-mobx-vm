@@ -16,6 +16,7 @@ before_script:
   - npm install codecov
 script:
   - npm test
+  - npm run test:cy:ci $CYPRESS_RECORD_KEY
 after_script:
   - codecov --token=$CODECOV_TOKEN
 
@@ -27,3 +28,8 @@ deploy:
   github_token: ${GH_TOKEN} # Set in travis-ci.org dashboard
   local_dir: public
   # repo: $GH_REF
+
+addons:
+  sauce_connect:
+  username: imcuttle
+  access_key: ${SAUCE_ACCESS}
