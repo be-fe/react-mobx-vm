@@ -36,6 +36,7 @@ module.exports = {
     config.externals = externals
     return config
   },
+  host: 'https://be-fe.github.io/',
   docRoot: './docs',
   theme: 'haier',
   themeConfigsRoot: './theme-configs',

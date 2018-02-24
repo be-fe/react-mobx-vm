@@ -10,8 +10,7 @@ import { RouterContext, Router } from 'react-router'
 
 
 /**
- * 如果你依赖了 **react-router v3**，那么可以使用该 Router 定义，而不是 react-router 的 Router
- *
+ * 如果你依赖了 **react-router v3**，那么可以使用该 Router 定义，而不是 react-router 的 Router  
  * **注意**: 请用以下方式引入
  * `import Router from 'react-mobx-vm/packages/RouterV3'`
  * @public
