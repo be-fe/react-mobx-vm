@@ -16,7 +16,7 @@ jobs:
   include:
     - stage: Document deploy
       allow_failure: true
-      script: picidae build -f
+      script: picidae build -f --source-map
       deploy:
         provider: pages
         skip_cleanup: true
