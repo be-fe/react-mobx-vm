@@ -12,24 +12,23 @@ cache:
 install:
   - npm install
 
-before_script:
-  - npm install codecov
-script:
-  - npm test
-  - npm run test:cy:ci $CYPRESS_RECORD_KEY
-after_script:
-  - codecov --token=$CODECOV_TOKEN
-
-before_deploy:
-  - picidae build -f
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: ${GH_TOKEN} # Set in travis-ci.org dashboard
-  local_dir: public
-  # repo: $GH_REF
-
-# addons:
-#   sauce_connect:
-#     username: imcuttle
-#     access_key: ${SAUCE_ACCESS}
+jobs:
+  include:
+    - stage: Unit testing
+      before_script: npm install codecov
+      script: npm test
+      after_script: codecov --token=$CODECOV_TOKEN
+    - stage: E2E testing
+      script: npm run test:cy:ci $CYPRESS_RECORD_KEY
+    - stage: deploy
+      script: picidae build -f
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: ${GH_TOKEN} # Set in travis-ci.org dashboard
+        local_dir: public
+        # repo: $GH_REF
+      # addons:
+      #   sauce_connect:
+      #     username: imcuttle
+      #     access_key: ${SAUCE_ACCESS}
