@@ -16,16 +16,23 @@ export async function fetch(source) {
   return source
 }
 
+function fetchAndPush(ref, path) {
+  return fetch(get(ref, path))
+    .then(data => {
+      set(ref, path, data)
+    })
+}
+
 const symbol = typeof Symbol === 'function' ? Symbol('collect') : '--[[collect]]--'
 
 /**
  * 收集全局 Store 的数据，一般在需要修改其他页面数据的时候使用；
- * 并且在使用了 webpack **异步加载VM**，搭配 `collect` 使用。  
- * 
+ * 并且在使用了 webpack **异步加载VM**，搭配 `collect` 使用。
+ *
  * 1. 支持直接调用 `const someVM = await collect(this.app.someVM)`
  * 2. 支持修饰器形式调用
  * @public
- * @param {...string} paths 
+ * @param {...string} paths
  * @example <caption>app.js</caption>
  * \@bindView(ContainerView)
  * export default class App extends Root {
@@ -59,7 +66,7 @@ const symbol = typeof Symbol === 'function' ? Symbol('collect') : '--[[collect]]
  *      // this.app.editVM
  *      // this.app.viewVM
  *    }
- *    
+ *
  *    // 在下面的生命周期中，不能直接使用
  *    // 需要 await collect(this.app.editVM) 来异步使用
  *    constructor() {}
@@ -69,12 +76,21 @@ const symbol = typeof Symbol === 'function' ? Symbol('collect') : '--[[collect]]
  */
 export default function collect(...paths) {
   if (
-    !Array.isArray(arguments[0]) && arguments[0]
-    && (
-      typeof arguments[0] === 'object' || typeof arguments[0] === 'function'
-    )
+    typeof paths[0] === 'object' && !Array.isArray(paths[0])
+    || typeof paths[0] === 'function'
   ) {
-    return fetch(arguments[0])
+    const source = paths[0]
+    paths = paths.slice(1)
+    // `collect(app.pageA)`
+    if (!paths.length) {
+      return fetch(source)
+    }
+    // `collect(app, 'pageA')` // should reset
+    return Promise.all(
+      paths.map(
+        path => fetchAndPush(source, path)
+      )
+    ).then(() => source)
   }
 
   return function collectInner(Comp) {
@@ -89,10 +105,7 @@ export default function collect(...paths) {
         super(...args)
         Promise.all(
           paths.map(path =>
-            fetch(get(this.store.app, path))
-              .then(data => {
-                set(this.store.app, path, data)
-              })
+            fetchAndPush(this.store.app, path)
           )
         ).then(() => {
           this[symbol] = 'resolved'
