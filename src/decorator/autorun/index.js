@@ -6,11 +6,10 @@
 import {
   invokedWithArgs
 } from '../utils/index'
-import logger from '../../utils/logger'
 import autorun from './core'
 
 
-/** 
+/**
  * 监听数据发生改变之后，将会触发该成员方法，不同于 reaction
  * @name autorun
  * @public
@@ -19,7 +18,7 @@ import autorun from './core'
  * class Model extends Root {
  *    \@observable val = '123'
  *    \@observable deep = { key: '123' }
- * 
+ *
  *    \@autorun
  *    autorunMethod(dispose) {
  *      // 当 `this.val`

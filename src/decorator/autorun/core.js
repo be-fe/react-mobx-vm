@@ -6,7 +6,6 @@
 import {
   autorun
 } from 'mobx'
-import logger from '../../utils/logger'
 
 export default (opt = {}, target, property, description) => {
   const { initKey = 'init', exitKey = 'exit' } = opt
