@@ -1,3 +1,13 @@
+<a name="0.0.12"></a>
+## [0.0.12](https://github.com/be-fe/react-mobx-vm/compare/v0.0.11...v0.0.12) (2018-03-02)
+
+
+### Features
+
+* collect supports `collect(app, 'path')` to reset ([97de2d4](https://github.com/be-fe/react-mobx-vm/commit/97de2d4))
+
+
+
 <a name="0.0.11"></a>
 ## [0.0.11](https://github.com/be-fe/react-mobx-vm/compare/v0.0.10...v0.0.11) (2018-03-01)
 
