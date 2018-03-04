@@ -1,3 +1,13 @@
+<a name="0.0.13"></a>
+## [0.0.13](https://github.com/be-fe/react-mobx-vm/compare/v0.0.12...v0.0.13) (2018-03-04)
+
+
+### Performance Improvements
+
+* make `qs` to be external on `cjs/es` ([5577914](https://github.com/be-fe/react-mobx-vm/commit/5577914))
+
+
+
 <a name="0.0.12"></a>
 ## [0.0.12](https://github.com/be-fe/react-mobx-vm/compare/v0.0.11...v0.0.12) (2018-03-02)
 
