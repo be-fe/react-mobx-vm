@@ -51,7 +51,10 @@ documentation
     github: true
   })
   .then(mdFormatter)
-  .then(console.log)
+  .then(output => {
+    // break line for gfm
+    console.log(output.split('\n').map(line => line.trimRight()).join('  \n'))
+  })
   // .then(output => {
   //   // output is a string of Markdown data
   //   fs.writeFileSync('./output.md', output)

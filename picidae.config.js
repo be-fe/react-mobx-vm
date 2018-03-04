@@ -47,6 +47,7 @@ module.exports = {
       alias: alias
     }),
     'file-syntax',
+    'remark-github-break',
     'toc?test=<toc>',
     // '/Users/yucong02/self/picidae-transformer-import-tree',
     'exec?' + JSON.stringify({
