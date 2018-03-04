@@ -106,7 +106,7 @@ export default [
       file: 'dist/react-mobx-vm.es.js',
       format: 'es'
     },
-    external,
+    external: external.concat('qs'),
     plugins
   },
   {
@@ -115,7 +115,7 @@ export default [
       file: 'dist/react-mobx-vm.js',
       format: 'cjs'
     },
-    external,
+    external: external.concat('qs'),
     plugins
   }
 ]
