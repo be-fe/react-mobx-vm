@@ -1,3 +1,13 @@
+<a name="0.0.14"></a>
+## [0.0.14](https://github.com/be-fe/react-mobx-vm/compare/v0.0.13...v0.0.14) (2018-03-05)
+
+
+### Bug Fixes
+
+* fix injectExt name ([82ff7ca](https://github.com/be-fe/react-mobx-vm/commit/82ff7ca))
+
+
+
 <a name="0.0.13"></a>
 ## [0.0.13](https://github.com/be-fe/react-mobx-vm/compare/v0.0.12...v0.0.13) (2018-03-04)
 
