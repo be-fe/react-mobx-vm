@@ -7,7 +7,7 @@
 
 export collect from './collect'
 export bindView from './bindView'
-export injextExt from './injectExt'
+export injectExt from './injectExt'
 export inject from './injectInverseInherit'
 export mapping from './mapping'
 export stateless from './stateless'

@@ -11,7 +11,7 @@ import inject from './injectInverseInherit'
  * 注入全局 store，并且可以进行一些额外操作.
  * @public
  * @export
- * @param {string} [name='app'] 
+ * @param {string} [name='app']
  * @param {function} action
  * @returns {function}
  * (ReactComponent) => InjectedComponent
@@ -23,11 +23,14 @@ import inject from './injectInverseInherit'
  *    render() {
  *      // this.app
  *    }
- * }   
+ * }
  */
 export default function injectExt(name, action) {
   if (typeof name === 'function') {
     action = name
+    name = 'app'
+  }
+  if (typeof name === 'undefined') {
     name = 'app'
   }
   return function (Comp) {
