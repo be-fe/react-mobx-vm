@@ -57,7 +57,7 @@ function normalizeOptions(options = {}) {
  * 如果你需要写一些自定义的 bindable 规则，可能你需要用到默认的配置
  * @see [bindable](#bindable)
  * @public
- * 
+ *
  */
 export const DEFAULT_OPTIONS = normalizeOptions({
   // 该批次 process 的条件判断
@@ -104,18 +104,20 @@ export function getHandledProps(ctx, elementOrComponent, oldProps) {
 
     opt.event.forEach(([name, handle]) => {
       if (typeof handle !== 'function') {
-        handle = function (event) {
-          return typeof event.target === 'object'
+        handle = function ([event]) {
+          return event
+                 && typeof event.target === 'object'
                  && 'value' in event.target
-            ? event.target.value : event
+            ? event.target.value
+            : event
         }
       }
       proxy(props, name, function (onChange) {
-        return function (event) {
-          const rlt = onChange && onChange.apply(this, arguments)
+        return function (...argvs) {
+          const rlt = onChange && onChange.apply(this, argvs)
           if (rlt !== false) {
             // continue, not skip
-            const newValue = handle.apply(this, [event, ctx])
+            const newValue = handle.apply(this, [argvs, ctx])
 
             // handle will be regard as transform
             // when return something
@@ -139,13 +141,13 @@ export function getHandledProps(ctx, elementOrComponent, oldProps) {
  * 搭配[binding](#binding)使用，可以定义自己的 binding 规则
  * @public
  * @param [options=DEFAULT_OPTIONS] {object}
- * @param [options.cond=null] {function} props => boolean  
+ * @param [options.cond=null] {function} props => boolean
  *       是否匹配上
- * @param [options.prop=['value']] {[[propName: string, transform: function] | string]}  
+ * @param [options.prop=['value']] {[[propName: string, transform: function] | string]}
  *       需要绑定的属性定义，可以通过 transform 进行转换
- * @param [options.event=['onChange']] {[[propName: string, handler: function] | string]}  
+ * @param [options.event=['onChange']] {[[propName: string, handler: function] | string]}
  *       需要绑定的属性定义，可以通过 transform 进行转换
- * @param tagName {String | ReactComponent}  
+ * @param tagName {String | ReactComponent}
  *   被绑定的组件，可以为 HTML标签名 或 ReactComponent
  * @return {Bindable}
  * @see [examples/binding#bindable](../examples/binding.md#bindable)
@@ -194,7 +196,7 @@ export function getHandledProps(ctx, elementOrComponent, oldProps) {
  *      )
  *    }
  *  }
- * 
+ *
  */
 export default function bindable(options, tagName) {
   options = options || DEFAULT_OPTIONS
