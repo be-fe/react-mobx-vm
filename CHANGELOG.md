@@ -1,3 +1,18 @@
+<a name="0.0.15"></a>
+## [0.0.15](https://github.com/be-fe/react-mobx-vm/compare/v0.0.14...v0.0.15) (2018-03-05)
+
+
+### Performance Improvements
+
+* **bindable:** refactor the arguments of bindable `event` option ([a9fc49a](https://github.com/be-fe/react-mobx-vm/commit/a9fc49a))
+
+
+### BREAKING CHANGES
+
+* **bindable:** the bindable's option.event use array type to the first argument
+
+
+
 <a name="0.0.14"></a>
 ## [0.0.14](https://github.com/be-fe/react-mobx-vm/compare/v0.0.13...v0.0.14) (2018-03-05)
 
