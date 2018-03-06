@@ -1,3 +1,13 @@
+<a name="0.0.16"></a>
+## [0.0.16](https://github.com/be-fe/react-mobx-vm/compare/v0.0.15...v0.0.16) (2018-03-06)
+
+
+### Features
+
+* Root#assignShallow supports nested Root instance ([4e67065](https://github.com/be-fe/react-mobx-vm/commit/4e67065))
+
+
+
 <a name="0.0.15"></a>
 ## [0.0.15](https://github.com/be-fe/react-mobx-vm/compare/v0.0.14...v0.0.15) (2018-03-05)
 
