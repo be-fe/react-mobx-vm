@@ -10,7 +10,7 @@ import {
 import _ from 'lodash'
 
 /**
- * 
+ *
  * 建议所以的 Model 都继承自该类，提供了一些方法
  * @typedef Root
  * @public
@@ -22,7 +22,7 @@ export default class Root {
    * 建议使用给方法创建实例对象，而不是 `new Model()` 原因参看 https://github.com/imcuttle/babel-plugin-class-properties-default-value
    * @static
    * @public
-   * @param {object} [init={}] 
+   * @param {object} [init={}]
    * @returns {Root}
    * @memberof Root
    * @example
@@ -68,10 +68,10 @@ export default class Root {
   }
 
   /**
-   * 
+   *
    * 设置当前对象中 key 的值
-   * @param {string | array} key 
-   * @param {any} value 
+   * @param {string | array} key
+   * @param {any} value
    * @returns {Root}
    * @public
    * @memberof Root
@@ -96,13 +96,21 @@ export default class Root {
     data = toJS(data)
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        this[key] = typeof data[key] === 'undefined' ? this[key] : data[key]
+        if (typeof data[key] !== 'undefined') {
+          if (this[key] instanceof Root) {
+            this[key].assignShallow(data[key])
+          }
+          else {
+            this[key] = data[key]
+          }
+        }
+
       }
     }
     return this
   }
   /**
-   * 
+   *
    * 拷贝当前对象
    * @returns {Root}  一个新的实例
    * @public
@@ -113,7 +121,7 @@ export default class Root {
   }
   /**
    * 对比两个对象是否相同
-   * @param {any} other 
+   * @param {any} other
    * @returns {boolean}
    * @memberof Root
    * @public
@@ -129,7 +137,7 @@ export default class Root {
 
   /**
    * 批量赋值
-   * @param {object | Root} data 
+   * @param {object | Root} data
    * @returns {Root}
    * @memberof Root
    * @public
@@ -142,7 +150,7 @@ export default class Root {
   /**
    *  深拷贝批量赋值
    * @see [assign](#assign)
-   * @param {object | Root} data 
+   * @param {object | Root} data
    * @returns {Root}
    * @memberof Root
    * @public

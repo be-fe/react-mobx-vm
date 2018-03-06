@@ -12,7 +12,7 @@
     "test:cy:ci": "npm-run-all --race --parallel \"gojs:open -- -s -i binding.js\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",
     "test:cy:open": "run-p gojs cy:open",
-    "gojs": "gojs examples --noopen -p 8001",
+    "gojs": "npm run gojs:open -- --noopen",
     "gojs:open": "gojs examples -p 8001",
     "cy:run": "cypress run",
     "cy:open": "cypress open",

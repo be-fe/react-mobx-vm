@@ -230,4 +230,23 @@ describe('Model.lifeCycle', () => {
     expect(exit.callCount).toBe(1)
     expect(init.callCount).toBe(2)
   })
+
+  test('assignShallow nested Root instance', () => {
+    class Bar extends Root {
+      val = 'val'
+    }
+    class Person extends Bar {
+      bar = new Bar
+    }
+    class Nested extends Root {
+      person = new Person()
+    }
+
+    const nested = Nested.create({ person: { bar: { val: 'abc' } } })
+    expect(nested.person instanceof Person).toBe(true)
+    expect(nested.person instanceof Root).toBe(true)
+    expect(nested.person.val).toBe('val')
+    expect(nested.person.bar.val).toBe('abc')
+    expect(nested.person.bar instanceof Bar).toBe(true)
+  })
 })
