@@ -113,8 +113,8 @@ export function getHandledProps(ctx, elementOrComponent, oldProps) {
         }
       }
       proxy(props, name, function (onChange) {
-        return function (...argvs) {
-          const rlt = onChange && onChange.apply(this, argvs)
+        return async function (...argvs) {
+          const rlt = onChange && await onChange.apply(this, argvs)
           if (rlt !== false) {
             // continue, not skip
             const newValue = handle.apply(this, [argvs, ctx])

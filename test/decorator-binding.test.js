@@ -19,12 +19,14 @@ describe('decorator-binding', function () {
     class Scope {
       @observable value = 'val'
     }
+
     const scope = new Scope
+
     @observer
     class View extends React.Component {
       render() {
         return binding(scope)(
-          <input data-bind="value" />
+          <input data-bind="value"/>
         )
       }
     }
@@ -46,13 +48,14 @@ describe('decorator-binding', function () {
     class Scope {
       @observable value = 'val'
     }
+
     const scope = new Scope
 
     @binding(scope)
     class View extends React.Component {
       render() {
         return <div>
-          <input data-bind="value" />
+          <input data-bind="value"/>
         </div>
       }
     }
@@ -75,9 +78,10 @@ describe('decorator-binding', function () {
     class Scope {
       @observable value = 'val'
     }
+
     const scope = new Scope
     const View = binding(scope)(function () {
-      return <input data-bind="value" />
+      return <input data-bind="value"/>
     })
 
     const wrapper = mount(<View/>)
@@ -98,13 +102,15 @@ describe('decorator-binding', function () {
     @binding
     class View extends React.Component {
       render() {
-        return <input data-bind="value" />
+        return <input data-bind="value"/>
       }
     }
+
     @bindView(View)
     class Scope {
       @observable value = 'val'
     }
+
     const VM = new Scope
 
     const wrapper = mount(<VM/>)
@@ -123,12 +129,14 @@ describe('decorator-binding', function () {
 
   test('spec @binding function', () => {
     const View = binding(function () {
-      return <input data-bind="value" />
+      return <input data-bind="value"/>
     })
+
     @bindView(View)
     class Scope {
       @observable value = 'val'
     }
+
     const VM = new Scope
 
     const wrapper = mount(<VM/>)
@@ -149,6 +157,7 @@ describe('decorator-binding', function () {
     class Scope {
       @observable value = 'val'
     }
+
     const scope = new Scope
     const View = observer(() => binding(<input data-bind="value" data-scope={scope}/>))
     const wrapper = mount(<View/>)
@@ -170,8 +179,9 @@ describe('decorator-binding', function () {
     class View extends React.Component {
       @binding
       get InnerView() {
-        return <input data-bind="value" />
+        return <input data-bind="value"/>
       }
+
       render() {
         return (
           <div>
@@ -181,10 +191,12 @@ describe('decorator-binding', function () {
         )
       }
     }
+
     @bindView(View)
     class Scope {
       @observable value = 'val'
     }
+
     const scope = new Scope()
 
     const wrapper = mount(h(scope))
@@ -209,6 +221,7 @@ describe('decorator-binding', function () {
     class Scope {
       @observable value = 'val'
     }
+
     const scope = new Scope
     const View = observer(() =>
       binding(
@@ -238,34 +251,47 @@ describe('decorator-binding', function () {
 
 
   test('spec bindable', () => {
-    bindable([{
-      cond: function (props) {
-        return props.type === 'checkbox'
-      },
-      // flatten
-      prop: [
-        ['checked', function (modelValue, propVal, props) {
-          return modelValue.includes(props.name)
-        }]
-      ],
-      event: [
-        ['onChange', function ([evt], ctx) {
-          const { target: { name, checked } } = evt
-          const list = ctx.get()
-          let i = list.indexOf(name)
-          i >= 0 && list.splice(i, 1)
-          if (checked) {
-            list.push(name)
-          }
-        }]
-      ]
-    }].concat(DEFAULT_OPTIONS), 'input')
+    bindable([
+      {
+        cond: function (props) {
+          return props.type === 'checkbox'
+        },
+        // flatten
+        prop: [
+          [
+            'checked', function (modelValue, propVal, props) {
+              return modelValue.includes(props.name)
+            }
+          ]
+        ],
+        event: [
+          [
+            'onChange', function ([evt], ctx) {
+              const { target: { name, checked } } = evt
+              const list = ctx.get()
+              let i = list.indexOf(name)
+              i >= 0 && list.splice(i, 1)
+              if (checked) {
+                list.push(name)
+              }
+            }
+          ]
+        ]
+      }
+    ].concat(DEFAULT_OPTIONS), 'input')
 
     class Scope {
       @observable value = 'val'
       @observable checkedList = []
     }
+
     const scope = new Scope
+
+    const tick = (val) => new Promise(
+      resolve => {
+        setTimeout(resolve, 500, val)
+      }
+    )
 
     @observer
     class View extends React.Component {
@@ -273,21 +299,43 @@ describe('decorator-binding', function () {
         return (
           <div>
             {binding(scope)(
-              <input type="text" id="text" data-bind="value" data-scope={scope}/>,
+              <input
+                type="text"
+                id="text"
+                data-bind="value"
+                data-scope={scope}
+              />,
+              <input
+                type="text"
+                id="lazy"
+                data-bind="value"
+                data-scope={scope}
+                onChange={async evt => {
+                  return await tick(false)
+                }}
+              />,
               <input type="checkbox" id="a_0" data-bind="checkedList" name={'a'}/>,
               <input type="checkbox" id="a_1" data-bind="checkedList" name={'a'}/>,
-              <input type="checkbox" id="b_0" data-bind="checkedList" name={'b'}/>,
+              <input type="checkbox" id="b_0" data-bind="checkedList" name={'b'}/>
             )}
             <input id="test" data-bind="value"/>
           </div>
         )
       }
     }
+
     const wrapper = mount(<View/>)
     const input = wrapper.find('input#text')
+    const lazyInput = wrapper.find('input#lazy')
 
     expect(input.render().val()).toBe('val')
     input.simulate('change', { target: { value: 'newVal' } })
+    expect(input.render().val()).toBe('newVal')
+
+    expect(lazyInput.render().val()).toBe('newVal')
+    lazyInput.simulate('change', { target: { value: 'abcNewVal' } })
+    expect(lazyInput.render().val()).toBe('newVal')
+
     expect(input.render().val()).toBe('newVal')
 
     scope.checkedList.push('a')
