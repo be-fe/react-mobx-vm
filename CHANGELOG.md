@@ -1,3 +1,13 @@
+<a name="0.0.17"></a>
+## [0.0.17](https://github.com/be-fe/react-mobx-vm/compare/v0.0.16...v0.0.17) (2018-03-07)
+
+
+### Performance Improvements
+
+* **bindable:** the before onChange could async return false ([38837f1](https://github.com/be-fe/react-mobx-vm/commit/38837f1))
+
+
+
 <a name="0.0.16"></a>
 ## [0.0.16](https://github.com/be-fe/react-mobx-vm/compare/v0.0.15...v0.0.16) (2018-03-06)
 

@@ -1,10 +1,10 @@
 {
   "name": "react-mobx-vm",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "View & Model are mixed now via react mobx",
   "scripts": {
     "babel": "rimraf packages && babel srcPackages -d packages -D",
-    "rollup": "rollup -c --silent",
+    "rollup": "rimraf dist && rollup -c --silent",
     "watch": "npm run rollup -- -w",
     "prepare": "run-p rollup babel",
     "test:all": "npm run prepare && run-p test test:cy:run",
