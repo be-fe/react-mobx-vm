@@ -162,7 +162,7 @@ export function getHandledProps(ctx, elementOrComponent, oldProps) {
  *      }]
  *    ],
  *    event: [
- *      ['onChange', function (evt, ctx) {
+ *      ['onChange', function ([evt], ctx) {
  *        const { target: { name, checked } } = evt
  *        const list = ctx.get()
  *        let i = list.indexOf(name)
