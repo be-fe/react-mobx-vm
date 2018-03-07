@@ -10,7 +10,7 @@ import { invokedWithArgs } from '../utils'
 
 const keyMap = {
   initKey: 'componentDidMount',
-  // updateKey: 'componentWillReceiveProps',
+  updateKey: 'componentWillReceiveProps',
   exitKey: 'componentWillUnmount'
 }
 
@@ -20,7 +20,7 @@ const keyMap = {
  * @name reactUrlSync
  * @param [urlKey=property] {string} - 状态对应URL上的 key
  * @param [options] {Object} - 选项
- * @param [options.initialWrite=false] {boolean}  
+ * @param [options.initialWrite=false] {boolean}
  *  是否在第一次加载时候，将状态值写至 URL
  * @example
  *  class View extends React.Component {

@@ -24,16 +24,16 @@ function parse(string = '') {
 let useHistory, unlisten, collection = {}
 /**
  * @namespace urlSync
- * @example 
+ * @example
  * @name registerUrlSync
  * @public
  * @export
- * @param {RouterHistory} history  
+ * @param {RouterHistory} history
  *  [See more information](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/history.md)
  * @example
  * import { hashHistory, Router } from 'react-router'
  * registerUrlSync(hashHistory)
- * 
+ *
  * <Router routes={routes} history={hashHistory} />
  */
 export function register(history) {
@@ -58,7 +58,7 @@ function checkExistedName(name) {
 }
 
 export default getStateLifeDecorator({
-  init(self, property, name) {
+  /*init(self, property, name) {
     assertHistory()
     checkExistedName(name)
     collection[name] = assignState.bind(null, self, property)
@@ -83,10 +83,10 @@ export default getStateLifeDecorator({
         }
       )
     )
-  },
-  exit(self, property, name) {
+  },*/
+  /*exit(self, property, name) {
     delete collection[name]
-  },
+  },*/
   saveFirstTime(key, value, data) {
     assertHistory()
     useHistory.replace({
