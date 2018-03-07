@@ -18,8 +18,14 @@ export default (opt = {}, target, property, description) => {
       dispose = null
     }
 
-    function wrapMethod(method, callback) {
+    function wrapMethod(method, callback, callbackPlacement = 'after') {
       return function () {
+        // urlsync 在 autorun 后面执行
+        if (callbackPlacement === 'before') {
+          callback && callback.call(this)
+          return method && method.apply(this, arguments)
+        }
+
         // autorun 在 urlsync 后面执行
         const rlt = method && method.apply(this, arguments)
         callback && callback.call(this)
@@ -30,7 +36,7 @@ export default (opt = {}, target, property, description) => {
 
     target[exitKey] = wrapMethod(target[exitKey], function () {
       release()
-    })
+    }, 'before')
 
     target[initKey] = wrapMethod(target[initKey], function () {
       if (dispose) {
