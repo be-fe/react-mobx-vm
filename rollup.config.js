@@ -106,7 +106,9 @@ export default [
       file: 'dist/react-mobx-vm.es.js',
       format: 'es'
     },
-    external: external.concat('qs'),
+    external: id => {
+      return id.startsWith('lodash') || external.includes(id)
+    },
     plugins
   },
   {
@@ -115,7 +117,9 @@ export default [
       file: 'dist/react-mobx-vm.js',
       format: 'cjs'
     },
-    external: external.concat('qs'),
+    external: id => {
+      return id.startsWith('lodash') || external.includes(id)
+    },
     plugins
   }
 ]
