@@ -249,4 +249,45 @@ describe('Model.lifeCycle', () => {
     expect(nested.person.bar.val).toBe('abc')
     expect(nested.person.bar instanceof Bar).toBe(true)
   })
+
+  test('toJSON nested Root instance', () => {
+    class Bar extends Root {
+      val = 'val'
+    }
+    class Person extends Root {
+      bar = new Bar
+    }
+    class Nested extends Root {
+      person = new Person()
+    }
+
+    const nested = Nested.create({ person: { bar: { val: 'abc' } } })
+    expect(nested.toJSON()).toEqual({
+      person: {
+        bar: { val: 'abc' }
+      }
+    })
+
+  })
+
+  test('toJSON customized nested', () => {
+    class Bar extends Root {
+      val = 'val'
+      toJSON() {
+        return ['bar']
+      }
+    }
+    class Person extends Root {
+      bar = new Bar
+    }
+    class Nested extends Root {
+      person = new Person()
+    }
+    const nested = Nested.create({ person: { bar: { val: 'abc' } } })
+    expect(nested.toJSON()).toEqual({
+      person: {
+        bar: ['bar']
+      }
+    })
+  })
 })

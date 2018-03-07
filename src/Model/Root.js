@@ -34,6 +34,7 @@ export default class Root {
   static create(init = {}) {
     return new this().assign(init)
   }
+
   /**
    * 该方法对应与 React 的 componentDidMount 生命周期
    * @public
@@ -42,6 +43,7 @@ export default class Root {
    */
   init(/* props */) {
   }
+
   /**
    * 该方法对应与 React 的 componentWillReceiveProps 生命周期
    * @public
@@ -50,6 +52,7 @@ export default class Root {
    */
   update() {
   }
+
   /**
    * 该方法对应与 React 的 componentWillUnmount 生命周期
    * @public
@@ -58,13 +61,26 @@ export default class Root {
    */
   exit() {
   }
+
   /**
    * 将 this 转换为 JSON
    * @public
    * @memberof Root
    */
   toJSON() {
-    return toJS(this)
+    const data = {}
+    Object
+      .keys(this)
+      .forEach(name => {
+        // 嵌套支持
+        if (this[name] && typeof this[name].toJSON === 'function') {
+          data[name] = this[name].toJSON()
+        }
+        else {
+          data[name] = this[name]
+        }
+      })
+    return toJS(data)
   }
 
   /**
@@ -109,6 +125,7 @@ export default class Root {
     }
     return this
   }
+
   /**
    *
    * 拷贝当前对象
@@ -119,6 +136,7 @@ export default class Root {
   clone() {
     return new this.constructor(this)
   }
+
   /**
    * 对比两个对象是否相同
    * @param {any} other
@@ -132,7 +150,7 @@ export default class Root {
    */
   isEqual(other) {
     return this === other
-       || _.isEqual(this.toJSON(), other instanceof Root ? other.toJSON() : other)
+           || _.isEqual(this.toJSON(), other instanceof Root ? other.toJSON() : other)
   }
 
   /**
@@ -147,6 +165,7 @@ export default class Root {
   assign(data) {
     return this.assignShallow(data)
   }
+
   /**
    *  深拷贝批量赋值
    * @see [assign](#assign)
