@@ -1,3 +1,23 @@
+<a name="0.0.19"></a>
+## [0.0.19](https://github.com/be-fe/react-mobx-vm/compare/v0.0.18...v0.0.19) (2018-03-07)
+
+
+### Bug Fixes
+
+* fix the execute order about autorun dispose ([8820866](https://github.com/be-fe/react-mobx-vm/commit/8820866))
+
+
+### Features
+
+* Root#toJSON supports nested ([98d6a3a](https://github.com/be-fe/react-mobx-vm/commit/98d6a3a))
+
+
+### Reverts
+
+* revert urlSync's logic ([8a67921](https://github.com/be-fe/react-mobx-vm/commit/8a67921))
+
+
+
 <a name="0.0.18"></a>
 ## [0.0.18](https://github.com/be-fe/react-mobx-vm/compare/v0.0.17...v0.0.18) (2018-03-07)
 
