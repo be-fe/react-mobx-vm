@@ -1,3 +1,24 @@
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/be-fe/react-mobx-vm/compare/v0.0.19...v0.1.0) (2018-03-08)
+
+
+### Bug Fixes
+
+* urlsync assign state donot update ref ([ecdd0dc](https://github.com/be-fe/react-mobx-vm/commit/ecdd0dc))
+* urlsync assignState ([eda851c](https://github.com/be-fe/react-mobx-vm/commit/eda851c))
+
+
+### Code Refactoring
+
+* Root#assignShallow allow `undefined` setted ([b5f25aa](https://github.com/be-fe/react-mobx-vm/commit/b5f25aa))
+
+
+### BREAKING CHANGES
+
+* Root#assignShallow allow `undefined` setted
+
+
+
 <a name="0.0.19"></a>
 ## [0.0.19](https://github.com/be-fe/react-mobx-vm/compare/v0.0.18...v0.0.19) (2018-03-07)
 
