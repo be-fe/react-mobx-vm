@@ -28,27 +28,9 @@ export const assignState = action(
       }
       else if (typeof self[property] === 'object' && self[property] !== null) {
         if (typeof val === 'object') {
-          if (self[property] instanceof Array) {
-            let appendItems = [val]
-            if (val instanceof Array) {
-              appendItems = [...val]
-            }
-            self[property].splice(
-              0, self[property].length,
-              ...appendItems
-            )
-          }
-          else {
-            let Class = self[property].constructor
-            // 细化赋值操作，
-            // 防止 state change -> url change
-            // -> update -> state change (新的实例)
-            if (typeof self[property].assign === 'function') {
-              self[property].assign(val)
-            }
-            else {
-              Object.assign(self[property], new Class(val))
-              // setVal(new Class(val))
+          for (let k in val) {
+            if (val.hasOwnProperty(k)) {
+              assignState(self[property], k, val[k])
             }
           }
         }
@@ -161,7 +143,9 @@ export default (config = {}, name = 'state-life') => {
               }
 
               syncUrlFn = (isFirst = false) => {
-                let save = isFirst ? (config.saveFirstTime || config.save) : config.save
+                let save = isFirst ? (
+                  config.saveFirstTime || config.save
+                ) : config.save
                 save.call(config, urlKey, this[property], config.fetch())
                 syncUrlTimer = void 0
                 syncUrlFn = void 0
