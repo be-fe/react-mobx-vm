@@ -29,7 +29,14 @@ export const assignState = action(
       else if (typeof self[property] === 'object' && self[property] !== null) {
         if (typeof val === 'object') {
           if (self[property] instanceof Array) {
-            setVal()
+            let appendItems = [val]
+            if (val instanceof Array) {
+              appendItems = [...val]
+            }
+            self[property].splice(
+              0, self[property].length,
+              ...appendItems
+            )
           }
           else {
             let Class = self[property].constructor
@@ -40,7 +47,8 @@ export const assignState = action(
               self[property].assign(val)
             }
             else {
-              setVal(new Class(val))
+              Object.assign(self[property], new Class(val))
+              // setVal(new Class(val))
             }
           }
         }
