@@ -112,14 +112,14 @@ export default class Root {
     data = toJS(data)
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        if (typeof data[key] !== 'undefined') {
-          if (this[key] instanceof Root) {
-            this[key].assignShallow(data[key])
-          }
-          else {
-            this[key] = data[key]
-          }
+        // if (typeof data[key] !== 'undefined') {
+        if (this[key] instanceof Root) {
+          this[key].assignShallow(data[key])
         }
+        else {
+          this[key] = data[key]
+        }
+        // }
 
       }
     }
