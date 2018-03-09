@@ -114,13 +114,23 @@ describe('decorator-urlSync', function () {
       pathname: '/',
       query: null,
       search: stringify({
-        arr: [{ b: 'c' }, 4]
+        arr: [{ b: 'c' }, 4],
+        root: {
+          str: 'rootStr'
+        }
       })
     })
     await mockDelay()
     await mockDelay()
     expect(vm.arr).toEqual([{ a: 'abc', b: 'c' }, '4'])
     expect(vm.arr).toBe(arr)
+    expect(vm.root).toBe(root)
+    expect(root.str).toBe('rootStr')
+    expect(vm.root).toEqual({
+      ra: { a: 'ra' },
+      va: [{ a: 'ra' }],
+      str: 'rootStr'
+    })
     done()
   })
 })
