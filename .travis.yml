@@ -25,7 +25,7 @@ jobs:
 
     - stage: Unit testing
       before_script: npm install codecov
-      script: npm test
+      script: npm test -- --coverage
       after_script: codecov --token=$CODECOV_TOKEN
 
     - stage: E2E testing

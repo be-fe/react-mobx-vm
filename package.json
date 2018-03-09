@@ -115,7 +115,6 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "collectCoverage": true,
     "setupTestFrameworkScriptFile": "<rootDir>/test/setup/react.js",
     "collectCoverageFrom": [
       "src/**/*.js",

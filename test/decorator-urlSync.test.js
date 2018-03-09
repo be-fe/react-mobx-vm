@@ -5,6 +5,7 @@
  * @description
  */
 import { urlSync, registerUrlSync, bindView } from '../src/decorator'
+import { observable } from 'mobx'
 import h from '../src/renderer/mixedRenderer'
 import { Root } from '../src/Model'
 import RouterV3 from '../srcPackages/RouterV3'
@@ -29,7 +30,7 @@ function parse(string = '') {
 }
 
 describe('decorator-urlSync', function () {
-  let vm, dom, clone
+  let vm, dom
 
   class View extends React.Component {
     render() {
@@ -52,9 +53,12 @@ describe('decorator-urlSync', function () {
         a: 'a'
       }
     }
+
     @urlSync
-    arr = [{ a: 'a' }, 'b']
+    @observable arr = [{ a: 'a' }, 'b'];
+
     @urlSync
+    @observable
     root = Root.create({
       ra: { a: 'ra' },
       va: [{ a: 'ra' }],
@@ -105,7 +109,12 @@ describe('decorator-urlSync', function () {
     expect(vm.num).toBe(1.23)
     expect(vm.num).not.toBe('1.23')
     expect(vm.str).toBe('xxx')
-    expect(vm.arr).toEqual([{ a: 'abc' }])
+    expect(vm.arr instanceof Array).toBeTruthy()
+    expect(
+      JSON.stringify(vm.arr)
+    ).toEqual(
+      JSON.stringify([{ a: 'abc' }])
+    )
     expect(vm.arr.length).toBe(1)
     expect(vm.arr).toBe(arr)
 
@@ -122,7 +131,11 @@ describe('decorator-urlSync', function () {
     })
     await mockDelay()
     await mockDelay()
-    expect(vm.arr).toEqual([{ a: 'abc', b: 'c' }, '4'])
+    expect(
+      JSON.stringify(vm.arr)
+    ).toEqual(
+      JSON.stringify([{ a: 'abc', b: 'c' }, '4'])
+    )
     expect(vm.arr).toBe(arr)
     expect(vm.root).toBe(root)
     expect(root.str).toBe('rootStr')
@@ -132,5 +145,23 @@ describe('decorator-urlSync', function () {
       str: 'rootStr'
     })
     done()
+  })
+
+  // https://github.com/mobxjs/mobx/issues/1382
+  test('extends and observable', () => {
+    class P {
+      @urlSync
+      @observable a = 'x';
+
+      @observable v = 'pv'
+    }
+    class S extends P {
+      @urlSync('xx')
+      @observable a = 's';
+
+      @observable v = 'sv'
+    }
+
+    expect(new S().v).toBe('sv')
   })
 })

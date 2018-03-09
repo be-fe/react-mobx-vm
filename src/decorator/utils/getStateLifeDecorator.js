@@ -6,10 +6,9 @@
  */
 
 import {
-  extendObservable,
   action,
   autorun,
-  isObservable,
+  observable,
   isObservableArray
 } from 'mobx'
 
@@ -37,9 +36,14 @@ export const assignState = action(
           ) {
             self[property].splice(val.length, self[property].length - val.length)
           }
-          for (let k in val) {
-            if (val.hasOwnProperty(k)) {
-              assignState(self[property], k, val[k])
+          if (Array.isArray(val)) {
+            val.forEach((v, k) => assignState(self[property], k, v))
+          }
+          else {
+            for (let k in val) {
+              if (val.hasOwnProperty(k)) {
+                assignState(self[property], k, val[k])
+              }
             }
           }
         }
@@ -73,110 +77,108 @@ export default (config = {}, name = 'state-life') => {
       return assignState.call(null, this, property, config.get(urlKey))
     }
 
-    if (typeof target[property] === 'function') {
+    if ('value' in descriptor && typeof descriptor.value === 'function') {
       throw new Error('`' + name + '` can NOT use in member method')
     }
-    else {
 
-      let dispose
-      let syncUrlTimer
-      let syncUrlFn
+    // maybe observable
+    // if ('get' in descriptor) {
+    //   throw new Error('`' + name + '` can NOT use in getter')
+    // }
+    if ('initializer' in descriptor) {
+      console.warn('`' + property + '`' + 'is unobservable,', name, 'would may it to be observable.')
+      descriptor = observable(target, property, descriptor)
+    }
+    // https://github.com/mobxjs/mobx/issues/1382
+    let dispose
+    let syncUrlTimer
+    let syncUrlFn
 
-      // eslint-disable-next-line no-inner-declarations
-      function release() {
-        dispose && dispose()
-        dispose = null
-        if (syncUrlTimer) {
-          clearTimeout(syncUrlTimer)
-          syncUrlFn && syncUrlFn()
-          syncUrlTimer = void 0
-          syncUrlFn = void 0
-        }
-      }
-
-      let originExit = target[exitKey]
-      target[exitKey] = function (...args) {
-        config.exit && config.exit(this, property, urlKey)
-        // console.log('dispose ' + name + ' `' + property + '`')
-        release()
-        return originExit && originExit.call(this, ...args)
-      }
-
-      // eslint-disable-next-line no-use-before-define
-      target[initKey] = init(target[initKey], 'init')
-
-      if (updateKey) {
-        target[updateKey] = (
-          function (origin) {
-            return action(function (...args) {
-              assignStateValue.call(this)
-              return origin && origin.call(this, ...args)
-            })
-          }
-        )(target[updateKey])
-      }
-
-      // eslint-disable-next-line no-inner-declarations,no-unused-vars
-      function init(origin, actionType) {
-        return action(function (...args) {
-          config.init && config.init(this, property, urlKey)
-
-          // console.log(actionType + ' ' + name + ' `' + property + '`')
-          release()
-
-          if (!isObservable(this, property)) {
-            console.warn('`' + property + '` is not observable, `' + name + '` setting it to be observable')
-            extendObservable(this, {
-              [property]: this[property]
-            })
-          }
-
-          assignStateValue.call(this)
-
-          let isFirst = true
-          dispose = autorun(
-            () => {
-              // 一段时间内的修改以最后一次为准
-              if (syncUrlTimer) {
-                clearTimeout(syncUrlTimer)
-                syncUrlTimer = void 0
-              }
-
-              let obj = { [urlKey]: this[property] }
-              // invoke the deep `getter` of this[property]
-              // noop op
-              try {
-                JSON.stringify(obj)
-              } catch (err) {
-                console.error('[Stringify]', obj, 'Error happened:', err)
-              }
-
-              syncUrlFn = (isFirst = false) => {
-                let save = isFirst ? (
-                  config.saveFirstTime || config.save
-                ) : config.save
-                save.call(config, urlKey, this[property], config.fetch())
-                syncUrlTimer = void 0
-                syncUrlFn = void 0
-              }
-
-              if (isFirst) {
-                if (options.initialWrite) {
-                  syncUrlFn(true)
-                }
-                isFirst = false
-                return
-              }
-
-              syncUrlTimer = setTimeout(syncUrlFn, 250)
-            }
-          )
-
-          return origin && origin.call(this, ...args)
-        })
+    // eslint-disable-next-line no-inner-declarations
+    function release() {
+      dispose && dispose()
+      dispose = null
+      if (syncUrlTimer) {
+        clearTimeout(syncUrlTimer)
+        syncUrlFn && syncUrlFn()
+        syncUrlTimer = void 0
+        syncUrlFn = void 0
       }
     }
 
+    let originExit = target[exitKey]
+    target[exitKey] = function (...args) {
+      config.exit && config.exit(this, property, urlKey)
+      // console.log('dispose ' + name + ' `' + property + '`')
+      release()
+      return originExit && originExit.call(this, ...args)
+    }
+
+    // eslint-disable-next-line no-use-before-define
+    target[initKey] = init(target[initKey], 'init')
+
+    if (updateKey) {
+      target[updateKey] = (
+        function (origin) {
+          return action(function (...args) {
+            assignStateValue.call(this)
+            return origin && origin.call(this, ...args)
+          })
+        }
+      )(target[updateKey])
+    }
+
+    // eslint-disable-next-line no-inner-declarations,no-unused-vars
+    function init(origin, actionType) {
+      return action(function (...args) {
+        config.init && config.init(this, property, urlKey)
+
+        // console.log(actionType + ' ' + name + ' `' + property + '`')
+        release()
+        assignStateValue.call(this)
+
+        let isFirst = true
+        dispose = autorun(
+          () => {
+            // 一段时间内的修改以最后一次为准
+            if (syncUrlTimer) {
+              clearTimeout(syncUrlTimer)
+              syncUrlTimer = void 0
+            }
+
+            let obj = { [urlKey]: this[property] }
+            // invoke the deep `getter` of this[property]
+            // noop op
+            try {
+              JSON.stringify(obj)
+            } catch (err) {
+              console.error('[Stringify]', obj, 'Error happened:', err)
+            }
+
+            syncUrlFn = (isFirst = false) => {
+              let save = isFirst ? (
+                config.saveFirstTime || config.save
+              ) : config.save
+              save.call(config, urlKey, this[property], config.fetch())
+              syncUrlTimer = void 0
+              syncUrlFn = void 0
+            }
+
+            if (isFirst) {
+              if (options.initialWrite) {
+                syncUrlFn(true)
+              }
+              isFirst = false
+              return
+            }
+
+            syncUrlTimer = setTimeout(syncUrlFn, 250)
+          }
+        )
+
+        return origin && origin.call(this, ...args)
+      })
+    }
     return descriptor && { ...descriptor, configurable: true }
   }
 }
