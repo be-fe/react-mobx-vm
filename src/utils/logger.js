@@ -8,18 +8,14 @@
 
 export default {
   debug: function (...args) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.log(...args)
+    if (global && global.VM_DEBUG || process.env.NODE_ENV !== 'production') {
+      console.log('[react-mobx-vm] Debug:',...args)
     }
   },
   warn: function (...args) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(...args)
-    }
+    console.warn('[react-mobx-vm] Warning:', ...args)
   },
   error: function (...args) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error(...args)
-    }
+    console.error('[react-mobx-vm] Error:',...args)
   }
 }

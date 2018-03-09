@@ -13,6 +13,7 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { hashHistory } from 'react-router'
 import { stringify as oStringify, parse as oParse } from 'qs'
+
 function stringify(obj) {
   return '?' + oStringify(obj)
 }
@@ -37,6 +38,7 @@ describe('decorator-urlSync', function () {
       return null
     }
   }
+
   @bindView(View)
   class App extends Root {
     @urlSync
@@ -55,7 +57,7 @@ describe('decorator-urlSync', function () {
     }
 
     @urlSync
-    @observable arr = [{ a: 'a' }, 'b'];
+    @observable arr = [{ a: 'a' }, 'b']
 
     @urlSync
     @observable
@@ -69,6 +71,11 @@ describe('decorator-urlSync', function () {
   beforeEach(() => {
     dom = document.createElement('div')
     registerUrlSync(hashHistory)
+    hashHistory.push({
+      path: '/',
+      search: '',
+      query: null
+    })
   })
   test('decorator-urlSync simple', async (done) => {
     class Simple extends App {
@@ -83,6 +90,7 @@ describe('decorator-urlSync', function () {
           )
       }
     }
+
     vm = Simple.create()
     let root = vm.root
     let arr = vm.arr
@@ -130,7 +138,6 @@ describe('decorator-urlSync', function () {
       })
     })
     await mockDelay()
-    await mockDelay()
     expect(
       JSON.stringify(vm.arr)
     ).toEqual(
@@ -148,20 +155,67 @@ describe('decorator-urlSync', function () {
   })
 
   // https://github.com/mobxjs/mobx/issues/1382
-  test('extends and observable', () => {
-    class P {
+  test('extends and observable', async (done) => {
+    class P extends App {
       @urlSync
       @observable a = 'x';
+      @urlSync
+      @observable b = 'y'
+
+      @urlSync('i')
+      @observable int = 23
+
+      @urlSync('pArr')
+      @observable arr = ['1', '2']
 
       @observable v = 'pv'
     }
+
     class S extends P {
       @urlSync('xx')
       @observable a = 's';
+      @urlSync('yy')
+      @observable b = 't'
+      @urlSync('ii')
+      @observable int = 222
+      @urlSync('s')
+      @observable str = 't'
 
       @observable v = 'sv'
     }
 
     expect(new S().v).toBe('sv')
+
+    // expect(
+    //   Object.keys(s['__[[urlsync_origin_hooks]]__'])
+    // ).toEqual(
+    //   ['str', 'num', 'int', 'obj', 'arr', 'root', 'a', 'b']
+    // )
+    vm = S.create({ a: 'abc', b: 'bbb' })
+    ReactDOM.render(
+      <RouterV3 history={hashHistory} routes={{ path: '/', component: vm }}/>,
+      dom
+    )
+    await mockDelay()
+    expect(
+      parse(hashHistory.getCurrentLocation().search)
+    ).toEqual({})
+
+    vm.a = 'update'
+    vm.b = 'updateB'
+    vm.str = 's'
+    vm.num = 234
+    vm.int = 22222
+    await mockDelay()
+    expect(
+      parse(hashHistory.getCurrentLocation().search)
+    ).toEqual({
+      ii: '22222',
+      num: '234',
+      s: 's',
+      xx: 'update',
+      yy: 'updateB'
+    })
+    done()
   })
 })
