@@ -120,7 +120,6 @@ export default class Root {
           this[key] = data[key]
         }
         // }
-
       }
     }
     return this
@@ -134,7 +133,7 @@ export default class Root {
    * @memberof Root
    */
   clone() {
-    return new this.constructor(this)
+    return this.constructor.create(this)
   }
 
   /**
@@ -154,13 +153,27 @@ export default class Root {
   }
 
   /**
-   * 批量赋值
+   * 批量赋值，如需要覆写 `assign`，请覆写 `assignShallow`
    * @param {object | Root} data
    * @returns {Root}
    * @memberof Root
+   * @alias assignShallow
    * @public
    * @example
-   * Root.create().assign({ a: 'a', b: 'b' })
+   * Root
+   *  .create()
+   *  .assign({ a: 'a', b: 'b' })
+   *  .assignShallow({ a: 'a', b: 'b' })
+   * // 支持嵌套赋值
+   * class Nested extends Root {
+   *   \@observable root = Root.create({ a: 'c' })
+   * }
+   * Nested
+   *  .create({ root: { b: 'b' } })
+   *  .root instanceof Root // true
+   * Nested
+   *  .create({ root: { b: 'b' } })
+   *  .root.a === 'c' // true
    */
   assign(data) {
     return this.assignShallow(data)
