@@ -109,20 +109,17 @@ export default (config = {}, name = 'state-life') => {
       logger.warn('`' + property + '`' + 'is unobservable,', name, 'would make it to be observable.')
       descriptor = observable(target, property, descriptor)
     }
-    const hidePropKey = `__[[${name}_origin_hooks]]__`
     const hideArrPropKey = `__[[${name}_array]]__`
+
     // Firstly!
     // Supports inheritance
-    if (!target[hidePropKey] || !target[hidePropKey][property]) {
-      const hooks = {
-        init: target[initKey],
-        update: target[updateKey],
-        exit: target[exitKey]
-      }
-      extendsHideProps(target, hidePropKey, {
-        [property]: hooks
-      })
-    }
+
+    // const hidePropKey = `__[[${name}_origin_hooks]]__`
+    // if (!target[hidePropKey] || !target[hidePropKey][property]) {
+    //   extendsHideProps(target, hidePropKey, {
+    //     [property]: hooks
+    //   })
+    // }
 
     if (!target[hideArrPropKey]) {
       extendsHideProps(target, hideArrPropKey, [])
@@ -206,8 +203,13 @@ export default (config = {}, name = 'state-life') => {
     )()
     extendsHideProps(target, hideArrPropKey, [property, func])
 
-    const hooks = target[hidePropKey]
     const arrays = target[hideArrPropKey]
+
+    const hooks = {
+      init: target[initKey],
+      update: target[updateKey],
+      exit: target[exitKey]
+    }
     const callHook = (self, hookName, args) => {
       return typeof hooks[hookName] === 'function'
              && hooks[hookName].apply(self, args)

@@ -170,7 +170,7 @@ describe('decorator-urlSync', function () {
 
       @observable v = 'pv'
     }
-
+    let inited = false
     class S extends P {
       @urlSync('xx')
       @observable a = 's';
@@ -180,6 +180,9 @@ describe('decorator-urlSync', function () {
       @observable int = 222
       @urlSync('s')
       @observable str = 't'
+      init() {
+        inited = true
+      }
 
       @observable v = 'sv'
     }
@@ -216,6 +219,7 @@ describe('decorator-urlSync', function () {
       xx: 'update',
       yy: 'updateB'
     })
+    expect(inited).toBe(true)
     done()
   })
 })
