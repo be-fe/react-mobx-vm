@@ -9,7 +9,8 @@ import {
   extendObservable,
   action,
   autorun,
-  isObservable
+  isObservable,
+  isObservableArray
 } from 'mobx'
 
 export const assignState = action(
@@ -28,6 +29,14 @@ export const assignState = action(
       }
       else if (typeof self[property] === 'object' && self[property] !== null) {
         if (typeof val === 'object') {
+          // remove overflow items if arrays
+          if (
+            Array.isArray(val) &&
+            (isObservableArray(self[property]) || Array.isArray(self[property]))
+            && val.length < self[property].length
+          ) {
+            self[property].splice(val.length, self[property].length - val.length)
+          }
           for (let k in val) {
             if (val.hasOwnProperty(k)) {
               assignState(self[property], k, val[k])
