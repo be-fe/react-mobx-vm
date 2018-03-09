@@ -228,6 +228,7 @@ export default (config = {}, name = 'state-life') => {
       }
     }
     target[exitKey] = function (...args) {
+      // @todo setTimeout move to all for better performance.
       arrays.forEach(([, { init }]) => {
         init.call(this)
       })
