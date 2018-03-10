@@ -1,3 +1,13 @@
+<a name="0.1.3"></a>
+## [0.1.3](https://github.com/be-fe/react-mobx-vm/compare/v0.1.2...v0.1.3) (2018-03-10)
+
+
+### Bug Fixes
+
+* stateLife run update before other init hooks ([07251c6](https://github.com/be-fe/react-mobx-vm/commit/07251c6))
+
+
+
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/be-fe/react-mobx-vm/compare/v0.1.1...v0.1.2) (2018-03-10)
 
