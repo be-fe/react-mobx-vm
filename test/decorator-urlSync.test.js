@@ -167,9 +167,14 @@ describe('decorator-urlSync', function () {
 
       @urlSync('pArr')
       @observable arr = ['1', '2']
+      update() {
+        // eslint-disable-next-line no-use-before-define
+        updated = true
+      }
 
       @observable v = 'pv'
     }
+    let updated = false
     let inited = false
     class S extends P {
       @urlSync('xx')
@@ -220,6 +225,7 @@ describe('decorator-urlSync', function () {
       yy: 'updateB'
     })
     expect(inited).toBe(true)
+    expect(updated).toBe(true)
     done()
   })
 })
