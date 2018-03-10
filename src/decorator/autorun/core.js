@@ -6,6 +6,7 @@
 import {
   autorun
 } from 'mobx'
+import logger from '../../utils/logger'
 
 export default (opt = {}, target, property, description) => {
   const { initKey = 'init', exitKey = 'exit' } = opt
@@ -13,7 +14,7 @@ export default (opt = {}, target, property, description) => {
     let dispose
 
     function release() {
-      // logger.debug('dispose autorun `' + property + '`')
+      logger.debug('dispose autorun `' + property + '`')
       dispose && dispose()
       dispose = null
     }

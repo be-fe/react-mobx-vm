@@ -14,15 +14,6 @@ install:
 
 jobs:
   include:
-    - stage: Document deploy
-      allow_failure: true
-      script: picidae build -f --source-map
-      deploy:
-        provider: pages
-        skip_cleanup: true
-        github_token: ${GH_TOKEN} # Set in travis-ci.org dashboard
-        local_dir: public
-
     - stage: Unit testing
       before_script: npm install codecov
       script: npm test -- --coverage
@@ -31,7 +22,14 @@ jobs:
     - stage: E2E testing
       script: npm run test:cy:ci $CYPRESS_RECORD_KEY
 
-
+    - stage: Document deploy
+      allow_failure: true
+      script: picidae build -f --source-map
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: ${GH_TOKEN} # Set in travis-ci.org dashboard
+        local_dir: public
 
         # repo: $GH_REF
       # addons:
