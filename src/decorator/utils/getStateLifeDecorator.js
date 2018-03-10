@@ -133,17 +133,20 @@ export default (config = {}, name = 'state-life') => {
         let dispose
         let syncUrlTimer
         let syncUrlFn
-
-        // eslint-disable-next-line no-inner-declarations
-        function release() {
-          dispose && dispose()
-          dispose = null
+        function runLazyNow() {
           if (syncUrlTimer) {
             clearTimeout(syncUrlTimer)
             syncUrlFn && syncUrlFn()
             syncUrlTimer = void 0
             syncUrlFn = void 0
           }
+        }
+
+        // eslint-disable-next-line no-inner-declarations
+        function release() {
+          dispose && dispose()
+          dispose = null
+          runLazyNow()
         }
 
         return {
@@ -191,6 +194,14 @@ export default (config = {}, name = 'state-life') => {
             })
           },
           update: function () {
+            // The vm's model has the below link rule (two vm instances)
+            // x -> y
+            // a -> b -> c
+
+            // It's time that trigger `x` syncUrlTimer would cause the url updated
+            // Then trigger update hook like above link rule
+            // So we need run `runLazyNow` in update hook
+            runLazyNow()
             assignStateValue(this, property, urlKey)
           },
           exit: function () {
