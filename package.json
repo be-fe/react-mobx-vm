@@ -1,6 +1,6 @@
 {
   "name": "react-mobx-vm",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "View & Model are mixed now via react mobx",
   "scripts": {
     "babel": "rimraf packages && babel srcPackages -d packages -D",
