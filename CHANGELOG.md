@@ -1,3 +1,20 @@
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/be-fe/react-mobx-vm/compare/v0.1.0...v0.1.1) (2018-03-10)
+
+
+### Bug Fixes
+
+* fix getStateLifeDecorator bug about check target[property] ([db14cff](https://github.com/be-fe/react-mobx-vm/commit/db14cff))
+* urlSync assignState supports array / object assign ([e54ee20](https://github.com/be-fe/react-mobx-vm/commit/e54ee20))
+* urlsync hooks bug ([68fd746](https://github.com/be-fe/react-mobx-vm/commit/68fd746))
+
+
+### Features
+
+* urlSync supports inheritance! 💥 ([981f0c6](https://github.com/be-fe/react-mobx-vm/commit/981f0c6))
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/be-fe/react-mobx-vm/compare/v0.0.19...v0.1.0) (2018-03-08)
 
