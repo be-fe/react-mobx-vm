@@ -6,23 +6,24 @@
  */
 import get from 'lodash/get'
 import set from 'lodash/set'
+import hasIn from 'lodash/hasIn'
 import { action } from 'mobx'
 import { assertReactClass, displayName } from '../utils/reactUtils'
 
 const assign = action(function (rule, props, model) {
   // @action
-  function setValue(model, path, value) {
-    set(model, path, value)
+  function setValue(propPath, modulePath) {
+    if (hasIn(props, propPath)) {
+      let oldVal = get(model, modulePath)
+      let newVal = get(props, propPath)
+      if (newVal !== oldVal) {
+        set(model, modulePath, newVal)
+      }
+    }
   }
 
-  let oldVal
-  let newVal
   if (typeof rule === 'string') {
-    oldVal = get(model, rule)
-    newVal = get(props, rule)
-    if (newVal !== oldVal) {
-      setValue(model, rule, newVal)
-    }
+    setValue(rule, rule)
   }
   else if (Array.isArray(rule)) {
     rule.forEach(eachRule =>
@@ -32,11 +33,7 @@ const assign = action(function (rule, props, model) {
   else if (typeof rule === 'object') {
     for (let propPath in rule) {
       if (rule.hasOwnProperty(propPath)) {
-        oldVal = get(model, rule[propPath])
-        newVal = get(props, propPath)
-        if (newVal !== oldVal) {
-          setValue(model, rule[propPath], newVal)
-        }
+        setValue(propPath, rule[propPath])
       }
     }
   }

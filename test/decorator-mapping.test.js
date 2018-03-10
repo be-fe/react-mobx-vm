@@ -14,13 +14,14 @@ import h from '../src/renderer/mixedRenderer'
 
 describe('decorator-mapping', function () {
 
-  @mapping(['hi', { 'foo': 'bar' }])
+  @mapping(['hi', { 'foo': 'bar', 'd.d': 'dd' }, 'h.h'])
   class View extends React.Component {
     render() {
       return (
         <div>
           <span id="hi">{this.local.hi}</span>
           <span id="bar">{this.local.bar}</span>
+          <span id="dd">{this.local.dd}</span>
         </div>
       )
     }
@@ -54,15 +55,23 @@ describe('decorator-mapping', function () {
 
   test('`foo: bar`', () => {
     // foo -> bar
-    expect(VM.bar).toBeUndefined()
-    expect(wrapper.find('#bar').text()).toBe('')
+    expect(VM.bar).toBe('bar')
+    expect(wrapper.find('#bar').text()).toBe('bar')
 
     wrapper.setProps({ bar: 'updated' })
-    expect(VM.bar).toBeUndefined()
-    expect(wrapper.find('#bar').text()).toBe('')
+    expect(VM.bar).toBe('bar')
 
     wrapper.setProps({ foo: 'updated' })
     expect(VM.bar).toBe('updated')
     expect(wrapper.find('#bar').text()).toBe('updated')
+  })
+
+  test('`d.d: dd`', () => {
+    expect(wrapper.find('#dd').text()).toBe('')
+
+    wrapper.setProps({ foo: 'ff' })
+    wrapper.setProps({ d: { d: ['dd', '2'] } })
+    expect(wrapper.find('#dd').text()).toBe('dd2')
+    expect(wrapper.find('#bar').text()).toBe('ff')
   })
 })
