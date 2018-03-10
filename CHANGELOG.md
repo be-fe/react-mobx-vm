@@ -1,3 +1,13 @@
+<a name="0.1.2"></a>
+## [0.1.2](https://github.com/be-fe/react-mobx-vm/compare/v0.1.1...v0.1.2) (2018-03-10)
+
+
+### Bug Fixes
+
+* fix mapping allow not existed prop ([bfaffa5](https://github.com/be-fe/react-mobx-vm/commit/bfaffa5))
+
+
+
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/be-fe/react-mobx-vm/compare/v0.1.0...v0.1.1) (2018-03-10)
 
