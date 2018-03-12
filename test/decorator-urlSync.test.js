@@ -194,11 +194,6 @@ describe('decorator-urlSync', function () {
 
     expect(new S().v).toBe('sv')
 
-    // expect(
-    //   Object.keys(s['__[[urlsync_origin_hooks]]__'])
-    // ).toEqual(
-    //   ['str', 'num', 'int', 'obj', 'arr', 'root', 'a', 'b']
-    // )
     vm = S.create({ a: 'abc', b: 'bbb' })
     ReactDOM.render(
       <RouterV3 history={hashHistory} routes={{ path: '/', component: vm }}/>,
@@ -226,6 +221,74 @@ describe('decorator-urlSync', function () {
     })
     expect(inited).toBe(true)
     expect(updated).toBe(true)
+    done()
+  })
+
+  test('multi Son extends alone Parent', async (done) => {
+    class Parent extends App {
+      @urlSync
+      @observable v = ''
+    }
+
+    class S extends Parent {
+      @urlSync('s')
+      @observable v = ''
+
+      @urlSync
+      @observable sonVal = 'son'
+    }
+    class T extends Parent {
+      @urlSync('t')
+      @observable v = ''
+    }
+
+    const s = S.create()
+    const s2 = S.create()
+    const t = T.create()
+    expect(
+      T.prototype['__mobxLazyInitializers']
+    ).not.toBe(
+      S.prototype['__mobxLazyInitializers']
+    )
+    const key = '__[[urlsync_hooks]]__'
+    expect(
+      T.prototype[key]
+    ).not.toBe(
+      S.prototype[key]
+    )
+
+    const View = () => (
+      h.div({},
+        h(s),
+        h(s2, { key: 'x' }),
+        h(t)
+      )
+    )
+    ReactDOM.render(
+      <RouterV3 routes={{ component: View, path: '/' }} history={hashHistory} />,
+      dom
+    )
+    expect(
+      parse(hashHistory.getCurrentLocation().search)
+    ).toEqual({})
+
+    expect(s.v).toBe('')
+    t.v = 'ttt'
+    await mockDelay()
+    expect(
+      parse(hashHistory.getCurrentLocation().search)
+    ).toEqual({ t: 'ttt' })
+    expect(t.v).toBe('ttt')
+    expect(s.v).toBe('')
+    expect(s2.v).toBe('')
+
+    s.v = 'sss'
+    s2.v = 'sssWorks'
+    expect(t.v).toBe('ttt')
+    await mockDelay()
+    expect(
+      parse(hashHistory.getCurrentLocation().search)
+    ).toEqual({ s: 'sssWorks', t: 'ttt' })
     done()
   })
 })

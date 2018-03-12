@@ -67,18 +67,7 @@ export const assignState = action(
 )
 
 // const g = {}
-function extendsHideProps(target, propKey, value) {
-  const old = target[propKey] && target[propKey]
-  if (typeof old === 'object' && old !== null) {
-    // only saved on top parent
-    if (!Array.isArray(old)) {
-      Object.assign(old, value)
-    }
-    else {
-      old.push(value)
-    }
-    return
-  }
+function setHideProps(target, propKey, value) {
   Object.defineProperty(target, propKey, {
     value,
     configurable: true,
@@ -109,27 +98,31 @@ export default (config = {}, name = 'state-life') => {
       logger.warn('`' + property + '`' + 'is unobservable,', name, 'would make it to be observable.')
       descriptor = observable(target, property, descriptor)
     }
-    const hideArrPropKey = `__[[${name}_array]]__`
+    const hideArrPropKey = `__[[${name}_hooks]]__`
 
-    // Firstly!
-    // Supports inheritance
-
-    // const hidePropKey = `__[[${name}_origin_hooks]]__`
-    // if (!target[hidePropKey] || !target[hidePropKey][property]) {
-    //   extendsHideProps(target, hidePropKey, {
-    //     [property]: hooks
-    //   })
+    // NOTE:
+    // class P {
+    //    @urlSync s = 'a'
     // }
-
+    // class S extends P {
+    //    @urlSync s = 'a'
+    // }
+    // new S() --> should run the S.s hooks, ignore P hooks
+    // Firstly!
     if (!target[hideArrPropKey]) {
-      extendsHideProps(target, hideArrPropKey, [])
+      setHideProps(target, hideArrPropKey, [])
+    }
+    // inheritance
+    else if (!target.hasOwnProperty(hideArrPropKey)) {
+      // set to Prototype
+      setHideProps(target, hideArrPropKey, target[hideArrPropKey].slice())
     }
     let i = target[hideArrPropKey].findIndex(([p]) => p === property)
     if (i >= 0) {
       target[hideArrPropKey].splice(i, 1)
     }
     const func = (
-      function () {
+      function (options, urlKey, property) {
         let dispose
         let syncUrlTimer
         let syncUrlFn
@@ -211,10 +204,9 @@ export default (config = {}, name = 'state-life') => {
           }
         }
       }
-    )()
-    extendsHideProps(target, hideArrPropKey, [property, func])
-
-    const arrays = target[hideArrPropKey]
+    )(options, urlKey, property)
+    // const arrays =
+    target[hideArrPropKey].push([property, urlKey, func])
 
     const hooks = {
       init: target[initKey],
@@ -227,14 +219,14 @@ export default (config = {}, name = 'state-life') => {
     }
 
     target[initKey] = function (...args) {
-      arrays.forEach(([, { init }]) => {
+      this[hideArrPropKey].forEach(([, , { init }]) => {
         init.call(this)
       })
       return callHook(this, initKey, args)
     }
     if (updateKey) {
       target[updateKey] = function (...args) {
-        arrays.forEach(([, { update }]) => {
+        this[hideArrPropKey].forEach(([, , { update }]) => {
           update.call(this)
         })
         return callHook(this, updateKey, args)
@@ -242,7 +234,7 @@ export default (config = {}, name = 'state-life') => {
     }
     target[exitKey] = function (...args) {
       // @todo setTimeout move to all for better performance.
-      arrays.forEach(([, { init }]) => {
+      this[hideArrPropKey].forEach(([, , { init }]) => {
         init.call(this)
       })
       return callHook(this, exitKey, args)
