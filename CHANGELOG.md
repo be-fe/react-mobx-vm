@@ -1,3 +1,13 @@
+<a name="0.1.4"></a>
+## [0.1.4](https://github.com/be-fe/react-mobx-vm/compare/v0.1.3...v0.1.4) (2018-03-12)
+
+
+### Bug Fixes
+
+* urlSync inheritance bug: side effect on parent ([96b5d9c](https://github.com/be-fe/react-mobx-vm/commit/96b5d9c))
+
+
+
 <a name="0.1.3"></a>
 ## [0.1.3](https://github.com/be-fe/react-mobx-vm/compare/v0.1.2...v0.1.3) (2018-03-10)
 
