@@ -13,7 +13,7 @@ var nps = require('path')
 cp.execSync('npm run clean-picidae', { stdio: 'inherit' })
 
 var alias = {
-  'react-mobx-vm': nps.resolve('./')
+  'react-mobx-vm': nps.join(__dirname, '../')
 }
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
   webpackConfigUpdater: function (config, webpack) {
     config.entry.PICIDAE_ENTRY = [
       config.entry.PICIDAE_ENTRY,
-      require.resolve('./')
+      require.resolve('../')
     ]
     console.log(config.entry)
     config.resolve = config.resolve || {}
@@ -38,6 +38,7 @@ module.exports = {
   },
   host: 'https://be-fe.github.io/',
   docRoot: './docs',
+  distRoot: '../public',
   theme: 'haier',
   themeConfigsRoot: './theme-configs',
   publicPath: '/react-mobx-vm/',
@@ -53,7 +54,7 @@ module.exports = {
     'exec?' + JSON.stringify({
       cwd: 'curr',
       cache: true,
-      paths: ['./scripts'],
+      paths: [nps.join(__dirname, '../scripts')],
       env: {
         DOC_ARG: '--format md \
 --github \

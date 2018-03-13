@@ -6,8 +6,8 @@
  */
 var nps = require('path')
 var remoteOriginUrl = require('remote-origin-url')
-var pack = require('../package.json')
-var remote = remoteOriginUrl.sync(nps.join(__dirname, '..'))
+var pack = require('../../package.json')
+var remote = remoteOriginUrl.sync(nps.join(__dirname, '../..'))
 if (remote) {
   remote = remote.replace(/\.git$/, '')
 }
