@@ -16,7 +16,7 @@ jobs:
   include:
     - stage: Document deploy
       allow_failure: true
-      script: picidae build -c site/picidae.config.js -f --source-map
+      script: picidae build -c _site/picidae.config.js -f --source-map
       deploy:
         edge:
           branch: v1.8.47
