@@ -1,3 +1,13 @@
+<a name="0.1.6-0"></a>
+## [0.1.6-0](https://github.com/be-fe/react-mobx-vm/compare/v0.1.5-0...v0.1.6-0) (2018-03-16)
+
+
+### Features
+
+* add SymbolicCustom ([a904a8c](https://github.com/be-fe/react-mobx-vm/commit/a904a8c))
+
+
+
 <a name="0.1.5-0"></a>
 ## [0.1.5-0](https://github.com/be-fe/react-mobx-vm/compare/v0.1.4...v0.1.5-0) (2018-03-16)
 
