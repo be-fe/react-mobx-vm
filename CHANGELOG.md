@@ -1,3 +1,13 @@
+<a name="0.1.5-0"></a>
+## [0.1.5-0](https://github.com/be-fe/react-mobx-vm/compare/v0.1.4...v0.1.5-0) (2018-03-16)
+
+
+### Features
+
+* add SymbolicLink, thanks [@jspopno1](https://github.com/jspopno1) ([e145231](https://github.com/be-fe/react-mobx-vm/commit/e145231))
+
+
+
 <a name="0.1.4"></a>
 ## [0.1.4](https://github.com/be-fe/react-mobx-vm/compare/v0.1.3...v0.1.4) (2018-03-12)
 

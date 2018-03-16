@@ -1,6 +1,6 @@
 {
   "name": "react-mobx-vm",
-  "version": "0.1.4",
+  "version": "0.1.5-0",
   "description": "View & Model are mixed now via react mobx",
   "scripts": {
     "babel": "rimraf packages && babel srcPackages -d packages -D",
@@ -145,6 +145,8 @@
     }
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
