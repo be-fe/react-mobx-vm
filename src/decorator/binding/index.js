@@ -10,6 +10,7 @@ import * as React from 'react'
 import _ from 'lodash'
 import { getHandledProps } from './bindable'
 import { convertReactElement, displayName, isComponentClass } from '../../utils/reactUtils'
+import nearestRefPath from '../../utils/nearestRefPath'
 
 function convert(element, fallbackScope) {
   return convertReactElement(element, [
@@ -20,9 +21,6 @@ function convert(element, fallbackScope) {
       (elem) => {
         let bind = elem.props['data-bind']
         const dataScope = elem.props['data-scope'] || fallbackScope
-        if (process.env.NODE_ENV !== 'production' && !isObservable(dataScope)) {
-          console.warn('[Warning] the scope of binding isn\'t observable.', dataScope)
-        }
 
         if (!dataScope) {
           throw new Error('binding convert require data-scope, but ' + dataScope)
@@ -32,20 +30,27 @@ function convert(element, fallbackScope) {
         if (typeof bind === 'function') {
           bind = bind(dataScope).toString()
         }
-        
+        const { ref, path } = nearestRefPath(dataScope, bind.toString())
+        if (typeof ref === 'undefined') {
+          console.error('Error: ref is undefined. scope: ', dataScope, ', bind:', bind)
+          return elem
+        }
         const get = function () {
-          return _.get(dataScope, bind.toString())
+          return ref[path]
         }
         const set = action(function (val) {
-          _.set(dataScope, bind, val)
+          ref[path] = val
         })
+        if (process.env.NODE_ENV !== 'production' && !isObservable(dataScope)) {
+          console.warn('[Warning] the scope of binding isn\'t observable.', dataScope)
+        }
         const ctx = {
           get,
           set,
           scope: dataScope,
           bind
         }
-        
+
         if (
           bind !== '' && _.hasIn(dataScope, bind)
           || typeof bind === 'function'
@@ -125,7 +130,7 @@ function bindClassOrFunc(maybeScope) {
 }
 
 /**
- * 
+ *
  * 简易的双向绑定写法，默认绑定 `value/onChange` 的一个闭环
  * @public
  * @name binding
@@ -171,7 +176,7 @@ function bindClassOrFunc(maybeScope) {
  *      )
  *    }
  * }
- * 
+ *
  */
 export default function binding(element) {
 

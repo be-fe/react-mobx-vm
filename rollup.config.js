@@ -15,9 +15,6 @@ import replace from 'rollup-plugin-replace'
 import { join } from 'path'
 
 const plugins = [
-  replace({
-    'process.env.NODE_ENV': JSON.stringify( 'production' )
-  }),
   json(),
   babel({
     include: [
@@ -25,6 +22,7 @@ const plugins = [
       // /\.json$/,
       // 'node_modules/**'
     ],
+    exclude: 'node_modules/**',
     runtimeHelpers: true,
     babelrc: false,
     'presets': [
@@ -68,7 +66,9 @@ const plugins = [
   resolve({
     browser: true
   }),
-  commonjs(),
+  commonjs({
+    include: 'node_modules/**'
+  }),
   filesize()
 ]
 
@@ -88,7 +88,12 @@ export default [
       name: 'reactMobxVM'
     },
     external,
-    plugins
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production')
+      })
+    ].concat(plugins),
+    sourceMap: true
   },
   {
     input: 'src/index.js',
@@ -98,7 +103,10 @@ export default [
       name: 'reactMobxVM'
     },
     external,
-    plugins: plugins.concat(uglify())
+    plugins: plugins.concat(uglify(), replace({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    })),
+    sourceMap: true
   },
   {
     input: 'src/index.js',
@@ -107,9 +115,10 @@ export default [
       format: 'es'
     },
     external: id => {
-      return id.startsWith('lodash') || external.includes(id)
+      return id.startsWith('babel-runtime') || id.startsWith('lodash') || external.includes(id)
     },
-    plugins
+    plugins,
+    sourceMap: true
   },
   {
     input: 'src/index.js',
@@ -118,8 +127,9 @@ export default [
       format: 'cjs'
     },
     external: id => {
-      return id.startsWith('lodash') || external.includes(id)
+      return id.startsWith('babel-runtime') || id.startsWith('lodash') || external.includes(id)
     },
-    plugins
+    plugins,
+    sourceMap: true
   }
 ]

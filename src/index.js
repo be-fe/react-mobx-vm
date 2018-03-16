@@ -10,5 +10,6 @@ export { observable, action, computed }  from 'mobx'
 export * from './decorator/index'
 
 export * from './Model'
+export symbolicLink from './utils/symbolicLink'
 export providerFactory from './extension/providerFactory'
 export { version } from '../package.json'

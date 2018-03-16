@@ -5,5 +5,7 @@
  * @description
  */
 
-export Piped from './Piped'
 export Root from './Root'
+export Piped from './Piped'
+export SymbolicLink from './SymbolicLink'
+export { Symbolic } from './SymbolicLink'

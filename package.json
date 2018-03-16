@@ -17,7 +17,7 @@
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "clean-picidae": "rimraf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
-    "picidae": "picidae start",
+    "picidae": "picidae start -c _site/picidae.config.js",
     "lint": "eslint ./src --fix",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -e $GIT_PARAMS",
@@ -127,8 +127,9 @@
     ]
   },
   "dependencies": {
-    "qs": "^6.5.1",
-    "lodash": "^4.17.5"
+    "babel-runtime": "^6.26.0",
+    "lodash": "^4.17.5",
+    "qs": "^6.5.1"
   },
   "repository": {
     "type": "git",
@@ -142,5 +143,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "commitlint": {
+    "extends": ["@commitlint/config-conventional"]
   }
 }
