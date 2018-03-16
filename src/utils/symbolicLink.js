@@ -28,13 +28,15 @@ import { isObservable } from 'mobx'
 export default function symbolic(target, config = {}) {
   const properties = {}
   _.each(config, (value, keyName) => {
-    let ref = value[0]
-    let pathsOrObject = value[1]
-    if (pathsOrObject && !Array.isArray(pathsOrObject) && typeof pathsOrObject === 'object') {
-      properties[keyName] = pathsOrObject
+    // SymbolicCustom
+    if (value && !Array.isArray(value) && typeof value === 'object') {
+      properties[keyName] = value
       return
     }
-    let { ref: nearestRef, path } = nearestRefPath(ref, pathsOrObject)
+
+    let ref = value[0]
+    let paths = value[1]
+    let { ref: nearestRef, path } = nearestRefPath(ref, paths)
 
     if (process.env.NODE_ENV !== 'production' && !isObservable(nearestRef, path)) {
       console.warn('[Warning]: the symbolic origin ref is unobservable.', 'ref:', nearestRef, ' path:', path)
@@ -58,7 +60,6 @@ export default function symbolic(target, config = {}) {
     target.__mobxLazyInitializers.push(function (instance) {
       defineDeepProperties(instance, properties)
     })
-    return defineDeepProperties(target, properties)
   }
 
   return defineDeepProperties(target, properties)

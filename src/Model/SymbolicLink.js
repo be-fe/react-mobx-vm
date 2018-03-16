@@ -12,9 +12,9 @@ import symbolicLink from '../utils/symbolicLink'
  * 用于创建链接对象
  * @see {SymbolicLink}
  * @public
- * @param ref
- * @param rule
- * @param defaultValue
+ * @param ref {Object}
+ * @param rule {String}
+ * @param defaultValue {any}
  * @return {Symbolic}
  * @constructor
  */
@@ -25,6 +25,30 @@ export function Symbolic(ref, rule, defaultValue) {
   this.rule = [ref, rule]
   this.defaultValue = defaultValue
 }
+
+/**
+ * 用于自定义的链接关系
+ * @see {SymbolicLink}
+ * @public
+ * @param descriptor {object}
+ * @param defaultValue {any}
+ * @return {SymbolicCustom}
+ * @constructor
+ * @extends {Symbolic}
+ * @example
+ * SymbolicCustom({
+ *   get() {}
+ *   set() {}
+ * }, 'defaultValue')
+ */
+export function SymbolicCustom(descriptor, defaultValue) {
+  if (!(this instanceof SymbolicCustom)) {
+    return new SymbolicCustom(descriptor, defaultValue)
+  }
+  this.rule = descriptor
+  this.defaultValue = defaultValue
+}
+SymbolicCustom.prototype = Object.create(Symbolic.prototype)
 
 function calcSymbolic(value) {
   let symbolicRule
@@ -74,7 +98,8 @@ function calcSymbolicSet(data) {
  *
  * class Parent extends Root {
  *    model = Model.create({
- *      title: Symbolic(this, 'title', 'abc')
+ *      title: Symbolic(this, 'title', 'abc'),
+ *      other: Symbolic({}, 'abc'),
  *    })
  *
  *    \@observable title

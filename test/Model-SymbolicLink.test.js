@@ -4,7 +4,7 @@
  * @date 2018/3/16
  * @description
  */
-import { SymbolicLink, Symbolic, observable } from '../src/index'
+import { SymbolicLink, SymbolicCustom, Symbolic, observable } from '../src/index'
 import { reaction } from 'mobx'
 import sinon from 'sinon'
 
@@ -28,7 +28,12 @@ describe('Model-SymbolicLink', function () {
     panel = Panel.create({
       title: Symbolic(this, 'title', ''),
       sub: Symbolic(this, 'ob', { 'abc': '' }),
-      'deep.ref': Symbolic(this, 'panelRef.ref', 'panelRef')
+      'deep.ref': Symbolic(this, 'panelRef.ref', 'panelRef'),
+      'isOpen': SymbolicCustom({
+        get() {
+          return 'fixed'
+        }
+      }, 'false')
     })
     @observable panelRef = {
       ref: ''
@@ -55,6 +60,11 @@ describe('Model-SymbolicLink', function () {
     let m = Model.create()
 
     m.panel.title = 'title'
+    expect(m.panel.isOpen).toBe('fixed')
+    m.panel.isOpen = 'abcc'
+    console.log(Object.getOwnPropertyDescriptor(m.panel, 'isOpen'))
+    expect(m.panel.isOpen).toBe('fixed')
+
     expect(m.title).toBe('title')
     expect(m.panel.title).toBe('title')
 
