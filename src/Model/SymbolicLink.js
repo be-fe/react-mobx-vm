@@ -91,8 +91,8 @@ function calcSymbolicSet(data) {
  * @class SymbolicLink
  * @extends {Root}
  * @example
- * import { Symbolic, Root } from 'react-mobx-vm'
- * class Model extends Symbolic {
+ * import { SymbolicLink, Root } from 'react-mobx-vm'
+ * class Model extends SymbolicLink {
  *   \@observable title = 'modelTitle'
  * }
  *
