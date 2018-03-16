@@ -115,7 +115,9 @@ export default [
       format: 'es'
     },
     external: id => {
-      return id.startsWith('babel-runtime') || id.startsWith('lodash') || external.includes(id)
+      return id.startsWith('babel-runtime')
+             || id.startsWith('lodash')
+             || ['qs'].concat(external).includes(id)
     },
     plugins,
     sourceMap: true
@@ -127,7 +129,9 @@ export default [
       format: 'cjs'
     },
     external: id => {
-      return id.startsWith('babel-runtime') || id.startsWith('lodash') || external.includes(id)
+      return id.startsWith('babel-runtime')
+             || id.startsWith('lodash')
+             || ['qs'].concat(external).includes(id)
     },
     plugins,
     sourceMap: true
