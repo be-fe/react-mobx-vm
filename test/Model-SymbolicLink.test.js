@@ -25,16 +25,17 @@ describe('Model-SymbolicLink', function () {
   class Model extends SymbolicLink {
     title = 'modelTitle'
     /*@observable*/
-    panel = Panel.create({
-      title: Symbolic(this, 'title', 'sss'),
-      sub: Symbolic(this, 'ob'),
-      'deep.ref': Symbolic(this, 'panelRef.ref', 'abc'),
-      'isOpen': SymbolicCustom({
+    panel = Panel
+      .create()
+      .setSymbolic('title', Symbolic(this, 'title'))
+      .setSymbolic('sub', Symbolic(this, 'ob'))
+      .setSymbolic('deep.ref', Symbolic(this, 'panelRef.ref'))
+      .setSymbolic('isOpen', SymbolicCustom({
         get() {
           return 'fixed'
         }
-      }, 'isOpen')
-    })
+      }))
+
     @observable panelRef = {
       ref: 'panelRef'
     }
@@ -48,16 +49,16 @@ describe('Model-SymbolicLink', function () {
     }
     @observable ob = { 'abc': '' }
     @observable
-    panel = Panel.create({
-      title: Symbolic(this, 'title', 'sss'),
-      sub: Symbolic(this, 'ob'),
-      'deep.ref': Symbolic(this, 'panelRef.ref', 'abc'),
-      'isOpen': SymbolicCustom({
+    panel = Panel
+      .create()
+      .setSymbolic('title', Symbolic(this, 'title'))
+      .setSymbolic('sub', Symbolic(this, 'ob'))
+      .setSymbolic('deep.ref', Symbolic(this, 'panelRef.ref'))
+      .setSymbolic('isOpen', SymbolicCustom({
         get() {
           return 'fixed'
         }
-      }, 'isOpen')
-    })
+      }))
 
   }
 

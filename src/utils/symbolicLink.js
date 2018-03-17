@@ -6,7 +6,6 @@
  */
 import { defineDeepProperties } from './define'
 import _ from 'lodash'
-import nearestRefPath from './nearestRefPath'
 import { Symbolic } from '../Model/SymbolicLink'
 
 // const symbolicKey = typeof Symbol === 'function' ? Symbol('__symbolic__') : '__[symbolic]__'
@@ -31,15 +30,15 @@ export default function symbolicLink(target, config = {}) {
     if (!(symbol instanceof Symbolic)) {
       throw new TypeError('symbolic requires the instanceof Symbolic(Custom).')
     }
-    const value = symbol.rule
+    const rule = symbol.rule
     // SymbolicCustom
-    if (value && !Array.isArray(value) && typeof value === 'object') {
-      properties[keyName] = value
+    if (rule && !Array.isArray(rule) && typeof rule === 'object') {
+      properties[keyName] = rule
       return
     }
 
-    let ref = value[0]
-    let paths = value[1]
+    let ref = rule[0]
+    let paths = rule[1]
 
     // Deep observable ref can't access now.
     // Would trigger lazy initializer about mobx.
@@ -54,12 +53,10 @@ export default function symbolicLink(target, config = {}) {
     // }
     properties[keyName] = {
       get() {
-        let { ref: nearestRef, path } = nearestRefPath(ref, paths)
-        return nearestRef[path]
+        return _.get(ref, paths)
       },
       set(val) {
-        let { ref: nearestRef, path } = nearestRefPath(ref, paths)
-        nearestRef[path] = val
+        _.set(ref, paths, val)
       }
     }
   })
@@ -71,6 +68,7 @@ export default function symbolicLink(target, config = {}) {
       defineDeepProperties(instance, properties)
     })
   }
+
 
   return defineDeepProperties(target, properties)
 }

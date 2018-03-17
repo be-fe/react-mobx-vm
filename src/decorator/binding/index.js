@@ -10,7 +10,6 @@ import * as React from 'react'
 import _ from 'lodash'
 import { getHandledProps } from './bindable'
 import { convertReactElement, displayName, isComponentClass } from '../../utils/reactUtils'
-import nearestRefPath from '../../utils/nearestRefPath'
 
 function convert(element, fallbackScope) {
   return convertReactElement(element, [
@@ -30,16 +29,11 @@ function convert(element, fallbackScope) {
         if (typeof bind === 'function') {
           bind = bind(dataScope).toString()
         }
-        const { ref, path } = nearestRefPath(dataScope, bind.toString())
-        if (typeof ref === 'undefined') {
-          console.error('Error: ref is undefined. scope: ', dataScope, ', bind:', bind)
-          return elem
-        }
         const get = function () {
-          return ref[path]
+          return _.get(dataScope, bind.toString())
         }
         const set = action(function (val) {
-          ref[path] = val
+          _.set(dataScope, bind.toString(), val)
         })
         if (process.env.NODE_ENV !== 'production' && !isObservable(dataScope)) {
           console.warn('[Warning] the scope of binding isn\'t observable.', dataScope)

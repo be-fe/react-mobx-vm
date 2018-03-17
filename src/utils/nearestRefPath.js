@@ -11,7 +11,8 @@ export default function nearestRefPath(ref, paths) {
     paths = paths.split('.')
   }
   // 取得最近的 ref
-  let latestPaths = paths.slice(0, paths.length - 1)
+  // join('.') 为了 'a.b' 作为ref 的情况
+  let latestPaths = paths.slice(0, paths.length - 1).join('.')
   if (latestPaths.length) {
     ref = _.get(ref, latestPaths)
   }
