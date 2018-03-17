@@ -24,8 +24,7 @@ describe('Model-SymbolicLink', function () {
 
   class Model extends SymbolicLink {
     title = 'modelTitle'
-    // @todo bug
-    /*@observable */
+    /*@observable*/
     panel = Panel.create({
       title: Symbolic(this, 'title', 'sss'),
       sub: Symbolic(this, 'ob'),
@@ -48,7 +47,6 @@ describe('Model-SymbolicLink', function () {
       ref: 'panelRef'
     }
     @observable ob = { 'abc': '' }
-    // @todo bug
     @observable
     panel = Panel.create({
       title: Symbolic(this, 'title', 'sss'),
