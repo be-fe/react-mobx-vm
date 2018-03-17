@@ -13,17 +13,17 @@ import symbolicLink from '../utils/symbolicLink'
  * @see {SymbolicLink}
  * @public
  * @param ref {Object}
- * @param rule {String}
- * @param defaultValue {any}
+ * @param path {String}
+ * @param value {any}
  * @return {Symbolic}
  * @constructor
  */
-export function Symbolic(ref, rule, defaultValue) {
+export function Symbolic(ref, path, value) {
   if (!(this instanceof Symbolic)) {
-    return new Symbolic(ref, rule, defaultValue)
+    return new Symbolic(ref, path, value)
   }
-  this.rule = [ref, rule]
-  this.defaultValue = defaultValue
+  this.rule = [ref, path]
+  this.value = value
 }
 
 /**
@@ -31,7 +31,7 @@ export function Symbolic(ref, rule, defaultValue) {
  * @see {SymbolicLink}
  * @public
  * @param descriptor {object}
- * @param defaultValue {any}
+ * @param value {any}
  * @return {SymbolicCustom}
  * @constructor
  * @extends {Symbolic}
@@ -39,39 +39,40 @@ export function Symbolic(ref, rule, defaultValue) {
  * SymbolicCustom({
  *   get() {}
  *   set() {}
- * }, 'defaultValue')
+ * }, 'value')
  */
-export function SymbolicCustom(descriptor, defaultValue) {
+export function SymbolicCustom(descriptor, value) {
   if (!(this instanceof SymbolicCustom)) {
-    return new SymbolicCustom(descriptor, defaultValue)
+    return new SymbolicCustom(descriptor, value)
   }
   this.rule = descriptor
-  this.defaultValue = defaultValue
+  this.value = value
 }
 SymbolicCustom.prototype = Object.create(Symbolic.prototype)
+SymbolicCustom.prototype.constructor = SymbolicCustom
 
 function calcSymbolic(value) {
-  let symbolicRule
+  let symbolic
   let data
   if (value instanceof Symbolic) {
-    symbolicRule = value.rule
-    data = value.defaultValue
+    symbolic = value
+    data = value.value
   }
   else {
     data = value
   }
   return {
     data,
-    symbolicRule
+    symbolic
   }
 }
 function calcSymbolicSet(data) {
-  const symbolicRuleSet = {}
+  const symbolicSet= {}
   const init = {}
   if (data && typeof data === 'object') {
     _.each(data, (value, key) => {
-      const { data, symbolicRule } = calcSymbolic(value)
-      symbolicRuleSet[key] = symbolicRule
+      const { data, symbolic } = calcSymbolic(value)
+      symbolicSet[key] = symbolic
       if (typeof data !== 'undefined') {
         init[key] = data
       }
@@ -79,8 +80,20 @@ function calcSymbolicSet(data) {
   }
   return {
     init,
-    symbolicRuleSet
+    symbolicSet
   }
+}
+
+function removeSymbolicValue(mixedSymbolicRule) {
+  const set = {}
+  _.each(mixedSymbolicRule, (val, key) => {
+    if (val instanceof Symbolic) {
+      const newVal = new val.constructor()
+      newVal.rule = val.rule
+      set[key] = newVal
+    }
+  })
+  return set
 }
 
 /**
@@ -97,30 +110,37 @@ function calcSymbolicSet(data) {
  * }
  *
  * class Parent extends Root {
+ *    // 在 create 和 构造函数中不能写入 value: 'noop'
  *    model = Model.create({
- *      title: Symbolic(this, 'title', 'abc'),
- *      other: Symbolic({}, 'abc'),
+ *      title: Symbolic(this, 'title', 'noop')
  *    })
  *
- *    \@observable title
+ *    \@observable title = 'abc'
  * }
  *
  * const parent = Parent.create()
- * parent.model.title === parent.title
+ * parent.model.title === parent.title // true
+ * parent.title === 'abc' // true
  */
 export default class SymbolicLink extends Root {
 
+
   static create(mixedSymbolicRule) {
-    return new this({}).assign(mixedSymbolicRule)
+    return new this({}).assignSymbolic(removeSymbolicValue(mixedSymbolicRule))
+  }
+
+  constructor(init) {
+    super({})
+    return this.assignSymbolic(removeSymbolicValue(init))
   }
 
   /**
    * 单独设置 Symbolic
    * @example
-   * model.setSymbolic('title', Symbolic(this, { 'title': 'abcd' }, 'abc'))
+   * model.setSymbolic('title', Symbolic(this, 'abc', 'abc'))
    * model.setSymbolic(
    *    'title',
-   *    Symbolic(this, { 'title': 'abcd' })
+   *    Symbolic(this, 'abc')
    * ).title === 'abcd' // 不等于 undefined
    * // 通过 setValue 明确设置 undefined
    * model.setValue('title', undefined)
@@ -131,8 +151,8 @@ export default class SymbolicLink extends Root {
    * @return {Root}
    */
   setSymbolic(path, symbolic) {
-    const { data, symbolicRule } = calcSymbolic(symbolic)
-    symbolicRule && symbolicLink(this, { [path]: symbolicRule })
+    const { data, symbolic: computedSymbolic } = calcSymbolic(symbolic)
+    computedSymbolic && symbolicLink(this, { [path]: computedSymbolic })
     if (typeof data === 'undefined') {
       return this
     }
@@ -144,12 +164,12 @@ export default class SymbolicLink extends Root {
    * @param mixedSymbolicRule {{path: Object|Symbolic}}
    * @return {SymbolicLink}
    */
-  assignShallow(mixedSymbolicRule) {
-    const { init, symbolicRuleSet } = calcSymbolicSet(mixedSymbolicRule)
-    if (symbolicRuleSet
-        && typeof symbolicRuleSet === 'object'
-        && Object.keys(symbolicRuleSet).length !== 0) {
-      symbolicLink(this, symbolicRuleSet)
+  assignSymbolic(mixedSymbolicRule) {
+    const { init, symbolicSet } = calcSymbolicSet(mixedSymbolicRule)
+    if (symbolicSet
+        && typeof symbolicSet === 'object'
+        && Object.keys(symbolicSet).length !== 0) {
+      symbolicLink(this, symbolicSet)
     }
     _.each(init, (val, key) => {
       if (typeof val !== 'undefined') {

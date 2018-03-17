@@ -6,12 +6,10 @@ title: 其他相关
 ---
 
 # Model
+<<EXEC doc.js  src/Model/*.js -s>>
 
-<<EXEC doc.js  src/Model/index.js>>
-
-# Renderer
-`React.createElement` 是不能渲染一个 ViewModel 实例的，
-于是便提供了渲染方法来渲染 vm。
+# Utilities
+<<EXEC doc.js  src/utils/*.js -s>>
 
 <<EXEC doc.js  src/renderer/**/*.js -s>>
 

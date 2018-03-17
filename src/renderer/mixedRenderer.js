@@ -9,6 +9,8 @@ import h from './reactHyper'
 
 
 /**
+ * `React.createElement` 是不能渲染一个 ViewModel 实例的，于是便提供了渲染方法来渲染 vm。
+ *
  * 即可以 render ViewModel 也可以 render React Component
  * r -> model, props = {}, ...children
  * h -> tagOrComp, classNameOrProps, props = undefined, ...content
