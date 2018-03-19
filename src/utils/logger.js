@@ -8,7 +8,7 @@
 
 export default {
   debug: function (...args) {
-    if (global && global.VM_DEBUG || process.env.NODE_ENV !== 'production') {
+    if (global && global.VM_DEBUG && process.env.NODE_ENV !== 'production') {
       console.log('[react-mobx-vm] Debug:',...args)
     }
   },
