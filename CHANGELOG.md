@@ -1,3 +1,13 @@
+<a name="0.1.6"></a>
+## [0.1.6](https://github.com/be-fe/react-mobx-vm/compare/v0.1.6-0...v0.1.6) (2018-03-19)
+
+
+### Bug Fixes
+
+* symbolicLink use in [@observable](https://github.com/observable) ([bc51cae](https://github.com/be-fe/react-mobx-vm/commit/bc51cae))
+
+
+
 <a name="0.1.6-0"></a>
 ## [0.1.6-0](https://github.com/be-fe/react-mobx-vm/compare/v0.1.5-0...v0.1.6-0) (2018-03-16)
 
