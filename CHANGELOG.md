@@ -1,3 +1,19 @@
+<a name="0.1.8"></a>
+## [0.1.8](https://github.com/be-fe/react-mobx-vm/compare/v0.1.7...v0.1.8) (2018-03-20)
+
+
+### Performance Improvements
+
+* **root:** root inject viewid ([af65f8c](https://github.com/be-fe/react-mobx-vm/commit/af65f8c))
+* root constructor initialize viewId ([ce6ae9d](https://github.com/be-fe/react-mobx-vm/commit/ce6ae9d))
+
+
+
+<a name="0.1.7"></a>
+## [0.1.7](https://github.com/be-fe/react-mobx-vm/compare/v0.1.6...v0.1.7) (2018-03-19)
+
+
+
 <a name="0.1.6"></a>
 ## [0.1.6](https://github.com/be-fe/react-mobx-vm/compare/v0.1.6-0...v0.1.6) (2018-03-19)
 
