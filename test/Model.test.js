@@ -19,6 +19,10 @@ describe('Model.basic', function () {
     expect(new Piped() instanceof Root).toBeTruthy()
     expect(Piped.prototype instanceof Root).toBeTruthy()
 
+    expect(new Piped().viewId !== new Piped().viewId).toBeTruthy()
+    expect(new Piped().viewId + 1 === new Piped().viewId).toBeTruthy()
+    expect(new Piped().toJSON()).toEqual({})
+
     const root = new Piped({ data: { a: '123' } })
     expect(root.data).toEqual({ a: '123' })
     root.assign({ data: 'cuttle' })

@@ -83,6 +83,10 @@ describe('decorator-autorun', function () {
       }
     }
     const VM = new Model
+
+    // expect(VM.__proto__.constructor === Model).toBeTruthy()
+    expect(VM instanceof Model).toBeTruthy()
+    expect(VM instanceof Root).toBeTruthy()
     mount(<VM/>)
     expect(VM.ob).toBe('ob')
     expect(obb).toBe('OB')

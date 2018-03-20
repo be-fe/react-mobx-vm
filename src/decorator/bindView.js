@@ -44,6 +44,21 @@ export default function bindView(View) {
   View = m(View)
 
   return function (State) {
+    // let constructor = State.prototype.constructor
+    // State.prototype.constructor = function () {
+    //   Object.defineProperty(
+    //     this, 'viewId',
+    //     {
+    //       value: View,
+    //       enumerable: false,
+    //       configurable: true,
+    //       writable: true
+    //     }
+    //   )
+    //   return constructor.apply(this, arguments)
+    // }
+    // State.prototype.constructor.name = constructor.name
+
     Object.defineProperty(
       State.prototype, 'defaultComp',
       {
