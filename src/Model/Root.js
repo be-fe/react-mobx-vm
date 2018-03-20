@@ -8,6 +8,7 @@ import {
   toJS
 } from 'mobx'
 import _ from 'lodash'
+import getViewId from '../utils/increaseId'
 
 /**
  *
@@ -105,6 +106,16 @@ export default class Root {
   }
 
   constructor(init = {}) {
+    Object.defineProperty(
+      this, 'viewId',
+      {
+        value: getViewId(),
+        enumerable: false,
+        configurable: true,
+        writable: true
+      }
+    )
+
     this.assignShallow(init)
   }
 

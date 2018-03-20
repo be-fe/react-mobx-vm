@@ -6,7 +6,6 @@
  */
 import m from './modelComp'
 import { observer } from 'mobx-react'
-import getViewId from '../utils/increaseId'
 
 export function getView(Model) {
   if (typeof Model === 'function') {
@@ -16,10 +15,10 @@ export function getView(Model) {
 }
 
 /**
- * 
+ *
  * 用于绑定 ViewModel 中与 Model 中对应的 View
  * @export
- * @param {Function|ReactClass} View 
+ * @param {Function|ReactClass} View
  * @public
  * @example
  * class View extends React.Component {
@@ -50,18 +49,11 @@ export default function bindView(View) {
       {
         value: View,
         enumerable: false,
-        configurable: true
+        configurable: true,
+        writable: true
       }
     )
 
-    Object.defineProperty(
-      State.prototype, 'viewId',
-      {
-        value: getViewId(),
-        enumerable: false,
-        configurable: true
-      }
-    )
     return State
   }
 }
