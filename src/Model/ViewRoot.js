@@ -89,6 +89,9 @@ export default class SymbolicLink extends Root {
    * @return {Root}
    */
   setSymbolic(path, symbolic) {
+    if (typeof path !== 'string' && !Array.isArray(path)) {
+      throw new Error('setSymbolic requires the path: string or array, but ' + typeof path)
+    }
     const computedSymbolic = calcSymbolic(symbolic)
     computedSymbolic && symbolicLink(this, { [path]: computedSymbolic })
     return this
