@@ -9,7 +9,8 @@ import {
   action,
   autorun,
   observable,
-  isObservableArray
+  isObservableArray,
+  toJS
 } from 'mobx'
 import logger from '../../utils/logger'
 
@@ -170,8 +171,8 @@ export default (config = {}, name = 'state-life') => {
                 let save = isFirst ? (
                   config.saveFirstTime || config.save
                 ) : config.save
-                // console.log('save', urlKey, property, this[property])
-                save.call(config, urlKey, this[property], config.fetch())
+                // toJS for fix ObservableArray can't be stringify
+                save.call(config, urlKey, toJS(this[property]), config.fetch())
                 syncUrlTimer = void 0
                 syncUrlFn = void 0
               }
