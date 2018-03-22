@@ -1,3 +1,18 @@
+<a name="0.1.9"></a>
+## [0.1.9](https://github.com/be-fe/react-mobx-vm/compare/v0.1.8...v0.1.9) (2018-03-22)
+
+
+### Bug Fixes
+
+* stateSync can't works on ObservableArray ([9c7be27](https://github.com/be-fe/react-mobx-vm/commit/9c7be27))
+
+
+### Performance Improvements
+
+* setSymbolic add assert path logic ([40e85b7](https://github.com/be-fe/react-mobx-vm/commit/40e85b7))
+
+
+
 <a name="0.1.8"></a>
 ## [0.1.8](https://github.com/be-fe/react-mobx-vm/compare/v0.1.7...v0.1.8) (2018-03-20)
 
