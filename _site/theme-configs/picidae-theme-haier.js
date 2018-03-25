@@ -44,7 +44,7 @@ module.exports = {
   repository: {
     repo: remote,
     branch: 'master',
-    prefix: 'docs'
+    prefix: '_site/docs'
   },
 
   search: {
