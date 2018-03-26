@@ -82,7 +82,7 @@ export default (config = {}, name = 'state-life') => {
 
   return (urlKey, options = {}, target, property, descriptor) => {
     if (typeof urlKey !== 'string') {
-      options = urlKey
+      options = { ...options, ...urlKey }
       urlKey = property
     }
     options = options || {}
