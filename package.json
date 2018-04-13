@@ -8,29 +8,47 @@
     "watch": "npm run rollup -- -w",
     "prepare": "run-p rollup babel",
     "test:all": "npm run prepare && run-p test test:cy:run",
-    "test": "jest",
-    "test:cy:ci": "npm-run-all --race --parallel \"gojs:open -- -s -i binding.js\" \"cy:run -- --record --key {1}\" --",
+    "test": "jest && npm run size",
+    "test:cy:ci":
+      "npm-run-all --race --parallel \"gojs:open -- -s -i binding.js\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",
     "test:cy:open": "run-p gojs cy:open",
     "gojs": "npm run gojs:open -- --noopen",
     "gojs:open": "gojs examples -p 8001",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "clean-picidae": "rimraf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
+    "clean-picidae":
+      "rimraf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
     "picidae": "picidae start -c _site/picidae.config.js",
     "lint": "eslint ./src --fix",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "changelog":
+      "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "gen-release-note": "node scripts/gen-release-notes.js",
     "preversion": "npm run test:all",
-    "version": "run-p changelog gen-release-note"
+    "version": "run-p changelog gen-release-note",
+    "size": "size-limit"
   },
+  "size-limit": [
+    {
+      "limit": "20 KB",
+      "name": "umd",
+      "path": "dist/react-mobx-vm.umd.js"
+    },
+    {
+      "limit": "20 KB",
+      "name": "module",
+      "path": "dist/react-mobx-vm.es.js"
+    },
+    {
+      "limit": "20 KB",
+      "name": "commonjs",
+      "path": "dist/react-mobx-vm.js"
+    }
+  ],
   "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "src/**/*.{js,jsx}": ["eslint --fix", "git add"]
   },
   "main": "dist/react-mobx-vm.js",
   "module": "dist/react-mobx-vm.es.js",
@@ -38,15 +56,8 @@
   "cdn": "dist/react-mobx-vm.umd.min.js",
   "unpkg": "dist/react-mobx-vm.umd.min.js",
   "jsdelivr": "dist/react-mobx-vm.umd.min.js",
-  "files": [
-    "dist",
-    "packages"
-  ],
-  "keywords": [
-    "imcuttle",
-    "View & Model",
-    "react-mobx-vm"
-  ],
+  "files": ["dist", "packages"],
+  "keywords": ["imcuttle", "View & Model", "react-mobx-vm"],
   "author": "imcuttle",
   "license": "MIT",
   "peerDependencies": {
@@ -111,20 +122,14 @@
     "rollup-plugin-node-resolve": "^3.0.3",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-uglify": "^3.0.0",
-    "sinon": "^4.3.0"
+    "sinon": "^4.3.0",
+    "size-limit": "^0.17.0"
   },
   "jest": {
     "testEnvironment": "jsdom",
     "setupTestFrameworkScriptFile": "<rootDir>/test/setup/react.js",
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "srcPackage/**/*.js"
-    ],
-    "coverageReporters": [
-      "json",
-      "text",
-      "lcov"
-    ]
+    "collectCoverageFrom": ["src/**/*.js", "srcPackage/**/*.js"],
+    "coverageReporters": ["json", "text", "lcov"]
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
@@ -145,8 +150,6 @@
     }
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"]
   }
 }
