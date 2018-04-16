@@ -1,3 +1,13 @@
+<a name="0.1.11"></a>
+## [0.1.11](https://github.com/be-fe/react-mobx-vm/compare/v0.1.10...v0.1.11) (2018-04-16)
+
+
+### Bug Fixes
+
+* fix IE<=10 class static properties assign ([9bdfe9a](https://github.com/be-fe/react-mobx-vm/commit/9bdfe9a))
+
+
+
 <a name="0.1.10"></a>
 ## [0.1.10](https://github.com/be-fe/react-mobx-vm/compare/v0.1.9...v0.1.10) (2018-03-26)
 
