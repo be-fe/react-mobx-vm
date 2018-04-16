@@ -25,27 +25,28 @@ const plugins = [
     exclude: 'node_modules/**',
     runtimeHelpers: true,
     babelrc: false,
-    'presets': [
+    presets: [
       [
         'env',
         {
-          'targets': {
-            'node': '6',
-            'browsers': ['ie>=9']
+          targets: {
+            node: '6',
+            browsers: ['ie>=9']
           },
-          'loose': true,
-          'useBuiltIns': true,
-          'modules': false
+          loose: true,
+          useBuiltIns: true,
+          modules: false
         }
       ],
       'react'
     ],
-    'plugins': [
+    plugins: [
       'external-helpers',
       // 'add-module-exports',
       [
-        'transform-react-jsx', {
-          'pragma': 'h'
+        'transform-react-jsx',
+        {
+          pragma: 'h'
         }
       ],
       'lodash',
@@ -57,10 +58,10 @@ const plugins = [
         'transform-runtime',
         {
           helpers: false,
-          'polyfill': false,
-          'regenerator': true
+          polyfill: false,
+          regenerator: true
         }
-      ]
+      ],
     ]
   }),
   resolve({
@@ -72,12 +73,7 @@ const plugins = [
   filesize()
 ]
 
-const external = [
-  'react',
-  'mobx',
-  'mobx-react',
-  'prop-types'
-]
+const external = ['react', 'mobx', 'mobx-react', 'prop-types']
 
 export default [
   {
@@ -103,9 +99,12 @@ export default [
       name: 'reactMobxVM'
     },
     external,
-    plugins: plugins.concat(uglify(), replace({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    })),
+    plugins: plugins.concat(
+      uglify(),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production')
+      })
+    ),
     sourceMap: true
   },
   {
@@ -115,9 +114,11 @@ export default [
       format: 'es'
     },
     external: id => {
-      return id.startsWith('babel-runtime')
-             || id.startsWith('lodash')
-             || ['qs'].concat(external).includes(id)
+      return (
+        id.startsWith('babel-runtime') ||
+        id.startsWith('lodash') ||
+        ['qs'].concat(external).includes(id)
+      )
     },
     plugins,
     sourceMap: true
@@ -129,9 +130,11 @@ export default [
       format: 'cjs'
     },
     external: id => {
-      return id.startsWith('babel-runtime')
-             || id.startsWith('lodash')
-             || ['qs'].concat(external).includes(id)
+      return (
+        id.startsWith('babel-runtime') ||
+        id.startsWith('lodash') ||
+        ['qs'].concat(external).includes(id)
+      )
     },
     plugins,
     sourceMap: true

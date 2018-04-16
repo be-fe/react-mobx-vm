@@ -4,27 +4,24 @@
   "description": "View & Model are mixed now via react mobx.",
   "scripts": {
     "babel": "rimraf packages && babel srcPackages -d packages -D",
-    "rollup": "rimraf dist && rollup -c --silent",
+    "rollup": "rimraf dist && rollup -c --silent && babel dist/*.js --plugins=transform-proto-to-assign --no-babelrc -d .",
     "watch": "npm run rollup -- -w",
     "prepare": "run-p rollup babel",
     "test:all": "npm run prepare && run-p test test:cy:run",
     "test": "jest && npm run size",
-    "test:cy:ci":
-      "npm-run-all --race --parallel \"gojs:open -- -s -i binding.js\" \"cy:run -- --record --key {1}\" --",
+    "test:cy:ci": "npm-run-all --race --parallel \"gojs:open -- -s -i binding.js\" \"cy:run -- --record --key {1}\" --",
     "test:cy:run": "run-p --race \"gojs -- -s\" cy:run",
     "test:cy:open": "run-p gojs cy:open",
     "gojs": "npm run gojs:open -- --noopen",
     "gojs:open": "gojs examples -p 8001",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
-    "clean-picidae":
-      "rimraf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
+    "clean-picidae": "rimraf node_modules/picidae/node_modules/{react,react-dom,react-router,history}",
     "picidae": "picidae start -c _site/picidae.config.js",
     "lint": "eslint ./src --fix",
     "precommit": "lint-staged",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "changelog":
-      "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "gen-release-note": "node scripts/gen-release-notes.js",
     "preversion": "npm run test:all",
     "version": "run-p changelog gen-release-note",
@@ -48,7 +45,10 @@
     }
   ],
   "lint-staged": {
-    "src/**/*.{js,jsx}": ["eslint --fix", "git add"]
+    "src/**/*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "main": "dist/react-mobx-vm.js",
   "module": "dist/react-mobx-vm.es.js",
@@ -56,8 +56,15 @@
   "cdn": "dist/react-mobx-vm.umd.min.js",
   "unpkg": "dist/react-mobx-vm.umd.min.js",
   "jsdelivr": "dist/react-mobx-vm.umd.min.js",
-  "files": ["dist", "packages"],
-  "keywords": ["imcuttle", "View & Model", "react-mobx-vm"],
+  "files": [
+    "dist",
+    "packages"
+  ],
+  "keywords": [
+    "imcuttle",
+    "View & Model",
+    "react-mobx-vm"
+  ],
   "author": "imcuttle",
   "license": "MIT",
   "peerDependencies": {
@@ -77,6 +84,7 @@
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-proto-to-assign": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
@@ -128,8 +136,15 @@
   "jest": {
     "testEnvironment": "jsdom",
     "setupTestFrameworkScriptFile": "<rootDir>/test/setup/react.js",
-    "collectCoverageFrom": ["src/**/*.js", "srcPackage/**/*.js"],
-    "coverageReporters": ["json", "text", "lcov"]
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "srcPackage/**/*.js"
+    ],
+    "coverageReporters": [
+      "json",
+      "text",
+      "lcov"
+    ]
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
@@ -150,6 +165,8 @@
     }
   },
   "commitlint": {
-    "extends": ["@commitlint/config-conventional"]
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
