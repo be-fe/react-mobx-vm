@@ -10,31 +10,6 @@ import addHideProps from '../utils/addHideProps'
 import inherit from '../utils/inherit'
 import Root from './Root'
 
-// export default class List extends Root {
-//   constructor(init = []) {
-//     super(init)
-//     ObservableArray.apply(this, [init])
-//   }
-//
-//   static create(init = []) {
-//     return Root.create.call(List, init)
-//   }
-//
-//   // splice(start, deleteCount, ...items) {
-//   //
-//   //   [].splice()
-//   // }
-//
-//   assignShallow(data = []) {
-//     if (!isArrayLike(data)) {
-//       throw new Error('List#assignShallow requires data which is like array, but ' + typeof data)
-//     }
-//
-//     this.splice(0, this.length)
-//     this.push(...data)
-//   }
-// }
-
 const classCallCheck = function(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError('Cannot call a class as a function')
