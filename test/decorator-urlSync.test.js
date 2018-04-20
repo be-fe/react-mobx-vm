@@ -6,6 +6,7 @@
  */
 import { urlSync, registerUrlSync, bindView } from '../src/decorator'
 import { observable } from 'mobx'
+import List from '../src/Model/List'
 import h from '../src/renderer/mixedRenderer'
 import { Root } from '../src/Model'
 import RouterV3 from '../srcPackages/RouterV3'
@@ -166,7 +167,7 @@ describe('decorator-urlSync', function () {
       @observable int = 23
 
       @urlSync('pArr')
-      @observable arr = ['1', '2']
+      @observable arr = List.create(['1', '2'])
       update() {
         // eslint-disable-next-line no-use-before-define
         updated = true
