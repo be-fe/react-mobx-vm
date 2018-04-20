@@ -7,6 +7,9 @@
 import Root from './Root'
 import symbolicLink from '../utils/symbolicLink'
 
+
+// TODO: 提供只util是不是更好?
+
 /**
  * 用于创建链接对象
  * @see {SymbolicLink}

@@ -3,11 +3,9 @@
  * @author yucong02
  */
 
-import {
-  action,
-  toJS
-} from 'mobx'
+import { action, toJS } from 'mobx'
 import _ from 'lodash'
+import addHideProps from '../utils/addHideProps'
 import getViewId from '../utils/increaseId'
 
 /**
@@ -42,8 +40,7 @@ export default class Root {
    * @param {object} props - View 中的 `this.props`
    * @memberof Root
    */
-  init(/* props */) {
-  }
+  init(/* props */) {}
 
   /**
    * 该方法对应与 React 的 componentWillReceiveProps 生命周期
@@ -51,8 +48,7 @@ export default class Root {
    * @param {object} props - View 中的 `nextProps`
    * @memberof Root
    */
-  update() {
-  }
+  update() {}
 
   /**
    * 该方法对应与 React 的 componentWillUnmount 生命周期
@@ -60,8 +56,7 @@ export default class Root {
    * @param {object} props - View 中的 `this.props`
    * @memberof Root
    */
-  exit() {
-  }
+  exit() {}
 
   /**
    * 将 this 转换为 JSON
@@ -70,17 +65,14 @@ export default class Root {
    */
   toJSON() {
     const data = {}
-    Object
-      .keys(this)
-      .forEach(name => {
-        // 嵌套支持
-        if (this[name] && typeof this[name].toJSON === 'function') {
-          data[name] = this[name].toJSON()
-        }
-        else {
-          data[name] = this[name]
-        }
-      })
+    Object.keys(this).forEach(name => {
+      // 嵌套支持
+      if (this[name] && typeof this[name].toJSON === 'function') {
+        data[name] = this[name].toJSON()
+      } else {
+        data[name] = this[name]
+      }
+    })
     return toJS(data)
   }
 
@@ -106,28 +98,20 @@ export default class Root {
   }
 
   constructor(init = {}) {
-    Object.defineProperty(
-      this, 'viewId',
-      {
-        value: getViewId(),
-        enumerable: false,
-        configurable: true,
-        writable: true
-      }
-    )
+    addHideProps(this, 'viewId', getViewId())
 
     this.assignShallow(init)
   }
 
-  @action assignShallow(data) {
+  @action
+  assignShallow(data) {
     data = toJS(data)
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
         // if (typeof data[key] !== 'undefined') {
         if (this[key] instanceof Root) {
           this[key].assignShallow(data[key])
-        }
-        else {
+        } else {
           this[key] = data[key]
         }
         // }
@@ -159,8 +143,10 @@ export default class Root {
    * Root.create({ a: [1, 3] }).isEqual(Root.create({ a: [1, 3] })) // true
    */
   isEqual(other) {
-    return this === other
-           || _.isEqual(this.toJSON(), other instanceof Root ? other.toJSON() : other)
+    return (
+      this === other ||
+      _.isEqual(this.toJSON(), other instanceof Root ? other.toJSON() : other)
+    )
   }
 
   /**
@@ -219,7 +205,7 @@ export default class Root {
    * Root.create({ a: '', b: ['a'] }).isEmpty() // false
    */
   isEmpty() {
-    return _.every(this, (value) => {
+    return _.every(this, value => {
       if (value instanceof Root) {
         return value.isEmpty()
       }
@@ -227,4 +213,3 @@ export default class Root {
     })
   }
 }
-

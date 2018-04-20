@@ -8,4 +8,5 @@
 export Root from './Root'
 export Piped from './Piped'
 export SymbolicLink from './SymbolicLink'
+export List from './List'
 export { Symbolic, SymbolicCustom } from './SymbolicLink'
