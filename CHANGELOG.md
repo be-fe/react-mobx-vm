@@ -1,3 +1,18 @@
+<a name="0.1.12"></a>
+## [0.1.12](https://github.com/be-fe/react-mobx-vm/compare/v0.1.11...v0.1.12) (2018-04-23)
+
+
+### Bug Fixes
+
+* urlSync value toJSON ([d627e7f](https://github.com/be-fe/react-mobx-vm/commit/d627e7f))
+
+
+### Performance Improvements
+
+* append List model ([b94ea07](https://github.com/be-fe/react-mobx-vm/commit/b94ea07))
+
+
+
 <a name="0.1.11"></a>
 ## [0.1.11](https://github.com/be-fe/react-mobx-vm/compare/v0.1.10...v0.1.11) (2018-04-16)
 
