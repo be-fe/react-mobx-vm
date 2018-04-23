@@ -97,6 +97,10 @@ export default getStateLifeDecorator({
   },
   save(key, value, data) {
     assertHistory()
+    if (value && value.toJSON && typeof value.toJSON === 'function') {
+      value = value.toJSON()
+    }
+
     useHistory.push({
       ...data,
       search: stringify({ ...data.query, [key]: value }),
