@@ -26,6 +26,7 @@ describe('Model-List', function() {
   it('should ObservableArray works', function() {
     const list = List.create([1, 2, 3])
     const oList = observable.array([1, 2, 3])
+    expect(list instanceof List)
     expect(isObservableArray(list)).toBeTruthy()
     expect(isObservableObject(oList)).toBeFalsy()
     expect(isObservableObject(list)).toBeFalsy()
