@@ -16,6 +16,11 @@ View & Model are mixed now via react mobx
 
 Note: UMD don't supports extension/Router.
 
+## Installation
+```bash
+npm i react react-router@3 mobx@3 mobx-react@4 react-mobx-vm -D
+```
+
 ## Examples
 
 ```bash
