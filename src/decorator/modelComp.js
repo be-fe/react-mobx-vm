@@ -6,6 +6,12 @@ import { displayName } from '../utils/reactUtils'
  */
 export const symbol = typeof Symbol === 'function' ? Symbol('model-comp') : '__model-comp__'
 
+/**
+ * 判断React Class是否为 ViewModal Component
+ * @public
+ * @param Comp {ReactClass}
+ * @return {boolean}
+ */
 export function isViewModelComponent(Comp) {
   return !!Comp[symbol]
 }
