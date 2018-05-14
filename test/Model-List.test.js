@@ -72,7 +72,7 @@ describe('Model-List', function() {
     expect(list[0].a).toBe('22')
     expect(list[0] instanceof Piped).toBeFalsy()
 
-    list.add({ b: 'xx' })
+    list.push({ b: 'xx' })
     let poped = runInAction(() => list.pop())
     expect(poped.b).toBe('xx')
     expect(poped).toBeInstanceOf(Piped)
@@ -112,11 +112,37 @@ describe('Model-List', function() {
     expect(list[0] instanceof Model === true && list.length === 1).toBeTruthy()
 
     const list2 = List.create([], Model)
-    list2.add({}, {})
+    list2.push({}, {})
 
     expect(
-      list2[0] instanceof Model === true
-      && list2[1] instanceof Model === true
+      list2[0] instanceof Model === true && list2[1] instanceof Model === true
     ).toBeTruthy()
+  })
+
+  it('should JSON stringify', function() {
+    let m = List.create([])
+    m.push({ hah: 'jkl' }, 22)
+    m.unshift([1, 2])
+    expect(JSON.stringify(m)).toBe(JSON.stringify([[1, 2], { hah: 'jkl' }, 22]))
+    expect(m.length).toBe(3)
+    expect(Array.from(m[0])).toEqual([1, 2])
+
+    class Model extends Root {
+      @observable name
+      @observable age
+      toJSON() {
+        return {
+          name: this.name
+        }
+      }
+    }
+
+    m = List.create([{ name: 'hh', age: 22 }], Model)
+    m.push({ name: 'jkl' })
+    expect(JSON.stringify(m)).toBe(
+      JSON.stringify([{ name: 'hh' }, { name: 'jkl' }])
+    )
+    expect(m.length).toBe(2)
+    expect(m[0].name).toBe('hh')
   })
 })
