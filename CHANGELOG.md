@@ -1,3 +1,8 @@
+<a name="0.1.14"></a>
+## [0.1.14](https://github.com/be-fe/react-mobx-vm/compare/v0.1.13...v0.1.14) (2018-05-14)
+
+
+
 <a name="0.1.13"></a>
 ## [0.1.13](https://github.com/be-fe/react-mobx-vm/compare/v0.1.12...v0.1.13) (2018-05-10)
 
