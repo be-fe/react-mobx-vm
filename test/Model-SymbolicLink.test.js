@@ -4,18 +4,25 @@
  * @date 2018/3/16
  * @description
  */
-import { SymbolicLink, symbolicLink, SymbolicCustom, Symbolic, observable } from '../src/index'
+import {
+  SymbolicLink,
+  symbolicLink,
+  SymbolicCustom,
+  Symbolic,
+  observable,
+  Root
+} from '../src/index'
 import { reaction, runInAction, useStrict } from 'mobx'
 import sinon from 'sinon'
 
 useStrict(true)
 
-describe('Model-SymbolicLink', function () {
-
+describe('Model-SymbolicLink', function() {
   class Panel extends SymbolicLink {
     @observable title = '123'
     @observable sub = {}
-    @observable deep = {
+    @observable
+    deep = {
       ref: 1
     }
     @observable ob = 'xx'
@@ -25,47 +32,52 @@ describe('Model-SymbolicLink', function () {
   class Model extends SymbolicLink {
     title = 'modelTitle'
     /*@observable*/
-    panel = Panel
-      .create()
+    panel = Panel.create()
       .setSymbolic('title', Symbolic(this, 'title'))
       .setSymbolic('sub', Symbolic(this, 'ob'))
       .setSymbolic('deep.ref', Symbolic(this, 'panelRef.ref'))
-      .setSymbolic('isOpen', SymbolicCustom({
-        get() {
-          return 'fixed'
-        }
-      }))
+      .setSymbolic(
+        'isOpen',
+        SymbolicCustom({
+          get() {
+            return 'fixed'
+          }
+        })
+      )
 
-    @observable panelRef = {
+    @observable
+    panelRef = {
       ref: 'panelRef'
     }
-    @observable ob = { 'abc': '' }
+    @observable ob = { abc: '' }
   }
 
   class ModelB extends SymbolicLink {
     title = 'modelTitle'
-    @observable panelRef = {
+    @observable
+    panelRef = {
       ref: 'panelRef'
     }
-    @observable ob = { 'abc': '' }
+    @observable ob = { abc: '' }
     @observable
-    panel = Panel
-      .create()
+    panel = Panel.create()
       .setSymbolic('title', Symbolic(this, 'title'))
       .setSymbolic('sub', Symbolic(this, 'ob'))
       .setSymbolic('deep.ref', Symbolic(this, 'panelRef.ref'))
-      .setSymbolic('isOpen', SymbolicCustom({
-        get() {
-          return 'fixed'
-        }
-      }))
-
+      .setSymbolic(
+        'isOpen',
+        SymbolicCustom({
+          get() {
+            return 'fixed'
+          }
+        })
+      )
   }
 
   test('Model-SymbolicLink specB', () => {
     let m = ModelB.create()
 
-    expect(m.ob).toEqual({ 'abc': '' })
+    expect(m.ob).toEqual({ abc: '' })
     expect(m.panel.title).toBe('modelTitle')
     expect(m.title).toBe('modelTitle')
 
@@ -80,7 +92,7 @@ describe('Model-SymbolicLink', function () {
   test('Model-SymbolicLink spec', () => {
     let m = Model.create()
 
-    expect(m.ob).toEqual({ 'abc': '' })
+    expect(m.ob).toEqual({ abc: '' })
     expect(m.panel.title).toBe('modelTitle')
     expect(m.title).toBe('modelTitle')
 
@@ -95,19 +107,16 @@ describe('Model-SymbolicLink', function () {
   test('Model-SymbolicLink setSymbolic', () => {
     let m = Model.create()
 
-    runInAction(() => m.panel.title = 'title')
+    runInAction(() => (m.panel.title = 'title'))
     expect(m.panel.isOpen).toBe('fixed')
-    runInAction(() => m.panel.isOpen = 'abcc')
+    runInAction(() => (m.panel.isOpen = 'abcc'))
     expect(m.panel.isOpen).toBe('fixed')
 
     expect(m.title).toBe('title')
     expect(m.panel.title).toBe('title')
 
     const oldObVal = m.ob
-    m.panel.setSymbolic(
-      'title',
-      Symbolic(m, 'ob')
-    )
+    m.panel.setSymbolic('title', Symbolic(m, 'ob'))
 
     expect(m.panel.title).toBe(oldObVal)
     expect(m.ob).toBe(oldObVal)
@@ -116,7 +125,7 @@ describe('Model-SymbolicLink', function () {
     expect(m.panel.title).toBeUndefined()
     expect(m.ob).toBeUndefined()
 
-    runInAction(() => m.ob = 'ob')
+    runInAction(() => (m.ob = 'ob'))
     expect(m.panel.title).toBe('ob')
     expect(m.ob).toBe('ob')
   })
@@ -124,33 +133,39 @@ describe('Model-SymbolicLink', function () {
   test('observable', () => {
     let m = Model.create()
     const callback = sinon.spy()
-    reaction(() => m.ob, () => {
-      callback()
-    })
-    reaction(() => m.panel.sub, () => {
-      callback()
-    })
+    reaction(
+      () => m.ob,
+      () => {
+        callback()
+      }
+    )
+    reaction(
+      () => m.panel.sub,
+      () => {
+        callback()
+      }
+    )
 
     expect(m.panel.sub === m.ob).toBeTruthy()
-    expect(m.panel.sub).toEqual({ 'abc': '' })
+    expect(m.panel.sub).toEqual({ abc: '' })
     expect(callback.callCount).toBe(0)
 
-    runInAction(() => m.ob = [1, 2])
+    runInAction(() => (m.ob = [1, 2]))
     expect(callback.callCount).toBe(2)
     expect(m.panel.sub === m.ob).toBeTruthy()
     // expect(m.panel.sub).toEqual([1, 2])
 
-    runInAction(() => m.panel.sub = [1, 2, 3])
+    runInAction(() => (m.panel.sub = [1, 2, 3]))
     expect(m.panel.sub === m.ob).toBeTruthy()
     expect(callback.callCount).toBe(4)
   })
 
   test('symbolicLink', () => {
-    let host = { a: 'a', 'aa': 'aa' }
-    const proxy = { a: 'x', 'aa': 'proxyAA' }
+    let host = { a: 'a', aa: 'aa' }
+    const proxy = { a: 'x', aa: 'proxyAA' }
     host = symbolicLink(host, {
-      'a': Symbolic(proxy, 'a', 'nop'),
-      'cus': SymbolicCustom({
+      a: Symbolic(proxy, 'a', 'nop'),
+      cus: SymbolicCustom({
         value: '222',
         writable: true
       })
@@ -162,14 +177,47 @@ describe('Model-SymbolicLink', function () {
 
     expect(() => {
       symbolicLink(host, {
-        'a': {}
+        a: {}
       })
     }).toThrow()
 
     expect(host.aa).toBe('aa')
     host = symbolicLink(host, {
-      'aa': Symbolic(proxy, 'aa')
+      aa: Symbolic(proxy, 'aa')
     })
     expect(host.aa).toBe('proxyAA')
+  })
+
+  test('deep nested symbolicLink', () => {
+    class Tree extends Root {
+      @observable id = 'root'
+
+      @observable
+      left = symbolicLink(
+        Node.create({ id: 'left', left: null }), {
+          id: Symbolic(this, 'id')
+        }
+      )
+    }
+
+    class Node extends Root {
+      @observable id = 'node'
+
+      @observable
+      left = symbolicLink(
+        Leaf.create(), {
+          id: Symbolic(this, 'id')
+        }
+      )
+    }
+
+    class Leaf extends Root {
+      @observable id = 'leaf'
+    }
+
+
+    expect(Tree.create({ id: 'node' }).id).toBe('node')
+    expect(Tree.create({ id: 'node' }).left.id).toBe('node')
+    expect(Tree.create({ id: 'node' }).left.left.id).toBe('node')
   })
 })
