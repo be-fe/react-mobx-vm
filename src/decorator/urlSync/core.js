@@ -87,21 +87,21 @@ export default getStateLifeDecorator({
   /*exit(self, property, name) {
     delete collection[name]
   },*/
-  saveFirstTime(key, value, data) {
-    assertHistory()
-    useHistory.replace({
-      ...data,
-      search: stringify({ ...data.query, [key]: value }),
-      query: null
-    })
-  },
+  // saveFirstTime(key, value, data) {
+  //   assertHistory()
+  //   useHistory.replace({
+  //     ...data,
+  //     search: stringify({ ...data.query, [key]: value }),
+  //     query: null
+  //   })
+  // },
   save(key, value, data) {
     assertHistory()
     if (value && value.toJSON && typeof value.toJSON === 'function') {
       value = value.toJSON()
     }
 
-    useHistory.push({
+    useHistory.replace({
       ...data,
       search: stringify({ ...data.query, [key]: value }),
       query: null
