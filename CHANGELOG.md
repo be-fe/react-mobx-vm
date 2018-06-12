@@ -1,3 +1,18 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/be-fe/react-mobx-vm/compare/v0.1.14...v0.2.0) (2018-06-12)
+
+
+### Bug Fixes
+
+* **urlsync:** use history.replace instead of history.push ([77541f3](https://github.com/be-fe/react-mobx-vm/commit/77541f3))
+
+
+### BREAKING CHANGES
+
+* **urlsync:** use history.replace instead of history.push
+
+
+
 <a name="0.1.14"></a>
 ## [0.1.14](https://github.com/be-fe/react-mobx-vm/compare/v0.1.13...v0.1.14) (2018-05-14)
 
