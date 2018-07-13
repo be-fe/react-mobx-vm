@@ -176,10 +176,12 @@ describe('Model-SymbolicLink', function() {
     host.cus = 456
     expect(host.cus).toBe(456)
 
-    host = symbolicLink(host, {
+    let hostB = symbolicLink(host, {
       'b.c': Symbolic(proxy, 'b.c')
     })
     expect(host.b.c).toBe('proxy')
+    expect(hostB.b.c).toBe('proxy')
+    expect(hostB).toBe(host)
 
     expect(() => {
       symbolicLink(host, {
