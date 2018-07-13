@@ -161,19 +161,25 @@ describe('Model-SymbolicLink', function() {
   })
 
   test('symbolicLink', () => {
-    let host = { a: 'a', aa: 'aa' }
-    const proxy = { a: 'x', aa: 'proxyAA' }
+    let host = { a: 'a', aa: 'aa', b: { c: 'host.b.c' } }
+    const proxy = { a: 'x', aa: 'proxyAA', b: { c: 'proxy' } }
     host = symbolicLink(host, {
-      a: Symbolic(proxy, 'a', 'nop'),
+      a: Symbolic(proxy, 'a'),
       cus: SymbolicCustom({
         value: '222',
         writable: true
       })
     })
     expect(host.a).toBe('x')
+    expect(host.b.c).toBe('host.b.c')
     expect(host.cus).toBe('222')
     host.cus = 456
     expect(host.cus).toBe(456)
+
+    host = symbolicLink(host, {
+      'b.c': Symbolic(proxy, 'b.c')
+    })
+    expect(host.b.c).toBe('proxy')
 
     expect(() => {
       symbolicLink(host, {
