@@ -7,6 +7,6 @@
 
 let id = 1
 
-export default function get() {
+export default function get(): number {
   return id++
 }

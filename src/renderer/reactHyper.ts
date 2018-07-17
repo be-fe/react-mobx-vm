@@ -72,7 +72,7 @@ const tags = [
   'link'
 ]
 
-export default function hyper(tagName, classNameOrProps, props, ...children) {
+export default function hyper(tagName, classNameOrProps, props?, ...children) {
   if (typeof classNameOrProps === 'string') {
     props = props || {}
     props.className = props.className || classNameOrProps

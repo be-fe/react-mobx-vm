@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2015",
+    "sourceMap": false,
+    "lib": ["es7"],
+    "declaration": true,
+    "typeRoots": ["./node_modules/@types"],
+    "experimentalDecorators": true
+  },
+  "exclude": ["**/node_modules", "**/__tests__"],
+  "include": [
+  ]
+}

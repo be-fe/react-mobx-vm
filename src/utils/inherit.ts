@@ -5,7 +5,7 @@
  * @description
  */
 
-export default function inherit(Child, Super) {
+export default function inherit(Child: any, Super: any) {
   const extendStatics =
     Object.setPrototypeOf ||
     ({ __proto__: [] } instanceof Array &&

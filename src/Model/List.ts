@@ -11,15 +11,15 @@ import inherit from '../utils/inherit'
 import Root from './Root'
 
 function _extends(obj, defaults) {
-  var keys = Object.getOwnPropertyNames(defaults)
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i]
-    var value = Object.getOwnPropertyDescriptor(defaults, key)
+  let keys = Object.getOwnPropertyNames(defaults)
+  for (let i = 0; i < keys.length; i++) {
+    let key = keys[i]
+    let value = Object.getOwnPropertyDescriptor(defaults, key)
     if (
       value &&
       (value.configurable ||
-       typeof value.get === 'function' ||
-       typeof value.set === 'function') &&
+        typeof value.get === 'function' ||
+        typeof value.set === 'function') &&
       obj[key] === undefined
     ) {
       Object.defineProperty(obj, key, value)
@@ -42,7 +42,6 @@ const ObservableArray = observable.array([]).constructor
  * @public
  * @param init {any[]}
  * @param Type {Function}
- * @param options {object}
  * @constructor
  * @example
  *
@@ -60,9 +59,9 @@ const ObservableArray = observable.array([]).constructor
  * list[0] instanceof Model === true
  * list.length === 1
  */
-function List(init = [], Type, options = {}) {
+function List(init = [], Type?: Function) {
   classCallCheck(this, List)
-  const arr = observable.array([], options)
+  const arr = <any>observable.array([])
   ObservableArray.apply(this, [[], arr.$mobx.enhancer])
 
   addHideProps(this, '_Type', Type)
@@ -80,7 +79,7 @@ _extends(List.prototype, Array.prototype)
  * @param options {object?}
  * @return {Root}
  */
-List.create = function create(init = [], Type, options = {}) {
+List.create = function create(init = [], Type?: Function, options = {}) {
   return new this([], Type, options).assign(init)
 }
 List.prototype._new = function _new(item) {
@@ -108,7 +107,7 @@ List.prototype.push = action(function push(...items) {
   }
   return originPush.apply(this, items)
 })
-List.prototype.assignShallow = action(function assignShallow(items = []) {
+List.prototype.assign = action(function assign(items = []) {
   if (!isArrayLike(items)) {
     throw new Error(
       'List#assignShallow requires data which is like array, but ' +

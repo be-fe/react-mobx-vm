@@ -5,7 +5,7 @@
  * @description
  */
 import { defineDeepProperties } from './define'
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { Symbolic } from '../Model/SymbolicLink'
 
 // const symbolicKey = typeof Symbol === 'function' ? Symbol('__symbolic__') : '__[symbolic]__'
@@ -61,14 +61,12 @@ export default function symbolicLink(target, config = {}) {
     }
   })
 
-
   // hack mobx @observable
   if (target.__mobxLazyInitializers && target.__mobxLazyInitializers.push) {
     target.__mobxLazyInitializers.push(function symbolicLinkDefine(instance) {
       defineDeepProperties(instance, properties)
     })
   }
-
 
   return defineDeepProperties(target, properties)
 }

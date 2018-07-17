@@ -5,12 +5,15 @@
  * @description
  */
 
-import _ from 'lodash'
+import * as _ from 'lodash'
 import nearestRefPath from './nearestRefPath'
 
-export function defineProperties(target, properites = {}) {
+export function defineProperties(
+  target: any,
+  properties: PropertyDescriptorMap = {}
+): any {
   const setting = {}
-  _.each(properites, function (val, key) {
+  _.each(properties, function(val, key) {
     setting[key] = {
       configurable: true,
       enumerable: true,
@@ -21,8 +24,11 @@ export function defineProperties(target, properites = {}) {
   return Object.defineProperties(target, setting)
 }
 
-export function defineDeepProperties(target, properites = {}) {
-  _.each(properites, function (val, key) {
+export function defineDeepProperties(
+  target: any,
+  properties: PropertyDescriptorMap = {}
+): any {
+  _.each(properties, function(val, key) {
     const { ref, path } = nearestRefPath(target, key)
     if (!ref) {
       throw new Error('defineDeepProperties: ref is null.')

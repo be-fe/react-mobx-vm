@@ -6,7 +6,7 @@
  */
 import r from './vmRender'
 import h from './reactHyper'
-
+import Root from '../Model/Root'
 
 /**
  * `React.createElement` 是不能渲染一个 ViewModel 实例的，于是便提供了渲染方法来渲染 vm。
@@ -37,14 +37,18 @@ import h from './reactHyper'
  *    h.span()
  * )
  */
-function mixedRenderer(model, propsOrClassName, props, ...children) {
+function mixedRenderer(
+  model: Root | string | any,
+  propsOrClassName: object | string,
+  props,
+  ...children
+) {
   if (model && typeof model === 'object') {
     if (typeof propsOrClassName === 'string') {
       propsOrClassName = { className: propsOrClassName }
       props = props || {}
       props = { ...props, ...propsOrClassName }
-    }
-    else {
+    } else {
       children = [props].concat(children)
       props = propsOrClassName
     }

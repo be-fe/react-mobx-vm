@@ -22,7 +22,11 @@ import h from './reactHyper'
  *  // 子 elems
  *  children: ReactElem...
  */
-export default function renderer(model, props = {}, ...children) {
+export default function renderer(
+  model,
+  props: { comp?: any; local?: any; key?: any } = {},
+  ...children
+) {
   if (!model) {
     return null
   }

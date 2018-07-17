@@ -5,24 +5,26 @@
  * @description
  */
 import * as React from 'react'
+import { boolean } from 'mobx-state-tree/dist/types/primitives'
 
-export const isValidElement = React.isValidElement
+export { isValidElement } from 'react'
 
 export function isComponentInstance(instance) {
   return instance && instance instanceof React.Component
 }
 
 // https://discuss.reactjs.org/t/how-to-determine-if-js-object-is-react-component/2825/5
-export function isComponentClass(component) {
+export function isComponentClass(component): boolean {
   return (
-    component && component.prototype
-    && component.prototype.isReactComponent
-    && typeof component.prototype.isReactComponent === 'object'
-    && !Array.isArray(component.prototype.isReactComponent)
-  ) || (
+    (component &&
+      component.prototype &&
+      component.prototype.isReactComponent &&
+      typeof component.prototype.isReactComponent === 'object' &&
+      !Array.isArray(component.prototype.isReactComponent)) ||
     // legacy ?
-    component && component.prototype
-    && isComponentInstance(component.prototype)
+    (component &&
+      component.prototype &&
+      isComponentInstance(component.prototype))
   )
 }
 
@@ -39,7 +41,12 @@ export function assertReactClass(Component, message) {
  * @param parent
  * @return element
  */
-export function convertReactElement(element, rules = [], parent = null, outerIndex = 0) {
+export function convertReactElement(
+  element,
+  rules = [],
+  parent = null,
+  outerIndex = 0
+) {
   if (!element || rules.length === 0) {
     return element
   }
@@ -50,9 +57,8 @@ export function convertReactElement(element, rules = [], parent = null, outerInd
         let handledElem
         // eslint-disable-next-line no-cond-assign
         if (
-          typeof (
-            handledElem = handle(element, index, parent, children)
-          ) !== 'undefined'
+          typeof (handledElem = handle(element, index, parent, children)) !==
+          'undefined'
         ) {
           element = handledElem
         }
@@ -64,10 +70,9 @@ export function convertReactElement(element, rules = [], parent = null, outerInd
   }
 
   if (Array.isArray(element)) {
-    return React
-      .Children
-      .toArray(element)
-      .map((elem, index) => convertReactElement(elem, rules, parent, index))
+    return React.Children.toArray(element).map((elem, index) =>
+      convertReactElement(elem, rules, parent, index)
+    )
   }
   let children = element && element.props && element.props.children
   let newElement = element
@@ -75,7 +80,12 @@ export function convertReactElement(element, rules = [], parent = null, outerInd
   // convert may update children
   let newChildren = newElement && newElement.props && newElement.props.children
   if (newChildren) {
-    newChildren = convertReactElement(newChildren, rules, newElement, outerIndex)
+    newChildren = convertReactElement(
+      newChildren,
+      rules,
+      newElement,
+      outerIndex
+    )
   }
 
   if (newElement === element && newChildren === children) {
@@ -87,8 +97,7 @@ export function convertReactElement(element, rules = [], parent = null, outerInd
     : newElement
 }
 
-export function isElementOf(Component) {
-
+export function isElementOf(Component): (element: any) => boolean {
   // Trying to solve the problem with 'children: XXX.isRequired'
   // (https://github.com/gaearon/react-hot-loader/issues/710). This does not work for me :(
   const originalPropTypes = Component.propTypes
@@ -103,12 +112,13 @@ export function isElementOf(Component) {
   return element => element && element.type === elementType
 }
 
-export function displayName(component) {
+export function displayName(component: any): string {
   return (
-    component.displayName ||
-    component.name ||
-    (
-      component.type && ( component.type.displayName || component.type.name )
-    ) || 'Unknown'
+    (component &&
+      (component.displayName ||
+        component.name ||
+        (component.type &&
+          (component.type.displayName || component.type.name)))) ||
+    'Unknown'
   )
 }

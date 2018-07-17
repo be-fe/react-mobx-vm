@@ -4,7 +4,7 @@
  */
 
 import { action, toJS } from 'mobx'
-import _ from 'lodash'
+import * as _ from 'lodash'
 import addHideProps from '../utils/addHideProps'
 import getViewId from '../utils/increaseId'
 
@@ -23,14 +23,14 @@ export default class Root {
    * @public
    * @param {object} [init={}]
    * @returns {Root}
-   * @memberof Root
+   * @memberOf Root
    * @example
    * class Model extends Root {
    *    val = 123
    * }
    * const model = Model.create({ val: '345' })
    */
-  static create(init = {}) {
+  static create(init: object = {}) {
     return new this().assign(init)
   }
 
@@ -38,30 +38,30 @@ export default class Root {
    * 该方法对应与 React 的 componentDidMount 生命周期
    * @public
    * @param {object} props - View 中的 `this.props`
-   * @memberof Root
+   * @memberOf Root
    */
-  init(/* props */) {}
+  init(props: object) {}
 
   /**
    * 该方法对应与 React 的 componentWillReceiveProps 生命周期
    * @public
    * @param {object} props - View 中的 `nextProps`
-   * @memberof Root
+   * @memberOf Root
    */
-  update() {}
+  update(props: object) {}
 
   /**
    * 该方法对应与 React 的 componentWillUnmount 生命周期
    * @public
    * @param {object} props - View 中的 `this.props`
-   * @memberof Root
+   * @memberOf Root
    */
-  exit() {}
+  exit(props: object) {}
 
   /**
    * 将 this 转换为 JSON
    * @public
-   * @memberof Root
+   * @memberOf Root
    */
   toJSON() {
     const data = {}
@@ -83,7 +83,7 @@ export default class Root {
    * @param {any} value
    * @returns {Root}
    * @public
-   * @memberof Root
+   * @memberOf Root
    * @example
    * Root
    *  .create()
@@ -100,60 +100,14 @@ export default class Root {
   constructor(init = {}) {
     addHideProps(this, 'viewId', getViewId())
 
-    this.assignShallow(init)
-  }
-
-  @action
-  assignShallow(data) {
-    data = toJS(data)
-    for (let key in data) {
-      if (data.hasOwnProperty(key)) {
-        // if (typeof data[key] !== 'undefined') {
-        if (this[key] instanceof Root) {
-          this[key].assignShallow(data[key])
-        } else {
-          this[key] = data[key]
-        }
-        // }
-      }
-    }
-    return this
+    this.assign(init)
   }
 
   /**
-   *
-   * 拷贝当前对象
-   * @returns {Root}  一个新的实例
-   * @public
-   * @memberof Root
-   */
-  clone() {
-    return this.constructor.create(this)
-  }
-
-  /**
-   * 对比两个对象是否相同
-   * @param {any} other
-   * @returns {boolean}
-   * @memberof Root
-   * @public
-   * @example
-   * Root.create().isEqual({}) // true
-   * Root.create({ a: [1, 3] }).isEqual({ a: [1, 3] }) // true
-   * Root.create({ a: [1, 3] }).isEqual(Root.create({ a: [1, 3] })) // true
-   */
-  isEqual(other) {
-    return (
-      this === other ||
-      _.isEqual(this.toJSON(), other instanceof Root ? other.toJSON() : other)
-    )
-  }
-
-  /**
-   * 批量赋值，如需要覆写 `assign`，请覆写 `assignShallow`
+   * 批量赋值
    * @param {object | Root} data
    * @returns {Root}
-   * @memberof Root
+   * @memberOf Root
    * @alias assignShallow
    * @public
    * @example
@@ -172,8 +126,50 @@ export default class Root {
    *  .create({ root: { b: 'b' } })
    *  .root.a === 'c' // true
    */
+  @action
   assign(data) {
-    return this.assignShallow(data)
+    data = toJS(data)
+    for (let key in data) {
+      if (data.hasOwnProperty(key)) {
+        // if (typeof data[key] !== 'undefined') {
+        if (this[key] instanceof Root) {
+          this[key].assign(data[key])
+        } else {
+          this[key] = data[key]
+        }
+        // }
+      }
+    }
+    return this
+  }
+
+  /**
+   *
+   * 拷贝当前对象
+   * @returns {Root}  一个新的实例
+   * @public
+   * @memberOf Root
+   */
+  clone() {
+    return (<any>this.constructor).create(this)
+  }
+
+  /**
+   * 对比两个对象是否相同
+   * @param {any} other
+   * @returns {boolean}
+   * @memberOf Root
+   * @public
+   * @example
+   * Root.create().isEqual({}) // true
+   * Root.create({ a: [1, 3] }).isEqual({ a: [1, 3] }) // true
+   * Root.create({ a: [1, 3] }).isEqual(Root.create({ a: [1, 3] })) // true
+   */
+  isEqual(other) {
+    return (
+      this === other ||
+      _.isEqual(this.toJSON(), other instanceof Root ? other.toJSON() : other)
+    )
   }
 
   /**
@@ -181,21 +177,21 @@ export default class Root {
    * @see [assign](#assign)
    * @param {object | Root} data
    * @returns {Root}
-   * @memberof Root
+   * @memberOf Root
    * @public
    * @example
    * const a = Root.create().assignDeep({ a: 'a', b: 'b' })
    */
   assignDeep(data) {
     data = _.cloneDeep(toJS(data, false))
-    return this.assignShallow(data)
+    return this.assign(data)
   }
 
   /**
    *  判断当前实例是否内容为空
    * @see [assign](#assign)
-   * @returns {Root}
-   * @memberof Root
+   * @returns {boolean}
+   * @memberOf Root
    * @public
    * @example
    * Root.create().isEmpty() // true
@@ -204,7 +200,7 @@ export default class Root {
    * Root.create({ a: 'a', b: [] }).isEmpty() // false
    * Root.create({ a: '', b: ['a'] }).isEmpty() // false
    */
-  isEmpty() {
+  isEmpty(): boolean {
     return _.every(this, value => {
       if (value instanceof Root) {
         return value.isEmpty()

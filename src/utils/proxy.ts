@@ -4,10 +4,13 @@
  * @date 2018/1/23
  * @description
  */
-import get from 'lodash/get'
-import set from 'lodash/set'
+import { set, get, PropertyPath } from 'lodash'
 
-export default function proxy(host, path, getValue) {
+export default function proxy(
+  host: any,
+  path: PropertyPath,
+  getValue: (old: any) => any
+) {
   const old = get(host, path)
   const newVal = getValue(old)
   set(host, path, newVal)
