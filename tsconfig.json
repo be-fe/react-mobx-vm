@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "jsx": "react",
     "target": "ES2015",
     "sourceMap": false,
-    "lib": ["es7"],
+    "lib": ["es7", "es6"],
     "declaration": true,
     "typeRoots": ["./node_modules/@types"],
     "experimentalDecorators": true
   },
   "exclude": ["**/node_modules", "**/__tests__"],
   "include": [
+    "./src/**/*"
   ]
 }

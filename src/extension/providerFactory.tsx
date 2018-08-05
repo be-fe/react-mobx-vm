@@ -5,7 +5,8 @@
  * @description
  */
 import * as React from 'react'
-import { Provider as OProvider } from 'mobx-react'
+import { Provider } from 'mobx-react'
+import Root from '../Model/Root'
 
 /**
  * 用于产生一个 Provider，传入一个全局的 store
@@ -14,7 +15,7 @@ import { Provider as OProvider } from 'mobx-react'
  * @example
  * const app = AppVM.create()
  * const Provider = providerFactory(app)
- * 
+ *
  * ReactDOM.render(
  *    <Provider>
  *      {...}
@@ -22,14 +23,13 @@ import { Provider as OProvider } from 'mobx-react'
  *    window.root
  * )
  */
-export default app =>
-  function Provider({ children, ...props }) {
-    return React
-      .createElement(
-        OProvider, {
-          ...props,
-          app
-        },
-        children
-      )
-  }
+type Props = { children?: any }
+export default (app: any) => ({ children, ...props }: Props) =>
+  React.createElement(
+    Provider,
+    {
+      ...props,
+      app
+    },
+    children
+  )
