@@ -4,7 +4,7 @@
  * @date 2018/3/16
  * @description
  */
-import { List, Root, Piped, observable } from '../src/index'
+import { List, Root, Piped, observable, h, bindView, stateless } from '../src/index'
 import {
   reaction,
   runInAction,
@@ -13,6 +13,8 @@ import {
   isObservableArray,
   isObservableObject
 } from 'mobx'
+import * as React from 'react'
+import { mount } from 'enzyme'
 import sinon from 'sinon'
 
 useStrict(true)
@@ -144,5 +146,36 @@ describe('Model-List', function() {
     )
     expect(m.length).toBe(2)
     expect(m[0].name).toBe('hh')
+  })
+
+  it('should View Modal of List works', () => {
+    const View = stateless(local => (
+      <div id="container">
+        {
+          local.map(({ title }, i) => <h3 key={i}>{ title }</h3>)
+        }
+      </div>
+    ))
+
+    class Model extends Root {
+      @observable title = 'xyz'
+    }
+
+    @bindView(View)
+    class ModelList extends List {
+      constructor(list, Type) {
+        super(list, Model)
+      }
+    }
+
+    const list = ModelList.create([{ title: 'xbb' }, { title: 'hhh' }], Model)
+    const wrapper = mount(h(list, {}))
+
+    expect(wrapper.find('h3').length).toBe(2)
+    expect(wrapper.find('h3').at(0).text()).toBe('xbb')
+    expect(wrapper.find('h3').at(1).text()).toBe('hhh')
+
+    runInAction(() => list[0].title = 'changed')
+    expect(wrapper.find('h3').at(0).text()).toBe('changed')
   })
 })
