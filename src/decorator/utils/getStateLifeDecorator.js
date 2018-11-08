@@ -110,13 +110,18 @@ export default (config = {}, name = 'state-life') => {
     // }
     // new S() --> should run the S.s hooks, ignore P hooks
     // Firstly!
+    let status
     if (!target[hideArrPropKey]) {
+      status = 'first'
       setHideProps(target, hideArrPropKey, [])
     }
     // inheritance
     else if (!target.hasOwnProperty(hideArrPropKey)) {
+      status = 'inherit'
       // set to Prototype
       setHideProps(target, hideArrPropKey, target[hideArrPropKey].slice())
+    } else {
+      status = 'had'
     }
     let i = target[hideArrPropKey].findIndex(([p]) => p === property)
     if (i >= 0) {
@@ -209,36 +214,51 @@ export default (config = {}, name = 'state-life') => {
     // const arrays =
     target[hideArrPropKey].push([property, urlKey, func])
 
-    const hooks = {
-      init: target[initKey],
-      update: target[updateKey],
-      exit: target[exitKey]
-    }
-    const callHook = (self, hookName, args) => {
-      return typeof hooks[hookName] === 'function'
-             && hooks[hookName].apply(self, args)
-    }
-
-    target[initKey] = function (...args) {
-      this[hideArrPropKey].forEach(([, , { init }]) => {
-        init.call(this)
-      })
-      return callHook(this, initKey, args)
-    }
-    if (updateKey) {
-      target[updateKey] = function (...args) {
-        this[hideArrPropKey].forEach(([, , { update }]) => {
-          update.call(this)
-        })
-        return callHook(this, updateKey, args)
+    // Ignore bind again
+    if (status !== 'had') {
+      const hooks = {
+        [initKey]: target[initKey],
+        [updateKey]: target[updateKey],
+        [exitKey]: target[exitKey]
       }
-    }
-    target[exitKey] = function (...args) {
-      // @todo setTimeout move to all for better performance.
-      this[hideArrPropKey].forEach(([, , { init }]) => {
-        init.call(this)
-      })
-      return callHook(this, exitKey, args)
+      const callHook = (self, hookName, args) => {
+        return typeof hooks[hookName] === 'function'
+               && hooks[hookName].apply(self, args)
+      }
+
+      // Prevents call the sync state Function again
+      // e.g.
+      // class Son {
+      //   @urlsync a
+      //
+      //   init(...arg) {
+      //     // Note: call it again!
+      //     // `super.init` has side effect
+      //     super.init(..arg)
+      //   }
+      // }
+      // class Par extends {
+      //   @urlsync b
+      // }
+      const proxyFunc = methodName => {
+        target[methodName] = function (...args) {
+          if (this[hideArrPropKey].status === 'called') {
+            return callHook(this, methodName, args)
+          }
+
+          this[hideArrPropKey].forEach(([, , syncFns]) => {
+            syncFns[methodName].call(this)
+          })
+          this[hideArrPropKey].status = 'called'
+          const rlt = callHook(this, methodName, args)
+          delete this[hideArrPropKey].status
+          return rlt
+        }
+      }
+      proxyFunc(initKey)
+      updateKey && proxyFunc(updateKey)
+      proxyFunc(exitKey)
+
     }
 
     return descriptor && { ...descriptor, configurable: true }
