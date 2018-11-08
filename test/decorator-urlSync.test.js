@@ -190,6 +190,10 @@ describe('decorator-urlSync', function () {
         inited = true
       }
 
+      update() {
+        super.update()
+      }
+
       @observable v = 'sv'
     }
 

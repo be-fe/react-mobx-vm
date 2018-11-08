@@ -40,6 +40,8 @@ export default function RouterContextV3({ components, createElement, ...props })
         return createElement.call(this, model, rest, children)
       }}
       {...props}
-    />
+    >
+      {props.children}
+    </RouterContext>
   )
 }

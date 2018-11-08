@@ -6,7 +6,9 @@
     "babel": "rimraf packages && babel srcPackages -d packages -D",
     "rollup": "rimraf dist && rollup -c --silent",
     "postrollup": "babel \"dist/**/!(*.min.js|*.map)\" --plugins=transform-proto-to-assign --no-babelrc -d . && babel \"dist/**/*.min.js\" --plugins=transform-proto-to-assign --minified --no-babelrc -d .",
-    "watch": "npm run rollup -- -w",
+    "watch:babel": "npm run babel -- -w",
+    "watch:rollup": "npm run rollup -- -w",
+    "watch": "run-p watch:*",
     "prepare": "run-p rollup babel",
     "test:all": "npm run prepare && run-p test test:cy:run",
     "test": "jest && npm run size",
@@ -59,7 +61,11 @@
   "jsdelivr": "dist/react-mobx-vm.umd.min.js",
   "files": [
     "dist",
-    "packages"
+    "packages",
+    "src",
+    "srcPackages",
+    "test",
+    "examples"
   ],
   "keywords": [
     "imcuttle",

@@ -4,6 +4,7 @@
  */
 
 import h from './reactHyper'
+import logger from '../utils/logger'
 
 /**
  *
@@ -27,7 +28,12 @@ export default function renderer(model, props = {}, ...children) {
     return null
   }
   props = props || {}
-  const Comp = props.comp || model.defaultComp
+  const Comp = props.comp || model.constructor.defaultComp
+  if (!Comp) {
+    logger.warn('The model can\'t find matching Component, please check it out. ', model)
+    return null
+  }
+
   props.local = model
   props.key = props.key || model.viewId
 

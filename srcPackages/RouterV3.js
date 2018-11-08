@@ -18,8 +18,12 @@ import RouterContext from './RouterContextV3'
  */
 export default function VMRouter(props = {}) {
   function render(props) {
-    return <RouterContext {...props} />
+    return <RouterContext {...props}>{props.children}</RouterContext>
   }
 
-  return <Router render={render} {...props} />
+  return (
+    <Router render={render} {...props}>
+      {props.children}
+    </Router>
+  )
 }

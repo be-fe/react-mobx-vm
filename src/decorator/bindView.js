@@ -9,9 +9,9 @@ import { observer } from 'mobx-react'
 
 export function getView(Model) {
   if (typeof Model === 'function') {
-    return Model.prototype.defaultComp
+    return Model.defaultComp
   }
-  return Model && Model.defaultComp
+  return (Model && Model.constructor) ? Model.constructor.defaultComp : null
 }
 
 /**
@@ -44,30 +44,16 @@ export default function bindView(View) {
   View = m(View)
 
   return function (State) {
-    // let constructor = State.prototype.constructor
-    // State.prototype.constructor = function () {
-    //   Object.defineProperty(
-    //     this, 'viewId',
-    //     {
-    //       value: View,
-    //       enumerable: false,
-    //       configurable: true,
-    //       writable: true
-    //     }
-    //   )
-    //   return constructor.apply(this, arguments)
-    // }
-    // State.prototype.constructor.name = constructor.name
-
-    Object.defineProperty(
-      State.prototype, 'defaultComp',
-      {
-        value: View,
-        enumerable: false,
-        configurable: true,
-        writable: true
-      }
-    )
+    State.defaultComp = View
+    // Object.defineProperty(
+    //   State.prototype, 'defaultComp',
+    //   {
+    //     value: View,
+    //     enumerable: false,
+    //     configurable: true,
+    //     writable: true
+    //   }
+    // )
 
     return State
   }
