@@ -230,15 +230,24 @@ describe('decorator-urlSync', function () {
   })
 
   test('multi Son extends alone Parent', async (done) => {
+    let parentUpdateCallTimes = 0
     class Parent extends App {
       @urlSync
       @observable v = ''
+
+      update() {
+        parentUpdateCallTimes++
+      }
     }
 
+    let sUpdateCallTimes = 0
     class S extends Parent {
       @urlSync('s')
       @observable v = ''
 
+      update() {
+        sUpdateCallTimes++
+      }
       @urlSync
       @observable sonVal = 'son'
     }
@@ -247,6 +256,9 @@ describe('decorator-urlSync', function () {
       @observable v = ''
     }
 
+    const parentUpdate = jest.spyOn(Parent.prototype, 'update')
+    const sUpdate = jest.spyOn(S.prototype, 'update')
+    const tUpdate = jest.spyOn(T.prototype, 'update')
     const s = S.create()
     const s2 = S.create()
     const t = T.create()
@@ -262,13 +274,13 @@ describe('decorator-urlSync', function () {
       S.prototype[key]
     )
 
-    const View = () => (
-      h.div({},
-        h(s),
+    const View = (p) => {
+      return h.div({},
+        h(s, p),
         h(s2, { key: 'x' }),
-        h(t)
+        h(t, )
       )
-    )
+    }
     ReactDOM.render(
       <RouterV3 routes={{ component: View, path: '/' }} history={hashHistory} />,
       dom
@@ -279,7 +291,17 @@ describe('decorator-urlSync', function () {
 
     expect(s.v).toBe('')
     t.v = 'ttt'
+    expect(tUpdate).toHaveBeenCalledTimes(0)
+    expect(sUpdate).toHaveBeenCalledTimes(0)
+    expect(parentUpdate).toHaveBeenCalledTimes(0)
     await mockDelay()
+    expect(tUpdate).toHaveBeenCalledTimes(3)
+    expect(sUpdate).toHaveBeenCalledTimes(6)
+    // s & t
+    // super.update is override
+    expect(parentUpdate).toHaveBeenCalledTimes(0)
+    expect(parentUpdateCallTimes).toBe(3)
+    expect(sUpdateCallTimes).toBe(6)
     expect(
       parse(hashHistory.getCurrentLocation().search)
     ).toEqual({ t: 'ttt' })
