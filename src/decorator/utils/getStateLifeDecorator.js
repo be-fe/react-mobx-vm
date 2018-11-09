@@ -240,14 +240,14 @@ export default (config = {}, name = 'state-life') => {
       // class Par extends {
       //   @urlsync b
       // }
-      const proxyFunc = methodName => {
+      const proxyFunc = (methodName, syncName) => {
         target[methodName] = function (...args) {
           if (this[hideArrPropKey].status === 'called') {
             return callHook(this, methodName, args)
           }
 
           this[hideArrPropKey].forEach(([, , syncFns]) => {
-            syncFns[methodName].call(this)
+            syncFns[syncName].call(this)
           })
           this[hideArrPropKey].status = 'called'
           const rlt = callHook(this, methodName, args)
@@ -255,9 +255,9 @@ export default (config = {}, name = 'state-life') => {
           return rlt
         }
       }
-      proxyFunc(initKey)
-      updateKey && proxyFunc(updateKey)
-      proxyFunc(exitKey)
+      proxyFunc(initKey, 'init')
+      updateKey && proxyFunc(updateKey, 'update')
+      proxyFunc(exitKey, 'exit')
 
     }
 
