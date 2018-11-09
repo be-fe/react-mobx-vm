@@ -34,6 +34,9 @@ export default function renderer(model, props = {}, ...children) {
     return null
   }
 
+  if (!Object.isExtensible(props)) {
+    props = { ...props }
+  }
   props.local = model
   props.key = props.key || model.viewId
 
