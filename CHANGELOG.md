@@ -1,3 +1,19 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/be-fe/react-mobx-vm/compare/v0.2.0...v0.2.1) (2018-11-10)
+
+
+### Bug Fixes
+
+* error in react decorator ([60b5b8b](https://github.com/be-fe/react-mobx-vm/commit/60b5b8b))
+* vm-render support props which is not extensible ([d7aaf61](https://github.com/be-fe/react-mobx-vm/commit/d7aaf61))
+
+
+### Performance Improvements
+
+* reduce unnecessary data sync method for urlSync / storageSync ([2a7d16c](https://github.com/be-fe/react-mobx-vm/commit/2a7d16c))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/be-fe/react-mobx-vm/compare/v0.1.14...v0.2.0) (2018-06-12)
 
