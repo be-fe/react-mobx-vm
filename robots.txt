@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://be-fe.github.io/react-mobx-vm/sitemap.xml

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> binding的来由 - React Mobx VM </title>
+    <link rel="stylesheet" href="/react-mobx-vm/style.css">
+    <style type="text/css"> footer .copyright {
+  color: rgba(255, 255, 255, .4)
+}
+footer.nav-footer {
+  background-color: #808080
+}
+.showcaseSection .prose h1,
+.productShowcaseSection h2,
+nav.toc .toggleNav ul li a.navItemActive,
+.container .wrapper h3,
+.container .wrapper h2,
+.homeContainer,
+h1, h2, h3, h4,
+a,
+.container .wrapper h4,
+nav.toc .toggleNav ul li a:hover, nav.toc .toggleNav ul li a:focus {
+  color: #2265b1
+}
+body {
+  color: #393939
+}
+blockquote {
+  border-left-color: #bcd5f2;
+  background-color: #e3edfa;
+}
+code {
+  box-shadow: 2px 0 #e7f0fa, -2px 0 #e7f0fa;
+  background-color: #e7f0fa
+}
+.fixedHeaderContainer,
+.button:hover,
+nav.toc .toggleNav .navGroup.navGroupActive h3,
+.navigationSlider .slidingNav ul li > a:focus,
+.navigationSlider .slidingNav ul li > a:hover,
+.navigationSlider .slidingNav ul li > a,
+.mainContainer .wrapper .post .docPagination,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header .algolia-docsearch-suggestion--highlight,
+ul#languages-dropdown-items {
+  background-color: #2265b1
+}
+.navigationSlider .slidingNav ul {
+  background-color: #2265b1
+}
+.highlightBackground {
+  background-color: #2265b1
+}
+.button {
+  color: #2265b1;
+  border-color: #2265b1;
+}
+pre code {
+  border-left-color: #2265b1;
+}
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--title .algolia-docsearch-suggestion--highlight,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--subcategory-column .algolia-docsearch-suggestion--highlight,
+.darkBackground a,
+.darkBackground code {
+  color: #2f7ed7
+}
+@media only screen and (max-width: 735px) {
+  ul#languages-dropdown-items,
+  .reactNavSearchWrapper input#doc-search-input:focus, .reactNavSearchWrapper input#doc-search-input:active {
+    background-color: #2265b1
+  }
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #dd2f3d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #dd2f3d, 0 0 5px #dd2f3d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #dd2f3d;
+  border-left-color: #dd2f3d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} </style>
+</head>
+<body>
+<div id="__root__">
+    <div class="" data-reactroot="" data-reactid="1" data-react-checksum="-1885313384"><!-- react-empty: 2 --><div class="fixedHeaderContainer" data-reactid="3"><div class="headerWrapper wrapper" data-reactid="4"><header data-reactid="5"><a href="/react-mobx-vm/" data-reactid="6"><img class="logo" src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="7"/><h2 class="headerTitle" data-reactid="8">React Mobx VM</h2></a><div class="navigationWrapper navigationSlider" data-reactid="9"><nav class="slidingNav" data-reactid="10"><ul class="nav-site nav-site-internal" data-reactid="11"><li data-reactid="12"><a href="/react-mobx-vm/guide/" data-reactid="13">指引</a></li><li data-reactid="14"><a href="/react-mobx-vm/api/decorator" data-reactid="15">API</a></li><li data-reactid="16"><a href="https://github.com/be-fe/react-mobx-vm" target="_self" data-reactid="17">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher" data-reactid="18"><div class="docMainWrapper wrapper" data-reactid="19"><!-- react-empty: 20 --><div class="container docsNavContainer" data-reactid="21"><nav class="toc" data-reactid="22"><div class="toggleNav" data-reactid="23"><section class="navWrapper wrapper" data-reactid="24"><div class="navBreadcrumb wrapper" data-reactid="25"><div class="navToggle" data-reactid="26"><i data-reactid="27"></i></div><h2 data-reactid="28"><i data-reactid="29">&gt;</i><span data-reactid="30">Editable Examples</span></h2></div><div class="navGroups" data-reactid="31"><div class="navGroupActive navGroup" data-reactid="32"><h3 data-reactid="33">指引</h3><ul data-reactid="34"><li class="navListItem" data-reactid="35"><a class="" href="/react-mobx-vm/guide/index" data-reactid="36">什么是 react-mobx-vm ？</a></li><li class="navListItem" data-reactid="37"><a class="" href="/react-mobx-vm/guide/contrast" data-reactid="38">对比于 Redux 和 Mobx State Tree</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="39"><h3 data-reactid="40">API</h3><ul data-reactid="41"><li class="navListItem" data-reactid="42"><a class="" href="/react-mobx-vm/api/decorator" data-reactid="43">修饰器相关</a></li><li class="navListItem" data-reactid="44"><a class="" href="/react-mobx-vm/api/others" data-reactid="45">其他相关</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="46"><h3 data-reactid="47">可编辑的例子</h3><ul data-reactid="48"><li class="navListItem navItemActive" data-reactid="49"><a class="navItemActive" href="/react-mobx-vm/examples/react-data-binding-based-on-mobx" data-reactid="50">binding的来由</a></li><li class="navListItem" data-reactid="51"><a class="" href="/react-mobx-vm/examples/binding" data-reactid="52">binding</a></li><li class="navListItem" data-reactid="53"><a class="" href="/react-mobx-vm/examples/inject-collect" data-reactid="54">inject &amp; collect</a></li><li class="navListItem" data-reactid="55"><a class="" href="/react-mobx-vm/examples/url-sync" data-reactid="56">urlSync</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="57"><h3 data-reactid="58">高阶说明</h3><ul data-reactid="59"><li class="navListItem" data-reactid="60"><a class="" href="/react-mobx-vm/advanced/life-cycle" data-reactid="61">生命周期</a></li><li class="navListItem" data-reactid="62"><a class="" href="/react-mobx-vm/advanced/mixed-renderer" data-reactid="63">怎么用 JSX 渲染 VM？</a></li></ul></div></div></section></div></nav></div><div class="container mainContainer" data-reactid="64"><div class="wrapper" data-reactid="65"><div class="post" data-reactid="66"><header class="postHeader" data-reactid="67"><a href="https://github.com/be-fe/react-mobx-vm/blob/master/_site/docs/examples/react-data-binding-based-on-mobx.md" class="edit-page-link button" target="_blank" data-reactid="68">编辑</a><h1 data-reactid="69">binding的来由</h1></header><article data-reactid="70"><p data-reactid="71">单向绑定非常简单，就是把Model绑定到View，当我们用JavaScript代码更新Model时，View就会自动更新。</p><!-- react-text: 72 -->
+<!-- /react-text --><p data-reactid="73">有单向绑定，就有双向绑定。如果用户更新了View，Model的数据也自动被更新了，这种情况就是双向绑定。</p><!-- react-text: 74 -->
+<!-- /react-text --><p data-reactid="75">什么情况下用户可以更新View呢？填写表单就是一个最直接的例子。当用户填写表单时，View的状态就被更新了，如果此时MVVM框架可以自动更新Model的状态，那就相当于我们把Model和View做了双向绑定：</p><!-- react-text: 76 -->
+<!-- /react-text --><img src="https://i.loli.net/2018/03/13/5aa73406bca50.jpg" width="392" height="236" data-reactid="77"/><!-- react-text: 78 -->
+<!-- /react-text --><p data-reactid="79">在浏览器中，当用户修改了表单的内容时，我们绑定的Model会自动更新：</p><!-- react-text: 80 -->
+<!-- /react-text --><img src="https://i.loli.net/2018/03/13/5aa7341151021.jpg" width="376" height="254" data-reactid="81"/><!-- react-text: 82 -->
+<!-- /react-text --><p data-reactid="83">下面介绍实现以上逻辑交互，不同的实现方式</p><!-- react-text: 84 -->
+<!-- /react-text --><h2 data-reactid="85"><a class="anchor" aria-hidden="true" name="原生react方式" data-reactid="86"></a><a href="#%E5%8E%9F%E7%94%9Freact%E6%96%B9%E5%BC%8F" aria-hidden="true" class="hash-link" data-reactid="87"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="88"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="89"></path></svg></a><!-- react-text: 90 -->原生React方式<!-- /react-text --></h2><!-- react-text: 91 -->
+<!-- /react-text --><div class="transformer-react-render-container" data-reactid="92"><pre data-reactid="93"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="94"><span class="hljs-keyword" data-reactid="95">export</span><!-- react-text: 96 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="97">default</span><!-- react-text: 98 --> <!-- /react-text --><span class="hljs-class" data-reactid="99"><span class="hljs-keyword" data-reactid="100">class</span><!-- react-text: 101 --> <!-- /react-text --><span class="hljs-title" data-reactid="102">Form</span><!-- react-text: 103 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="104">extends</span><!-- react-text: 105 --> <!-- /react-text --><span class="hljs-title" data-reactid="106">Component</span><!-- react-text: 107 --> <!-- /react-text --></span><!-- react-text: 108 -->{
+    <!-- /react-text --><span class="hljs-comment" data-reactid="109">// 实际业务中，数据可能是来自props</span><!-- react-text: 110 -->
+    state = {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="111">name</span><!-- react-text: 112 -->: <!-- /react-text --><span class="hljs-string" data-reactid="113">&#x27;&#x27;</span><!-- react-text: 114 -->,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="115">email</span><!-- react-text: 116 -->: <!-- /react-text --><span class="hljs-string" data-reactid="117">&#x27;&#x27;</span><!-- react-text: 118 -->
+    }
+    changeFromEvt = <!-- /react-text --><span class="hljs-function" data-reactid="119"><!-- react-text: 120 -->(<!-- /react-text --><span class="hljs-params" data-reactid="121">key, evt</span><!-- react-text: 122 -->) =&gt;<!-- /react-text --></span><!-- react-text: 123 --> {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="124">this</span><!-- react-text: 125 -->.setState({
+            [key]: evt.target.value
+        })
+    }
+
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="126">return</span><!-- react-text: 127 --> (
+            <!-- /react-text --><span class="xml" data-reactid="128"><span class="hljs-tag" data-reactid="129"><!-- react-text: 130 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="131">form</span><!-- react-text: 132 -->&gt;<!-- /react-text --></span><!-- react-text: 133 -->
+                <!-- /react-text --></span><!-- react-text: 134 -->&lt;pre&gt;{JSON.stringify(this.state)}&lt;/pre&gt;<!-- /react-text --><span class="xml" data-reactid="135">
+                </span><!-- react-text: 136 -->&lt;input
+                    value={this.state.name}
+                    onChange={this.changeFromEvt.bind(this, &#x27;name&#x27;)}
+                /&gt;
+                &lt;input
+                    type=&quot;email&quot;
+                    value={this.state.email}
+                    onChange={this.changeFromEvt.bind(this, &#x27;email&#x27;)}
+                /&gt;
+            &lt;/form&gt;
+        )
+    }
+}<!-- /react-text --></code></pre><div data-id="0" class="transformer-react-render" data-reactid="137"><form data-reactid="138"><pre data-reactid="139">{&quot;name&quot;:&quot;&quot;,&quot;email&quot;:&quot;&quot;}</pre><input value="" data-reactid="140"/><input type="email" value="" data-reactid="141"/></form></div></div><!-- react-text: 142 -->
+<!-- /react-text --><h2 data-reactid="143"><a class="anchor" aria-hidden="true" name="mobx（观察者）方式" data-reactid="144"></a><a href="#mobx%EF%BC%88%E8%A7%82%E5%AF%9F%E8%80%85%EF%BC%89%E6%96%B9%E5%BC%8F" aria-hidden="true" class="hash-link" data-reactid="145"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="146"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="147"></path></svg></a><!-- react-text: 148 -->Mobx（观察者）方式<!-- /react-text --></h2><!-- react-text: 149 -->
+<!-- /react-text --><div class="transformer-react-render-container" data-reactid="150"><pre data-reactid="151"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="152"><span class="hljs-keyword" data-reactid="153">import</span><!-- react-text: 154 --> { observable, action } <!-- /react-text --><span class="hljs-keyword" data-reactid="155">from</span><!-- react-text: 156 --> <!-- /react-text --><span class="hljs-string" data-reactid="157">&#x27;mobx&#x27;</span><!-- react-text: 158 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="159">import</span><!-- react-text: 160 --> { observer } <!-- /react-text --><span class="hljs-keyword" data-reactid="161">from</span><!-- react-text: 162 --> <!-- /react-text --><span class="hljs-string" data-reactid="163">&#x27;mobx-react&#x27;</span><!-- react-text: 164 -->
+
+@observer
+<!-- /react-text --><span class="hljs-keyword" data-reactid="165">export</span><!-- react-text: 166 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="167">default</span><!-- react-text: 168 --> <!-- /react-text --><span class="hljs-class" data-reactid="169"><span class="hljs-keyword" data-reactid="170">class</span><!-- react-text: 171 --> <!-- /react-text --><span class="hljs-title" data-reactid="172">Form</span><!-- react-text: 173 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="174">extends</span><!-- react-text: 175 --> <!-- /react-text --><span class="hljs-title" data-reactid="176">Component</span><!-- react-text: 177 --> <!-- /react-text --></span><!-- react-text: 178 -->{
+    @observable form = {
+        <!-- /react-text --><span class="hljs-attr" data-reactid="179">name</span><!-- react-text: 180 -->: <!-- /react-text --><span class="hljs-string" data-reactid="181">&#x27;&#x27;</span><!-- react-text: 182 -->,
+        <!-- /react-text --><span class="hljs-attr" data-reactid="183">email</span><!-- react-text: 184 -->: <!-- /react-text --><span class="hljs-string" data-reactid="185">&#x27;&#x27;</span><!-- react-text: 186 -->
+    }
+    
+    changeFromEvt = <!-- /react-text --><span class="hljs-function" data-reactid="187"><!-- react-text: 188 -->(<!-- /react-text --><span class="hljs-params" data-reactid="189">key, evt</span><!-- react-text: 190 -->) =&gt;<!-- /react-text --></span><!-- react-text: 191 --> {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="192">this</span><!-- react-text: 193 -->.form[key] = evt.target.value
+    }
+
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="194">return</span><!-- react-text: 195 --> (
+            <!-- /react-text --><span class="xml" data-reactid="196"><span class="hljs-tag" data-reactid="197"><!-- react-text: 198 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="199">form</span><!-- react-text: 200 -->&gt;<!-- /react-text --></span><!-- react-text: 201 -->
+                <!-- /react-text --></span><!-- react-text: 202 -->&lt;pre&gt;{JSON.stringify(this.form)}&lt;/pre&gt;<!-- /react-text --><span class="xml" data-reactid="203">
+                </span><!-- react-text: 204 -->&lt;input
+                    value={this.name}
+                    onChange={this.changeFromEvt.bind(this, &#x27;name&#x27;)}
+                /&gt;
+                &lt;input
+                    type=&quot;email&quot;
+                    value={this.email}
+                    onChange={this.changeFromEvt.bind(this, &#x27;email&#x27;)}
+                /&gt;
+            &lt;/form&gt;
+        )
+    }
+}<!-- /react-text --></code></pre><div data-id="1" class="transformer-react-render" data-reactid="205"><form data-reactid="206"><pre data-reactid="207">{&quot;name&quot;:&quot;&quot;,&quot;email&quot;:&quot;&quot;}</pre><input data-reactid="208"/><input type="email" data-reactid="209"/></form></div></div><!-- react-text: 210 -->
+<!-- /react-text --><h2 data-reactid="211"><a class="anchor" aria-hidden="true" name="双向绑定方式-主角" data-reactid="212"></a><a href="#%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F-%E4%B8%BB%E8%A7%92" aria-hidden="true" class="hash-link" data-reactid="213"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="214"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="215"></path></svg></a><!-- react-text: 216 -->双向绑定方式 (主角)<!-- /react-text --></h2><!-- react-text: 217 -->
+<!-- /react-text --><div class="transformer-react-render-container" data-reactid="218"><pre data-reactid="219"><code class="hljs language-jsx" data-query="{}" data-lang="jsx" data-reactid="220"><span class="hljs-keyword" data-reactid="221">import</span><!-- react-text: 222 --> { observable, binding } <!-- /react-text --><span class="hljs-keyword" data-reactid="223">from</span><!-- react-text: 224 --> <!-- /react-text --><span class="hljs-string" data-reactid="225">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 226 -->
+
+<!-- /react-text --><span class="hljs-class" data-reactid="227"><span class="hljs-keyword" data-reactid="228">class</span><!-- react-text: 229 --> <!-- /react-text --><span class="hljs-title" data-reactid="230">Form</span><!-- react-text: 231 --> <!-- /react-text --></span><!-- react-text: 232 -->{
+    @observable name = <!-- /react-text --><span class="hljs-string" data-reactid="233">&#x27;&#x27;</span><!-- react-text: 234 -->
+    @observable email = <!-- /react-text --><span class="hljs-string" data-reactid="235">&#x27;&#x27;</span><!-- react-text: 236 -->
+}
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="237">const</span><!-- react-text: 238 --> form = <!-- /react-text --><span class="hljs-keyword" data-reactid="239">new</span><!-- react-text: 240 --> Form()
+@binding(form)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="241">export</span><!-- react-text: 242 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="243">default</span><!-- react-text: 244 --> <!-- /react-text --><span class="hljs-class" data-reactid="245"><span class="hljs-keyword" data-reactid="246">class</span><!-- react-text: 247 --> <!-- /react-text --><span class="hljs-title" data-reactid="248">FormView</span><!-- react-text: 249 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="250">extends</span><!-- react-text: 251 --> <!-- /react-text --><span class="hljs-title" data-reactid="252">Component</span><!-- react-text: 253 --> <!-- /react-text --></span><!-- react-text: 254 -->{
+    render() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="255">return</span><!-- react-text: 256 --> (
+            <!-- /react-text --><span class="xml" data-reactid="257"><span class="hljs-tag" data-reactid="258"><!-- react-text: 259 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="260">form</span><!-- react-text: 261 -->&gt;<!-- /react-text --></span><!-- react-text: 262 -->
+                <!-- /react-text --></span><!-- react-text: 263 -->&lt;pre&gt;{JSON.stringify(form)}&lt;/pre&gt;<!-- /react-text --><span class="xml" data-reactid="264">
+                </span><!-- react-text: 265 -->&lt;input
+                    data-bind=&quot;name&quot;
+                /&gt;
+                &lt;input
+                    type=&quot;email&quot;
+                    data-bind=&quot;email&quot;
+                /&gt;
+            &lt;/form&gt;
+        )
+    }
+}<!-- /react-text --></code></pre><div data-id="2" class="transformer-react-render" data-reactid="266"><form data-reactid="267"><pre data-reactid="268">{&quot;name&quot;:&quot;&quot;,&quot;email&quot;:&quot;&quot;}</pre><input value="" data-reactid="269"/><input type="email" value="" data-reactid="270"/></form></div></div><!-- react-text: 271 -->
+<!-- /react-text --><p data-reactid="272"><strong data-reactid="273"> 可以看到，binding大大缩小了我们的代码量。 </strong><br data-reactid="274"/><!-- react-text: 275 -->
+在这种比较简单的页面中体现不太明显，如果是大体量的表单页面，可以减去我们大量的重复代码。<!-- /react-text --><br data-reactid="276"/><!-- react-text: 277 -->
+同时可以支持<!-- /react-text --><a href="/react-mobx-vm/examples/binding" data-reactid="278">自定义的双向绑定规则</a></p><!-- react-text: 279 -->
+<!-- /react-text --></article></div><div class="docs-prevnext" data-reactid="280"><a class="docs-prev button" href="/react-mobx-vm/api/others" data-reactid="281">← 其他相关</a><a class="docs-next button" href="/react-mobx-vm/examples/binding" data-reactid="282">binding →</a></div></div></div></div></div><footer class="nav-footer" data-reactid="283"><a href="https://github.com/be-fe/react-mobx-vm" target="_blank" class="fbOpenSource" data-reactid="284"><img src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="285"/></a><section class="copyright" data-reactid="286"><p style="margin-bottom:5px;" data-reactid="287">Copyright © 2018 - Built by Picidae</p><!-- react-text: 288 -->Powered by <!-- /react-text --><a href="https://github.com/picidaejs/picidae-theme-haier" target="_blank" data-reactid="289">🍔 Haier</a><!-- react-text: 290 -->.<!-- /react-text --></section></footer></div>
+</div>
+<script src="/react-mobx-vm/PICIDAE_COMMON.js"></script>
+<script src="/react-mobx-vm/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

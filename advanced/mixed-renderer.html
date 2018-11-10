@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 怎么用 JSX 渲染 VM？ - React Mobx VM </title>
+    <link rel="stylesheet" href="/react-mobx-vm/style.css">
+    <style type="text/css"> footer .copyright {
+  color: rgba(255, 255, 255, .4)
+}
+footer.nav-footer {
+  background-color: #808080
+}
+.showcaseSection .prose h1,
+.productShowcaseSection h2,
+nav.toc .toggleNav ul li a.navItemActive,
+.container .wrapper h3,
+.container .wrapper h2,
+.homeContainer,
+h1, h2, h3, h4,
+a,
+.container .wrapper h4,
+nav.toc .toggleNav ul li a:hover, nav.toc .toggleNav ul li a:focus {
+  color: #2265b1
+}
+body {
+  color: #393939
+}
+blockquote {
+  border-left-color: #bcd5f2;
+  background-color: #e3edfa;
+}
+code {
+  box-shadow: 2px 0 #e7f0fa, -2px 0 #e7f0fa;
+  background-color: #e7f0fa
+}
+.fixedHeaderContainer,
+.button:hover,
+nav.toc .toggleNav .navGroup.navGroupActive h3,
+.navigationSlider .slidingNav ul li > a:focus,
+.navigationSlider .slidingNav ul li > a:hover,
+.navigationSlider .slidingNav ul li > a,
+.mainContainer .wrapper .post .docPagination,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header .algolia-docsearch-suggestion--highlight,
+ul#languages-dropdown-items {
+  background-color: #2265b1
+}
+.navigationSlider .slidingNav ul {
+  background-color: #2265b1
+}
+.highlightBackground {
+  background-color: #2265b1
+}
+.button {
+  color: #2265b1;
+  border-color: #2265b1;
+}
+pre code {
+  border-left-color: #2265b1;
+}
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--title .algolia-docsearch-suggestion--highlight,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--subcategory-column .algolia-docsearch-suggestion--highlight,
+.darkBackground a,
+.darkBackground code {
+  color: #2f7ed7
+}
+@media only screen and (max-width: 735px) {
+  ul#languages-dropdown-items,
+  .reactNavSearchWrapper input#doc-search-input:focus, .reactNavSearchWrapper input#doc-search-input:active {
+    background-color: #2265b1
+  }
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #dd2f3d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #dd2f3d, 0 0 5px #dd2f3d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #dd2f3d;
+  border-left-color: #dd2f3d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} </style>
+</head>
+<body>
+<div id="__root__">
+    <div class="" data-reactroot="" data-reactid="1" data-react-checksum="105655606"><!-- react-empty: 2 --><div class="fixedHeaderContainer" data-reactid="3"><div class="headerWrapper wrapper" data-reactid="4"><header data-reactid="5"><a href="/react-mobx-vm/" data-reactid="6"><img class="logo" src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="7"/><h2 class="headerTitle" data-reactid="8">React Mobx VM</h2></a><div class="navigationWrapper navigationSlider" data-reactid="9"><nav class="slidingNav" data-reactid="10"><ul class="nav-site nav-site-internal" data-reactid="11"><li data-reactid="12"><a href="/react-mobx-vm/guide/" data-reactid="13">指引</a></li><li data-reactid="14"><a href="/react-mobx-vm/api/decorator" data-reactid="15">API</a></li><li data-reactid="16"><a href="https://github.com/be-fe/react-mobx-vm" target="_self" data-reactid="17">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher" data-reactid="18"><div class="docMainWrapper wrapper" data-reactid="19"><!-- react-empty: 20 --><div class="container docsNavContainer" data-reactid="21"><nav class="toc" data-reactid="22"><div class="toggleNav" data-reactid="23"><section class="navWrapper wrapper" data-reactid="24"><div class="navBreadcrumb wrapper" data-reactid="25"><div class="navToggle" data-reactid="26"><i data-reactid="27"></i></div><h2 data-reactid="28"><i data-reactid="29">&gt;</i><span data-reactid="30">Advanced</span></h2></div><div class="navGroups" data-reactid="31"><div class="navGroupActive navGroup" data-reactid="32"><h3 data-reactid="33">指引</h3><ul data-reactid="34"><li class="navListItem" data-reactid="35"><a class="" href="/react-mobx-vm/guide/index" data-reactid="36">什么是 react-mobx-vm ？</a></li><li class="navListItem" data-reactid="37"><a class="" href="/react-mobx-vm/guide/contrast" data-reactid="38">对比于 Redux 和 Mobx State Tree</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="39"><h3 data-reactid="40">API</h3><ul data-reactid="41"><li class="navListItem" data-reactid="42"><a class="" href="/react-mobx-vm/api/decorator" data-reactid="43">修饰器相关</a></li><li class="navListItem" data-reactid="44"><a class="" href="/react-mobx-vm/api/others" data-reactid="45">其他相关</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="46"><h3 data-reactid="47">可编辑的例子</h3><ul data-reactid="48"><li class="navListItem" data-reactid="49"><a class="" href="/react-mobx-vm/examples/react-data-binding-based-on-mobx" data-reactid="50">binding的来由</a></li><li class="navListItem" data-reactid="51"><a class="" href="/react-mobx-vm/examples/binding" data-reactid="52">binding</a></li><li class="navListItem" data-reactid="53"><a class="" href="/react-mobx-vm/examples/inject-collect" data-reactid="54">inject &amp; collect</a></li><li class="navListItem" data-reactid="55"><a class="" href="/react-mobx-vm/examples/url-sync" data-reactid="56">urlSync</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="57"><h3 data-reactid="58">高阶说明</h3><ul data-reactid="59"><li class="navListItem" data-reactid="60"><a class="" href="/react-mobx-vm/advanced/life-cycle" data-reactid="61">生命周期</a></li><li class="navListItem navItemActive" data-reactid="62"><a class="navItemActive" href="/react-mobx-vm/advanced/mixed-renderer" data-reactid="63">怎么用 JSX 渲染 VM？</a></li></ul></div></div></section></div></nav></div><div class="container mainContainer" data-reactid="64"><div class="wrapper" data-reactid="65"><div class="post" data-reactid="66"><header class="postHeader" data-reactid="67"><a href="https://github.com/be-fe/react-mobx-vm/blob/master/_site/docs/advanced/mixed-renderer.md" class="edit-page-link button" target="_blank" data-reactid="68">编辑</a><h1 data-reactid="69">怎么用 JSX 渲染 VM？</h1></header><article data-reactid="70"><p data-reactid="71"><!-- react-text: 72 -->如果直接写 JSX 来渲染 VM 是会出错的，因为 JSX 语法会被解析成 <!-- /react-text --><code data-reactid="73">React.createElement</code><!-- react-text: 74 -->，这就是为什么我们在使用 JSX 的时候，必须要 import React。<!-- /react-text --></p><!-- react-text: 75 -->
+<!-- /react-text --><pre data-reactid="76"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="77"><!-- react-text: 78 -->&lt;h1&gt;hi&lt;<!-- /react-text --><span class="hljs-regexp" data-reactid="79">/h1&gt;
+/</span><span class="hljs-regexp" data-reactid="80">/ -&gt;
+React.createElement(&#x27;h1&#x27;, null, &#x27;h1&#x27;)</span></code></pre><!-- react-text: 81 -->
+<!-- /react-text --><p data-reactid="82"><!-- react-text: 83 -->而这个转换是由 babel 来完成的，只需要修改 <!-- /react-text --><code data-reactid="84">babel-plugin-transform-react-jsx</code><!-- react-text: 85 --> 的配置即可，当然需要先安装它啦。<!-- /react-text --></p><!-- react-text: 86 -->
+<!-- /react-text --><pre data-reactid="87"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="88"><span class="hljs-string" data-reactid="89">&quot;plugins&quot;</span><!-- react-text: 90 -->: [
+  [
+    <!-- /react-text --><span class="hljs-string" data-reactid="91">&quot;transform-react-jsx&quot;</span><!-- react-text: 92 -->, {
+      <!-- /react-text --><span class="hljs-string" data-reactid="93">&quot;pragma&quot;</span><!-- react-text: 94 -->: <!-- /react-text --><span class="hljs-string" data-reactid="95">&quot;h&quot;</span><!-- react-text: 96 -->
+    }
+  ]
+]<!-- /react-text --></code></pre><!-- react-text: 97 -->
+<!-- /react-text --><p data-reactid="98">这样，JSX 就会转换过程如下：</p><!-- react-text: 99 -->
+<!-- /react-text --><pre data-reactid="100"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="101"><!-- react-text: 102 -->&lt;h1&gt;hi&lt;<!-- /react-text --><span class="hljs-regexp" data-reactid="103">/h1&gt;
+/</span><span class="hljs-regexp" data-reactid="104">/ -&gt;
+h(&#x27;h1&#x27;, null, &#x27;h1&#x27;)</span></code></pre><!-- react-text: 105 -->
+<!-- /react-text --><p data-reactid="106">于是我们可以直接用 JSX 来渲染 VM</p><!-- react-text: 107 -->
+<!-- /react-text --><pre data-reactid="108"><code class="hljs language-js" data-query="{}" data-lang="js" data-reactid="109"><span class="hljs-keyword" data-reactid="110">const</span><!-- react-text: 111 --> VM = Model.create()
+render(<!-- /react-text --><span class="xml" data-reactid="112"><span class="hljs-tag" data-reactid="113"><!-- react-text: 114 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="115">VM</span><!-- react-text: 116 --> /&gt;<!-- /react-text --></span><!-- react-text: 117 -->)
+
+// 注意：下面会有错
+// 因为 transform-react-jsx 认为小写字母开头的标志符表示为HTML标签
+const vm = Model.create()
+render(<!-- /react-text --></span><!-- react-text: 118 -->&lt;vm /&gt;<!-- /react-text --><span class="xml" data-reactid="119">) // -&gt; h(&#x27;vm&#x27;, null)</span></code></pre><!-- react-text: 120 -->
+<!-- /react-text --><p data-reactid="121"><!-- react-text: 122 -->综合上面的原因，我们建议还是直接使用 <!-- /react-text --><a href="/react-mobx-vm/api/others#h" data-reactid="123"><code data-reactid="124">h</code></a><!-- react-text: 125 --> 方法来渲染 VM 更为方便。<!-- /react-text --></p><!-- react-text: 126 -->
+<!-- /react-text --></article></div><div class="docs-prevnext" data-reactid="127"><a class="docs-prev button" href="/react-mobx-vm/advanced/life-cycle" data-reactid="128">← 生命周期</a></div></div></div></div></div><footer class="nav-footer" data-reactid="129"><a href="https://github.com/be-fe/react-mobx-vm" target="_blank" class="fbOpenSource" data-reactid="130"><img src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="131"/></a><section class="copyright" data-reactid="132"><p style="margin-bottom:5px;" data-reactid="133">Copyright © 2018 - Built by Picidae</p><!-- react-text: 134 -->Powered by <!-- /react-text --><a href="https://github.com/picidaejs/picidae-theme-haier" target="_blank" data-reactid="135">🍔 Haier</a><!-- react-text: 136 -->.<!-- /react-text --></section></footer></div>
+</div>
+<script src="/react-mobx-vm/PICIDAE_COMMON.js"></script>
+<script src="/react-mobx-vm/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

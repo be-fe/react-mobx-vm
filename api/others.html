@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 其他相关 - React Mobx VM </title>
+    <link rel="stylesheet" href="/react-mobx-vm/style.css">
+    <style type="text/css"> footer .copyright {
+  color: rgba(255, 255, 255, .4)
+}
+footer.nav-footer {
+  background-color: #808080
+}
+.showcaseSection .prose h1,
+.productShowcaseSection h2,
+nav.toc .toggleNav ul li a.navItemActive,
+.container .wrapper h3,
+.container .wrapper h2,
+.homeContainer,
+h1, h2, h3, h4,
+a,
+.container .wrapper h4,
+nav.toc .toggleNav ul li a:hover, nav.toc .toggleNav ul li a:focus {
+  color: #2265b1
+}
+body {
+  color: #393939
+}
+blockquote {
+  border-left-color: #bcd5f2;
+  background-color: #e3edfa;
+}
+code {
+  box-shadow: 2px 0 #e7f0fa, -2px 0 #e7f0fa;
+  background-color: #e7f0fa
+}
+.fixedHeaderContainer,
+.button:hover,
+nav.toc .toggleNav .navGroup.navGroupActive h3,
+.navigationSlider .slidingNav ul li > a:focus,
+.navigationSlider .slidingNav ul li > a:hover,
+.navigationSlider .slidingNav ul li > a,
+.mainContainer .wrapper .post .docPagination,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header .algolia-docsearch-suggestion--highlight,
+ul#languages-dropdown-items {
+  background-color: #2265b1
+}
+.navigationSlider .slidingNav ul {
+  background-color: #2265b1
+}
+.highlightBackground {
+  background-color: #2265b1
+}
+.button {
+  color: #2265b1;
+  border-color: #2265b1;
+}
+pre code {
+  border-left-color: #2265b1;
+}
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--title .algolia-docsearch-suggestion--highlight,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--subcategory-column .algolia-docsearch-suggestion--highlight,
+.darkBackground a,
+.darkBackground code {
+  color: #2f7ed7
+}
+@media only screen and (max-width: 735px) {
+  ul#languages-dropdown-items,
+  .reactNavSearchWrapper input#doc-search-input:focus, .reactNavSearchWrapper input#doc-search-input:active {
+    background-color: #2265b1
+  }
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #dd2f3d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #dd2f3d, 0 0 5px #dd2f3d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #dd2f3d;
+  border-left-color: #dd2f3d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} </style>
+</head>
+<body>
+<div id="__root__">
+    <div class="" data-reactroot="" data-reactid="1" data-react-checksum="241785893"><!-- react-empty: 2 --><div class="fixedHeaderContainer" data-reactid="3"><div class="headerWrapper wrapper" data-reactid="4"><header data-reactid="5"><a href="/react-mobx-vm/" data-reactid="6"><img class="logo" src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="7"/><h2 class="headerTitle" data-reactid="8">React Mobx VM</h2></a><div class="navigationWrapper navigationSlider" data-reactid="9"><nav class="slidingNav" data-reactid="10"><ul class="nav-site nav-site-internal" data-reactid="11"><li data-reactid="12"><a href="/react-mobx-vm/guide/" data-reactid="13">指引</a></li><li data-reactid="14"><a href="/react-mobx-vm/api/decorator" data-reactid="15">API</a></li><li data-reactid="16"><a href="https://github.com/be-fe/react-mobx-vm" target="_self" data-reactid="17">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher" data-reactid="18"><div class="docMainWrapper wrapper" data-reactid="19"><!-- react-empty: 20 --><div class="container docsNavContainer" data-reactid="21"><nav class="toc" data-reactid="22"><div class="toggleNav" data-reactid="23"><section class="navWrapper wrapper" data-reactid="24"><div class="navBreadcrumb wrapper" data-reactid="25"><div class="navToggle" data-reactid="26"><i data-reactid="27"></i></div><h2 data-reactid="28"><i data-reactid="29">&gt;</i><span data-reactid="30">API</span></h2></div><div class="navGroups" data-reactid="31"><div class="navGroupActive navGroup" data-reactid="32"><h3 data-reactid="33">指引</h3><ul data-reactid="34"><li class="navListItem" data-reactid="35"><a class="" href="/react-mobx-vm/guide/index" data-reactid="36">什么是 react-mobx-vm ？</a></li><li class="navListItem" data-reactid="37"><a class="" href="/react-mobx-vm/guide/contrast" data-reactid="38">对比于 Redux 和 Mobx State Tree</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="39"><h3 data-reactid="40">API</h3><ul data-reactid="41"><li class="navListItem" data-reactid="42"><a class="" href="/react-mobx-vm/api/decorator" data-reactid="43">修饰器相关</a></li><li class="navListItem navItemActive" data-reactid="44"><a class="navItemActive" href="/react-mobx-vm/api/others" data-reactid="45">其他相关</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="46"><h3 data-reactid="47">可编辑的例子</h3><ul data-reactid="48"><li class="navListItem" data-reactid="49"><a class="" href="/react-mobx-vm/examples/react-data-binding-based-on-mobx" data-reactid="50">binding的来由</a></li><li class="navListItem" data-reactid="51"><a class="" href="/react-mobx-vm/examples/binding" data-reactid="52">binding</a></li><li class="navListItem" data-reactid="53"><a class="" href="/react-mobx-vm/examples/inject-collect" data-reactid="54">inject &amp; collect</a></li><li class="navListItem" data-reactid="55"><a class="" href="/react-mobx-vm/examples/url-sync" data-reactid="56">urlSync</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="57"><h3 data-reactid="58">高阶说明</h3><ul data-reactid="59"><li class="navListItem" data-reactid="60"><a class="" href="/react-mobx-vm/advanced/life-cycle" data-reactid="61">生命周期</a></li><li class="navListItem" data-reactid="62"><a class="" href="/react-mobx-vm/advanced/mixed-renderer" data-reactid="63">怎么用 JSX 渲染 VM？</a></li></ul></div></div></section></div></nav></div><div class="container mainContainer" data-reactid="64"><div class="wrapper" data-reactid="65"><div class="post" data-reactid="66"><header class="postHeader" data-reactid="67"><a href="https://github.com/be-fe/react-mobx-vm/blob/master/_site/docs/api/others.md" class="edit-page-link button" target="_blank" data-reactid="68">编辑</a><h1 data-reactid="69">其他相关</h1></header><article data-reactid="70"><div class="picidae-toc" data-reactid="71"><!-- react-text: 72 -->
+<!-- /react-text --><ul data-reactid="73"><!-- react-text: 74 -->
+<!-- /react-text --><li data-reactid="75"><!-- react-text: 76 -->
+<!-- /react-text --><a href="#model" data-reactid="77">Model</a><!-- react-text: 78 -->
+<!-- /react-text --><ul data-reactid="79"><!-- react-text: 80 -->
+<!-- /react-text --><li data-reactid="81"><!-- react-text: 82 -->
+<!-- /react-text --><a href="#list" data-reactid="83">List</a><!-- react-text: 84 -->
+<!-- /react-text --></li><!-- react-text: 85 -->
+<!-- /react-text --><li data-reactid="86"><!-- react-text: 87 -->
+<!-- /react-text --><a href="#piped" data-reactid="88">Piped</a><!-- react-text: 89 -->
+<!-- /react-text --></li><!-- react-text: 90 -->
+<!-- /react-text --><li data-reactid="91"><!-- react-text: 92 -->
+<!-- /react-text --><a href="#root" data-reactid="93">Root</a><!-- react-text: 94 -->
+<!-- /react-text --><ul data-reactid="95"><!-- react-text: 96 -->
+<!-- /react-text --><li data-reactid="97"><!-- react-text: 98 -->
+<!-- /react-text --><a href="#create" data-reactid="99">create</a><!-- react-text: 100 -->
+<!-- /react-text --></li><!-- react-text: 101 -->
+<!-- /react-text --><li data-reactid="102"><!-- react-text: 103 -->
+<!-- /react-text --><a href="#init" data-reactid="104">init</a><!-- react-text: 105 -->
+<!-- /react-text --></li><!-- react-text: 106 -->
+<!-- /react-text --><li data-reactid="107"><!-- react-text: 108 -->
+<!-- /react-text --><a href="#update" data-reactid="109">update</a><!-- react-text: 110 -->
+<!-- /react-text --></li><!-- react-text: 111 -->
+<!-- /react-text --><li data-reactid="112"><!-- react-text: 113 -->
+<!-- /react-text --><a href="#exit" data-reactid="114">exit</a><!-- react-text: 115 -->
+<!-- /react-text --></li><!-- react-text: 116 -->
+<!-- /react-text --><li data-reactid="117"><!-- react-text: 118 -->
+<!-- /react-text --><a href="#tojson" data-reactid="119">toJSON</a><!-- react-text: 120 -->
+<!-- /react-text --></li><!-- react-text: 121 -->
+<!-- /react-text --><li data-reactid="122"><!-- react-text: 123 -->
+<!-- /react-text --><a href="#action" data-reactid="124">action</a><!-- react-text: 125 -->
+<!-- /react-text --></li><!-- react-text: 126 -->
+<!-- /react-text --><li data-reactid="127"><!-- react-text: 128 -->
+<!-- /react-text --><a href="#clone" data-reactid="129">clone</a><!-- react-text: 130 -->
+<!-- /react-text --></li><!-- react-text: 131 -->
+<!-- /react-text --><li data-reactid="132"><!-- react-text: 133 -->
+<!-- /react-text --><a href="#isequal" data-reactid="134">isEqual</a><!-- react-text: 135 -->
+<!-- /react-text --></li><!-- react-text: 136 -->
+<!-- /react-text --><li data-reactid="137"><!-- react-text: 138 -->
+<!-- /react-text --><a href="#assignshallow" data-reactid="139">assignShallow</a><!-- react-text: 140 -->
+<!-- /react-text --></li><!-- react-text: 141 -->
+<!-- /react-text --><li data-reactid="142"><!-- react-text: 143 -->
+<!-- /react-text --><a href="#assigndeep" data-reactid="144">assignDeep</a><!-- react-text: 145 -->
+<!-- /react-text --></li><!-- react-text: 146 -->
+<!-- /react-text --><li data-reactid="147"><!-- react-text: 148 -->
+<!-- /react-text --><a href="#isempty" data-reactid="149">isEmpty</a><!-- react-text: 150 -->
+<!-- /react-text --></li><!-- react-text: 151 -->
+<!-- /react-text --></ul><!-- react-text: 152 -->
+<!-- /react-text --></li><!-- react-text: 153 -->
+<!-- /react-text --><li data-reactid="154"><!-- react-text: 155 -->
+<!-- /react-text --><a href="#symbolic" data-reactid="156">Symbolic</a><!-- react-text: 157 -->
+<!-- /react-text --></li><!-- react-text: 158 -->
+<!-- /react-text --><li data-reactid="159"><!-- react-text: 160 -->
+<!-- /react-text --><a href="#symbolic-1" data-reactid="161">Symbolic</a><!-- react-text: 162 -->
+<!-- /react-text --></li><!-- react-text: 163 -->
+<!-- /react-text --><li data-reactid="164"><!-- react-text: 165 -->
+<!-- /react-text --><a href="#symboliccustom" data-reactid="166">SymbolicCustom</a><!-- react-text: 167 -->
+<!-- /react-text --></li><!-- react-text: 168 -->
+<!-- /react-text --><li data-reactid="169"><!-- react-text: 170 -->
+<!-- /react-text --><a href="#symboliccustom-1" data-reactid="171">SymbolicCustom</a><!-- react-text: 172 -->
+<!-- /react-text --></li><!-- react-text: 173 -->
+<!-- /react-text --><li data-reactid="174"><!-- react-text: 175 -->
+<!-- /react-text --><a href="#symboliclink" data-reactid="176">SymbolicLink</a><!-- react-text: 177 -->
+<!-- /react-text --><ul data-reactid="178"><!-- react-text: 179 -->
+<!-- /react-text --><li data-reactid="180"><!-- react-text: 181 -->
+<!-- /react-text --><a href="#setsymbolic" data-reactid="182">setSymbolic</a><!-- react-text: 183 -->
+<!-- /react-text --></li><!-- react-text: 184 -->
+<!-- /react-text --><li data-reactid="185"><!-- react-text: 186 -->
+<!-- /react-text --><a href="#setsymbolic-1" data-reactid="187">setSymbolic</a><!-- react-text: 188 -->
+<!-- /react-text --></li><!-- react-text: 189 -->
+<!-- /react-text --></ul><!-- react-text: 190 -->
+<!-- /react-text --></li><!-- react-text: 191 -->
+<!-- /react-text --><li data-reactid="192"><!-- react-text: 193 -->
+<!-- /react-text --><a href="#symboliclink-1" data-reactid="194">SymbolicLink</a><!-- react-text: 195 -->
+<!-- /react-text --><ul data-reactid="196"><!-- react-text: 197 -->
+<!-- /react-text --><li data-reactid="198"><!-- react-text: 199 -->
+<!-- /react-text --><a href="#setsymbolic-2" data-reactid="200">setSymbolic</a><!-- react-text: 201 -->
+<!-- /react-text --></li><!-- react-text: 202 -->
+<!-- /react-text --><li data-reactid="203"><!-- react-text: 204 -->
+<!-- /react-text --><a href="#setsymbolic-3" data-reactid="205">setSymbolic</a><!-- react-text: 206 -->
+<!-- /react-text --></li><!-- react-text: 207 -->
+<!-- /react-text --></ul><!-- react-text: 208 -->
+<!-- /react-text --></li><!-- react-text: 209 -->
+<!-- /react-text --></ul><!-- react-text: 210 -->
+<!-- /react-text --></li><!-- react-text: 211 -->
+<!-- /react-text --><li data-reactid="212"><!-- react-text: 213 -->
+<!-- /react-text --><a href="#utilities" data-reactid="214">Utilities</a><!-- react-text: 215 -->
+<!-- /react-text --><ul data-reactid="216"><!-- react-text: 217 -->
+<!-- /react-text --><li data-reactid="218"><!-- react-text: 219 -->
+<!-- /react-text --><a href="#symboliclink-2" data-reactid="220">symbolicLink</a><!-- react-text: 221 -->
+<!-- /react-text --></li><!-- react-text: 222 -->
+<!-- /react-text --><li data-reactid="223"><!-- react-text: 224 -->
+<!-- /react-text --><a href="#h" data-reactid="225">h</a><!-- react-text: 226 -->
+<!-- /react-text --></li><!-- react-text: 227 -->
+<!-- /react-text --></ul><!-- react-text: 228 -->
+<!-- /react-text --></li><!-- react-text: 229 -->
+<!-- /react-text --><li data-reactid="230"><!-- react-text: 231 -->
+<!-- /react-text --><a href="#extension" data-reactid="232">Extension</a><!-- react-text: 233 -->
+<!-- /react-text --><ul data-reactid="234"><!-- react-text: 235 -->
+<!-- /react-text --><li data-reactid="236"><!-- react-text: 237 -->
+<!-- /react-text --><a href="#providerfactory" data-reactid="238">providerFactory</a><!-- react-text: 239 -->
+<!-- /react-text --></li><!-- react-text: 240 -->
+<!-- /react-text --><li data-reactid="241"><!-- react-text: 242 -->
+<!-- /react-text --><a href="#router" data-reactid="243">Router</a><!-- react-text: 244 -->
+<!-- /react-text --></li><!-- react-text: 245 -->
+<!-- /react-text --><li data-reactid="246"><!-- react-text: 247 -->
+<!-- /react-text --><a href="#routercontext" data-reactid="248">RouterContext</a><!-- react-text: 249 -->
+<!-- /react-text --></li><!-- react-text: 250 -->
+<!-- /react-text --></ul><!-- react-text: 251 -->
+<!-- /react-text --></li><!-- react-text: 252 -->
+<!-- /react-text --></ul><!-- react-text: 253 -->
+<!-- /react-text --></div><!-- react-text: 254 -->
+<!-- /react-text --><hr data-reactid="255"/><!-- react-text: 256 -->
+<!-- /react-text --><h1 data-reactid="257"><a class="anchor" aria-hidden="true" name="model" data-reactid="258"></a><a href="#model" aria-hidden="true" class="hash-link" data-reactid="259"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="260"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="261"></path></svg></a><!-- react-text: 262 -->Model<!-- /react-text --></h1><!-- react-text: 263 -->
+<!-- /react-text --><!-- react-text: 264 -->  
+<!-- /react-text --><h2 data-reactid="265"><a class="anchor" aria-hidden="true" name="list" data-reactid="266"></a><a href="#list" aria-hidden="true" class="hash-link" data-reactid="267"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="268"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="269"></path></svg></a><!-- react-text: 270 -->List<!-- /react-text --></h2><!-- react-text: 271 -->
+<!-- /react-text --><p data-reactid="272"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/List.js#L63-L70" title="Source code on GitHub" data-reactid="273">src/Model/List.js:63-70</a><!-- react-text: 274 -->  <!-- /react-text --></p><!-- react-text: 275 -->
+<!-- /react-text --><p data-reactid="276"><!-- react-text: 277 -->List 定义数组类型，非常适合于定义 Modal 后，使用<!-- /react-text --><code data-reactid="278">assign</code><!-- react-text: 279 -->方法一次性赋值  <!-- /react-text --></p><!-- react-text: 280 -->
+<!-- /react-text --><p data-reactid="281"><strong data-reactid="282">Parameters</strong><!-- react-text: 283 -->  <!-- /react-text --></p><!-- react-text: 284 -->
+<!-- /react-text --><ul data-reactid="285"><!-- react-text: 286 -->
+<!-- /react-text --><li data-reactid="287"><!-- react-text: 288 -->
+<!-- /react-text --><p data-reactid="289"><code data-reactid="290">init</code><!-- react-text: 291 -->  {any[]}  <!-- /react-text --></p><!-- react-text: 292 -->
+<!-- /react-text --></li><!-- react-text: 293 -->
+<!-- /react-text --><li data-reactid="294"><!-- react-text: 295 -->
+<!-- /react-text --><p data-reactid="296"><code data-reactid="297">Type</code><!-- react-text: 298 -->  {Function}  <!-- /react-text --></p><!-- react-text: 299 -->
+<!-- /react-text --></li><!-- react-text: 300 -->
+<!-- /react-text --><li data-reactid="301"><!-- react-text: 302 -->
+<!-- /react-text --><p data-reactid="303"><code data-reactid="304">options</code><!-- react-text: 305 -->  {object}  <!-- /react-text --></p><!-- react-text: 306 -->
+<!-- /react-text --></li><!-- react-text: 307 -->
+<!-- /react-text --></ul><!-- react-text: 308 -->
+<!-- /react-text --><p data-reactid="309"><strong data-reactid="310">Examples</strong><!-- react-text: 311 -->  <!-- /react-text --></p><!-- react-text: 312 -->
+<!-- /react-text --><pre data-reactid="313"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="314"><span class="hljs-class" data-reactid="315"><span class="hljs-keyword" data-reactid="316">class</span><!-- react-text: 317 --> <!-- /react-text --><span class="hljs-title" data-reactid="318">Model</span><!-- react-text: 319 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="320">extends</span><!-- react-text: 321 --> <!-- /react-text --><span class="hljs-title" data-reactid="322">Root</span><!-- react-text: 323 --> <!-- /react-text --></span><!-- react-text: 324 -->{  
+  @observable a = <!-- /react-text --><span class="hljs-string" data-reactid="325">&#x27;xyz&#x27;</span><!-- react-text: 326 -->  
+  @observable b = <!-- /react-text --><span class="hljs-string" data-reactid="327">&#x27;abc&#x27;</span><!-- react-text: 328 -->  
+}  
+  
+<!-- /react-text --><span class="hljs-keyword" data-reactid="329">const</span><!-- react-text: 330 --> list = List.create([{ <!-- /react-text --><span class="hljs-attr" data-reactid="331">a</span><!-- react-text: 332 -->: <!-- /react-text --><span class="hljs-string" data-reactid="333">&#x27;xbb&#x27;</span><!-- react-text: 334 --> }, { <!-- /react-text --><span class="hljs-attr" data-reactid="335">b</span><!-- react-text: 336 -->: <!-- /react-text --><span class="hljs-string" data-reactid="337">&#x27;hhh&#x27;</span><!-- react-text: 338 --> }], Model)  
+  
+list[<!-- /react-text --><span class="hljs-number" data-reactid="339">0</span><!-- react-text: 340 -->] <!-- /react-text --><span class="hljs-keyword" data-reactid="341">instanceof</span><!-- react-text: 342 --> Model === <!-- /react-text --><span class="hljs-literal" data-reactid="343">true</span><!-- react-text: 344 -->  
+list[<!-- /react-text --><span class="hljs-number" data-reactid="345">1</span><!-- react-text: 346 -->] <!-- /react-text --><span class="hljs-keyword" data-reactid="347">instanceof</span><!-- react-text: 348 --> Model === <!-- /react-text --><span class="hljs-literal" data-reactid="349">true</span><!-- react-text: 350 -->  
+  
+list.assign([{ <!-- /react-text --><span class="hljs-attr" data-reactid="351">a</span><!-- react-text: 352 -->: <!-- /react-text --><span class="hljs-string" data-reactid="353">&#x27;xxx&#x27;</span><!-- react-text: 354 --> }])  
+list[<!-- /react-text --><span class="hljs-number" data-reactid="355">0</span><!-- react-text: 356 -->] <!-- /react-text --><span class="hljs-keyword" data-reactid="357">instanceof</span><!-- react-text: 358 --> Model === <!-- /react-text --><span class="hljs-literal" data-reactid="359">true</span><!-- react-text: 360 -->  
+list.length === <!-- /react-text --><span class="hljs-number" data-reactid="361">1</span><!-- react-text: 362 -->  <!-- /react-text --></code></pre><!-- react-text: 363 -->
+<!-- /react-text --><h2 data-reactid="364"><a class="anchor" aria-hidden="true" name="piped" data-reactid="365"></a><a href="#piped" aria-hidden="true" class="hash-link" data-reactid="366"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="367"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="368"></path></svg></a><!-- react-text: 369 -->Piped<!-- /react-text --></h2><!-- react-text: 370 -->
+<!-- /react-text --><p data-reactid="371"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Piped.js#L19-L27" title="Source code on GitHub" data-reactid="372">src/Model/Piped.js:19-27</a><!-- react-text: 373 -->  <!-- /react-text --></p><!-- react-text: 374 -->
+<!-- /react-text --><p data-reactid="375"><strong data-reactid="376">Extends Root</strong><!-- react-text: 377 -->  <!-- /react-text --></p><!-- react-text: 378 -->
+<!-- /react-text --><p data-reactid="379"><!-- react-text: 380 -->其对 Root 中的 init/update 进行的无差别的赋值，<!-- /react-text --><br data-reactid="381"/><!-- react-text: 382 -->
+如果你需要对 View 中的 props 一股脑都同步至 Model 中，<!-- /react-text --><br data-reactid="383"/><!-- react-text: 384 -->
+则可以通过继承该类来实现  <!-- /react-text --></p><!-- react-text: 385 -->
+<!-- /react-text --><h2 data-reactid="386"><a class="anchor" aria-hidden="true" name="root" data-reactid="387"></a><a href="#root" aria-hidden="true" class="hash-link" data-reactid="388"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="389"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="390"></path></svg></a><!-- react-text: 391 -->Root<!-- /react-text --></h2><!-- react-text: 392 -->
+<!-- /react-text --><p data-reactid="393"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L19-L215" title="Source code on GitHub" data-reactid="394">src/Model/Root.js:19-215</a><!-- react-text: 395 -->  <!-- /react-text --></p><!-- react-text: 396 -->
+<!-- /react-text --><p data-reactid="397">建议所以的 Model 都继承自该类，提供了一些方法  </p><!-- react-text: 398 -->
+<!-- /react-text --><h3 data-reactid="399"><a class="anchor" aria-hidden="true" name="create" data-reactid="400"></a><a href="#create" aria-hidden="true" class="hash-link" data-reactid="401"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="402"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="403"></path></svg></a><!-- react-text: 404 -->create<!-- /react-text --></h3><!-- react-text: 405 -->
+<!-- /react-text --><p data-reactid="406"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L33-L35" title="Source code on GitHub" data-reactid="407">src/Model/Root.js:33-35</a><!-- react-text: 408 -->  <!-- /react-text --></p><!-- react-text: 409 -->
+<!-- /react-text --><p data-reactid="410"><!-- react-text: 411 -->建议使用给方法创建实例对象，而不是 <!-- /react-text --><code data-reactid="412">new Model()</code><!-- react-text: 413 --> 原因参看 <!-- /react-text --><a href="https://github.com/imcuttle/babel-plugin-class-properties-default-value" data-reactid="414">https://github.com/imcuttle/babel-plugin-class-properties-default-value</a><!-- react-text: 415 -->  <!-- /react-text --></p><!-- react-text: 416 -->
+<!-- /react-text --><p data-reactid="417"><strong data-reactid="418">Parameters</strong><!-- react-text: 419 -->  <!-- /react-text --></p><!-- react-text: 420 -->
+<!-- /react-text --><ul data-reactid="421"><!-- react-text: 422 -->
+<!-- /react-text --><li data-reactid="423"><!-- react-text: 424 -->
+<!-- /react-text --><p data-reactid="425"><code data-reactid="426">init</code><!-- react-text: 427 --> <!-- /react-text --><strong data-reactid="428"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="429">object</a></strong><!-- react-text: 430 -->  (optional, default <!-- /react-text --><code data-reactid="431">{}</code><!-- react-text: 432 -->)  <!-- /react-text --></p><!-- react-text: 433 -->
+<!-- /react-text --></li><!-- react-text: 434 -->
+<!-- /react-text --></ul><!-- react-text: 435 -->
+<!-- /react-text --><p data-reactid="436"><strong data-reactid="437">Examples</strong><!-- react-text: 438 -->  <!-- /react-text --></p><!-- react-text: 439 -->
+<!-- /react-text --><pre data-reactid="440"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="441"><span class="hljs-class" data-reactid="442"><span class="hljs-keyword" data-reactid="443">class</span><!-- react-text: 444 --> <!-- /react-text --><span class="hljs-title" data-reactid="445">Model</span><!-- react-text: 446 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="447">extends</span><!-- react-text: 448 --> <!-- /react-text --><span class="hljs-title" data-reactid="449">Root</span><!-- react-text: 450 --> <!-- /react-text --></span><!-- react-text: 451 -->{  
+   val = <!-- /react-text --><span class="hljs-number" data-reactid="452">123</span><!-- react-text: 453 -->  
+}  
+<!-- /react-text --><span class="hljs-keyword" data-reactid="454">const</span><!-- react-text: 455 --> model = Model.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="456">val</span><!-- react-text: 457 -->: <!-- /react-text --><span class="hljs-string" data-reactid="458">&#x27;345&#x27;</span><!-- react-text: 459 --> })  <!-- /react-text --></code></pre><!-- react-text: 460 -->
+<!-- /react-text --><p data-reactid="461"><!-- react-text: 462 -->Returns <!-- /react-text --><strong data-reactid="463"><a href="#root" data-reactid="464">Root</a></strong><!-- react-text: 465 -->  <!-- /react-text --></p><!-- react-text: 466 -->
+<!-- /react-text --><h3 data-reactid="467"><a class="anchor" aria-hidden="true" name="init" data-reactid="468"></a><a href="#init" aria-hidden="true" class="hash-link" data-reactid="469"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="470"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="471"></path></svg></a><!-- react-text: 472 -->init<!-- /react-text --></h3><!-- react-text: 473 -->
+<!-- /react-text --><p data-reactid="474"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L43-L43" title="Source code on GitHub" data-reactid="475">src/Model/Root.js:43-43</a><!-- react-text: 476 -->  <!-- /react-text --></p><!-- react-text: 477 -->
+<!-- /react-text --><p data-reactid="478">该方法对应与 React 的 componentDidMount 生命周期  </p><!-- react-text: 479 -->
+<!-- /react-text --><p data-reactid="480"><strong data-reactid="481">Parameters</strong><!-- react-text: 482 -->  <!-- /react-text --></p><!-- react-text: 483 -->
+<!-- /react-text --><ul data-reactid="484"><!-- react-text: 485 -->
+<!-- /react-text --><li data-reactid="486"><!-- react-text: 487 -->
+<!-- /react-text --><p data-reactid="488"><code data-reactid="489">props</code><!-- react-text: 490 --> <!-- /react-text --><strong data-reactid="491"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="492">object</a></strong><!-- react-text: 493 --> View 中的 <!-- /react-text --><code data-reactid="494">this.props</code><!-- react-text: 495 -->  <!-- /react-text --></p><!-- react-text: 496 -->
+<!-- /react-text --></li><!-- react-text: 497 -->
+<!-- /react-text --></ul><!-- react-text: 498 -->
+<!-- /react-text --><h3 data-reactid="499"><a class="anchor" aria-hidden="true" name="update" data-reactid="500"></a><a href="#update" aria-hidden="true" class="hash-link" data-reactid="501"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="502"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="503"></path></svg></a><!-- react-text: 504 -->update<!-- /react-text --></h3><!-- react-text: 505 -->
+<!-- /react-text --><p data-reactid="506"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L51-L51" title="Source code on GitHub" data-reactid="507">src/Model/Root.js:51-51</a><!-- react-text: 508 -->  <!-- /react-text --></p><!-- react-text: 509 -->
+<!-- /react-text --><p data-reactid="510">该方法对应与 React 的 componentWillReceiveProps 生命周期  </p><!-- react-text: 511 -->
+<!-- /react-text --><p data-reactid="512"><strong data-reactid="513">Parameters</strong><!-- react-text: 514 -->  <!-- /react-text --></p><!-- react-text: 515 -->
+<!-- /react-text --><ul data-reactid="516"><!-- react-text: 517 -->
+<!-- /react-text --><li data-reactid="518"><!-- react-text: 519 -->
+<!-- /react-text --><p data-reactid="520"><code data-reactid="521">props</code><!-- react-text: 522 --> <!-- /react-text --><strong data-reactid="523"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="524">object</a></strong><!-- react-text: 525 --> View 中的 <!-- /react-text --><code data-reactid="526">nextProps</code><!-- react-text: 527 -->  <!-- /react-text --></p><!-- react-text: 528 -->
+<!-- /react-text --></li><!-- react-text: 529 -->
+<!-- /react-text --></ul><!-- react-text: 530 -->
+<!-- /react-text --><h3 data-reactid="531"><a class="anchor" aria-hidden="true" name="exit" data-reactid="532"></a><a href="#exit" aria-hidden="true" class="hash-link" data-reactid="533"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="534"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="535"></path></svg></a><!-- react-text: 536 -->exit<!-- /react-text --></h3><!-- react-text: 537 -->
+<!-- /react-text --><p data-reactid="538"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L59-L59" title="Source code on GitHub" data-reactid="539">src/Model/Root.js:59-59</a><!-- react-text: 540 -->  <!-- /react-text --></p><!-- react-text: 541 -->
+<!-- /react-text --><p data-reactid="542">该方法对应与 React 的 componentWillUnmount 生命周期  </p><!-- react-text: 543 -->
+<!-- /react-text --><p data-reactid="544"><strong data-reactid="545">Parameters</strong><!-- react-text: 546 -->  <!-- /react-text --></p><!-- react-text: 547 -->
+<!-- /react-text --><ul data-reactid="548"><!-- react-text: 549 -->
+<!-- /react-text --><li data-reactid="550"><!-- react-text: 551 -->
+<!-- /react-text --><p data-reactid="552"><code data-reactid="553">props</code><!-- react-text: 554 --> <!-- /react-text --><strong data-reactid="555"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="556">object</a></strong><!-- react-text: 557 --> View 中的 <!-- /react-text --><code data-reactid="558">this.props</code><!-- react-text: 559 -->  <!-- /react-text --></p><!-- react-text: 560 -->
+<!-- /react-text --></li><!-- react-text: 561 -->
+<!-- /react-text --></ul><!-- react-text: 562 -->
+<!-- /react-text --><h3 data-reactid="563"><a class="anchor" aria-hidden="true" name="tojson" data-reactid="564"></a><a href="#tojson" aria-hidden="true" class="hash-link" data-reactid="565"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="566"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="567"></path></svg></a><!-- react-text: 568 -->toJSON<!-- /react-text --></h3><!-- react-text: 569 -->
+<!-- /react-text --><p data-reactid="570"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L66-L77" title="Source code on GitHub" data-reactid="571">src/Model/Root.js:66-77</a><!-- react-text: 572 -->  <!-- /react-text --></p><!-- react-text: 573 -->
+<!-- /react-text --><p data-reactid="574">将 this 转换为 JSON  </p><!-- react-text: 575 -->
+<!-- /react-text --><h3 data-reactid="576"><a class="anchor" aria-hidden="true" name="action" data-reactid="577"></a><a href="#action" aria-hidden="true" class="hash-link" data-reactid="578"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="579"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="580"></path></svg></a><!-- react-text: 581 -->action<!-- /react-text --></h3><!-- react-text: 582 -->
+<!-- /react-text --><p data-reactid="583"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L94-L94" title="Source code on GitHub" data-reactid="584">src/Model/Root.js:94-94</a><!-- react-text: 585 -->  <!-- /react-text --></p><!-- react-text: 586 -->
+<!-- /react-text --><p data-reactid="587">设置当前对象中 key 的值  </p><!-- react-text: 588 -->
+<!-- /react-text --><p data-reactid="589"><strong data-reactid="590">Parameters</strong><!-- react-text: 591 -->  <!-- /react-text --></p><!-- react-text: 592 -->
+<!-- /react-text --><ul data-reactid="593"><!-- react-text: 594 -->
+<!-- /react-text --><li data-reactid="595"><!-- react-text: 596 -->
+<!-- /react-text --><p data-reactid="597"><code data-reactid="598">key</code><!-- react-text: 599 --> <!-- /react-text --><strong data-reactid="600"><!-- react-text: 601 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="602">string</a><!-- react-text: 603 --> | <!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array" data-reactid="604">array</a><!-- react-text: 605 -->)<!-- /react-text --></strong><!-- react-text: 606 -->  <!-- /react-text --></p><!-- react-text: 607 -->
+<!-- /react-text --></li><!-- react-text: 608 -->
+<!-- /react-text --><li data-reactid="609"><!-- react-text: 610 -->
+<!-- /react-text --><p data-reactid="611"><code data-reactid="612">value</code><!-- react-text: 613 --> <!-- /react-text --><strong data-reactid="614">any</strong><!-- react-text: 615 -->  <!-- /react-text --></p><!-- react-text: 616 -->
+<!-- /react-text --></li><!-- react-text: 617 -->
+<!-- /react-text --></ul><!-- react-text: 618 -->
+<!-- /react-text --><p data-reactid="619"><strong data-reactid="620">Examples</strong><!-- react-text: 621 -->  <!-- /react-text --></p><!-- react-text: 622 -->
+<!-- /react-text --><pre data-reactid="623"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="624"><!-- react-text: 625 -->Root  
+ .create()  
+ .setValue(<!-- /react-text --><span class="hljs-string" data-reactid="626">&#x27;a&#x27;</span><!-- react-text: 627 -->, {})  
+ .setValue(<!-- /react-text --><span class="hljs-string" data-reactid="628">&#x27;a.b&#x27;</span><!-- react-text: 629 -->, <!-- /react-text --><span class="hljs-string" data-reactid="630">&#x27;123&#x27;</span><!-- react-text: 631 -->)  
+ .setValue([<!-- /react-text --><span class="hljs-string" data-reactid="632">&#x27;a&#x27;</span><!-- react-text: 633 -->, <!-- /react-text --><span class="hljs-string" data-reactid="634">&#x27;b&#x27;</span><!-- react-text: 635 -->], <!-- /react-text --><span class="hljs-string" data-reactid="636">&#x27;456&#x27;</span><!-- react-text: 637 -->)  <!-- /react-text --></code></pre><!-- react-text: 638 -->
+<!-- /react-text --><p data-reactid="639"><!-- react-text: 640 -->Returns <!-- /react-text --><strong data-reactid="641"><a href="#root" data-reactid="642">Root</a></strong><!-- react-text: 643 -->  <!-- /react-text --></p><!-- react-text: 644 -->
+<!-- /react-text --><h3 data-reactid="645"><a class="anchor" aria-hidden="true" name="clone" data-reactid="646"></a><a href="#clone" aria-hidden="true" class="hash-link" data-reactid="647"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="648"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="649"></path></svg></a><!-- react-text: 650 -->clone<!-- /react-text --></h3><!-- react-text: 651 -->
+<!-- /react-text --><p data-reactid="652"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L130-L132" title="Source code on GitHub" data-reactid="653">src/Model/Root.js:130-132</a><!-- react-text: 654 -->  <!-- /react-text --></p><!-- react-text: 655 -->
+<!-- /react-text --><p data-reactid="656">拷贝当前对象  </p><!-- react-text: 657 -->
+<!-- /react-text --><p data-reactid="658"><!-- react-text: 659 -->Returns <!-- /react-text --><strong data-reactid="660"><a href="#root" data-reactid="661">Root</a></strong><!-- react-text: 662 --> 一个新的实例  <!-- /react-text --></p><!-- react-text: 663 -->
+<!-- /react-text --><h3 data-reactid="664"><a class="anchor" aria-hidden="true" name="isequal" data-reactid="665"></a><a href="#isequal" aria-hidden="true" class="hash-link" data-reactid="666"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="667"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="668"></path></svg></a><!-- react-text: 669 -->isEqual<!-- /react-text --></h3><!-- react-text: 670 -->
+<!-- /react-text --><p data-reactid="671"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L145-L150" title="Source code on GitHub" data-reactid="672">src/Model/Root.js:145-150</a><!-- react-text: 673 -->  <!-- /react-text --></p><!-- react-text: 674 -->
+<!-- /react-text --><p data-reactid="675">对比两个对象是否相同  </p><!-- react-text: 676 -->
+<!-- /react-text --><p data-reactid="677"><strong data-reactid="678">Parameters</strong><!-- react-text: 679 -->  <!-- /react-text --></p><!-- react-text: 680 -->
+<!-- /react-text --><ul data-reactid="681"><!-- react-text: 682 -->
+<!-- /react-text --><li data-reactid="683"><!-- react-text: 684 -->
+<!-- /react-text --><p data-reactid="685"><code data-reactid="686">other</code><!-- react-text: 687 --> <!-- /react-text --><strong data-reactid="688">any</strong><!-- react-text: 689 -->  <!-- /react-text --></p><!-- react-text: 690 -->
+<!-- /react-text --></li><!-- react-text: 691 -->
+<!-- /react-text --></ul><!-- react-text: 692 -->
+<!-- /react-text --><p data-reactid="693"><strong data-reactid="694">Examples</strong><!-- react-text: 695 -->  <!-- /react-text --></p><!-- react-text: 696 -->
+<!-- /react-text --><pre data-reactid="697"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="698"><!-- react-text: 699 -->Root.create().isEqual({}) <!-- /react-text --><span class="hljs-comment" data-reactid="700">// true  </span><!-- react-text: 701 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="702">a</span><!-- react-text: 703 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="704">1</span><!-- react-text: 705 -->, <!-- /react-text --><span class="hljs-number" data-reactid="706">3</span><!-- react-text: 707 -->] }).isEqual({ <!-- /react-text --><span class="hljs-attr" data-reactid="708">a</span><!-- react-text: 709 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="710">1</span><!-- react-text: 711 -->, <!-- /react-text --><span class="hljs-number" data-reactid="712">3</span><!-- react-text: 713 -->] }) <!-- /react-text --><span class="hljs-comment" data-reactid="714">// true  </span><!-- react-text: 715 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="716">a</span><!-- react-text: 717 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="718">1</span><!-- react-text: 719 -->, <!-- /react-text --><span class="hljs-number" data-reactid="720">3</span><!-- react-text: 721 -->] }).isEqual(Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="722">a</span><!-- react-text: 723 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="724">1</span><!-- react-text: 725 -->, <!-- /react-text --><span class="hljs-number" data-reactid="726">3</span><!-- react-text: 727 -->] })) <!-- /react-text --><span class="hljs-comment" data-reactid="728">// true  </span></code></pre><!-- react-text: 729 -->
+<!-- /react-text --><p data-reactid="730"><!-- react-text: 731 -->Returns <!-- /react-text --><strong data-reactid="732"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-reactid="733">boolean</a></strong><!-- react-text: 734 -->  <!-- /react-text --></p><!-- react-text: 735 -->
+<!-- /react-text --><h3 data-reactid="736"><a class="anchor" aria-hidden="true" name="assignshallow" data-reactid="737"></a><a href="#assignshallow" aria-hidden="true" class="hash-link" data-reactid="738"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="739"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="740"></path></svg></a><!-- react-text: 741 -->assignShallow<!-- /react-text --></h3><!-- react-text: 742 -->
+<!-- /react-text --><p data-reactid="743"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L175-L177" title="Source code on GitHub" data-reactid="744">src/Model/Root.js:175-177</a><!-- react-text: 745 -->  <!-- /react-text --></p><!-- react-text: 746 -->
+<!-- /react-text --><p data-reactid="747"><!-- react-text: 748 -->批量赋值，如需要覆写 <!-- /react-text --><code data-reactid="749">assign</code><!-- react-text: 750 -->，请覆写 <!-- /react-text --><code data-reactid="751">assignShallow</code><!-- react-text: 752 -->  <!-- /react-text --></p><!-- react-text: 753 -->
+<!-- /react-text --><p data-reactid="754"><strong data-reactid="755">Parameters</strong><!-- react-text: 756 -->  <!-- /react-text --></p><!-- react-text: 757 -->
+<!-- /react-text --><ul data-reactid="758"><!-- react-text: 759 -->
+<!-- /react-text --><li data-reactid="760"><!-- react-text: 761 -->
+<!-- /react-text --><p data-reactid="762"><code data-reactid="763">data</code><!-- react-text: 764 --> <!-- /react-text --><strong data-reactid="765"><!-- react-text: 766 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="767">object</a><!-- react-text: 768 --> | <!-- /react-text --><a href="#root" data-reactid="769">Root</a><!-- react-text: 770 -->)<!-- /react-text --></strong><!-- react-text: 771 -->  <!-- /react-text --></p><!-- react-text: 772 -->
+<!-- /react-text --></li><!-- react-text: 773 -->
+<!-- /react-text --></ul><!-- react-text: 774 -->
+<!-- /react-text --><p data-reactid="775"><strong data-reactid="776">Examples</strong><!-- react-text: 777 -->  <!-- /react-text --></p><!-- react-text: 778 -->
+<!-- /react-text --><pre data-reactid="779"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="780"><!-- react-text: 781 -->Root  
+ .create()  
+ .assign({ <!-- /react-text --><span class="hljs-attr" data-reactid="782">a</span><!-- react-text: 783 -->: <!-- /react-text --><span class="hljs-string" data-reactid="784">&#x27;a&#x27;</span><!-- react-text: 785 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="786">b</span><!-- react-text: 787 -->: <!-- /react-text --><span class="hljs-string" data-reactid="788">&#x27;b&#x27;</span><!-- react-text: 789 --> })  
+ .assignShallow({ <!-- /react-text --><span class="hljs-attr" data-reactid="790">a</span><!-- react-text: 791 -->: <!-- /react-text --><span class="hljs-string" data-reactid="792">&#x27;a&#x27;</span><!-- react-text: 793 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="794">b</span><!-- react-text: 795 -->: <!-- /react-text --><span class="hljs-string" data-reactid="796">&#x27;b&#x27;</span><!-- react-text: 797 --> })  
+<!-- /react-text --><span class="hljs-comment" data-reactid="798">// 支持嵌套赋值  </span><!-- react-text: 799 -->
+<!-- /react-text --><span class="hljs-class" data-reactid="800"><span class="hljs-keyword" data-reactid="801">class</span><!-- react-text: 802 --> <!-- /react-text --><span class="hljs-title" data-reactid="803">Nested</span><!-- react-text: 804 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="805">extends</span><!-- react-text: 806 --> <!-- /react-text --><span class="hljs-title" data-reactid="807">Root</span><!-- react-text: 808 --> <!-- /react-text --></span><!-- react-text: 809 -->{  
+  @observable root = Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="810">a</span><!-- react-text: 811 -->: <!-- /react-text --><span class="hljs-string" data-reactid="812">&#x27;c&#x27;</span><!-- react-text: 813 --> })  
+}  
+Nested  
+ .create({ <!-- /react-text --><span class="hljs-attr" data-reactid="814">root</span><!-- react-text: 815 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="816">b</span><!-- react-text: 817 -->: <!-- /react-text --><span class="hljs-string" data-reactid="818">&#x27;b&#x27;</span><!-- react-text: 819 --> } })  
+ .root <!-- /react-text --><span class="hljs-keyword" data-reactid="820">instanceof</span><!-- react-text: 821 --> Root <!-- /react-text --><span class="hljs-comment" data-reactid="822">// true  </span><!-- react-text: 823 -->
+Nested  
+ .create({ <!-- /react-text --><span class="hljs-attr" data-reactid="824">root</span><!-- react-text: 825 -->: { <!-- /react-text --><span class="hljs-attr" data-reactid="826">b</span><!-- react-text: 827 -->: <!-- /react-text --><span class="hljs-string" data-reactid="828">&#x27;b&#x27;</span><!-- react-text: 829 --> } })  
+ .root.a === <!-- /react-text --><span class="hljs-string" data-reactid="830">&#x27;c&#x27;</span><!-- react-text: 831 --> <!-- /react-text --><span class="hljs-comment" data-reactid="832">// true  </span></code></pre><!-- react-text: 833 -->
+<!-- /react-text --><p data-reactid="834"><!-- react-text: 835 -->Returns <!-- /react-text --><strong data-reactid="836"><a href="#root" data-reactid="837">Root</a></strong><!-- react-text: 838 -->  <!-- /react-text --></p><!-- react-text: 839 -->
+<!-- /react-text --><h3 data-reactid="840"><a class="anchor" aria-hidden="true" name="assigndeep" data-reactid="841"></a><a href="#assigndeep" aria-hidden="true" class="hash-link" data-reactid="842"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="843"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="844"></path></svg></a><!-- react-text: 845 -->assignDeep<!-- /react-text --></h3><!-- react-text: 846 -->
+<!-- /react-text --><p data-reactid="847"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L189-L192" title="Source code on GitHub" data-reactid="848">src/Model/Root.js:189-192</a><!-- react-text: 849 -->  <!-- /react-text --></p><!-- react-text: 850 -->
+<!-- /react-text --><ul data-reactid="851"><!-- react-text: 852 -->
+<!-- /react-text --><li data-reactid="853"><!-- react-text: 854 -->
+<!-- /react-text --><p data-reactid="855"><strong data-reactid="856"><!-- react-text: 857 -->See: <!-- /react-text --><a href="#assign" data-reactid="858">assign</a></strong><!-- react-text: 859 -->  <!-- /react-text --></p><!-- react-text: 860 -->
+<!-- /react-text --></li><!-- react-text: 861 -->
+<!-- /react-text --></ul><!-- react-text: 862 -->
+<!-- /react-text --><p data-reactid="863">深拷贝批量赋值  </p><!-- react-text: 864 -->
+<!-- /react-text --><p data-reactid="865"><strong data-reactid="866">Parameters</strong><!-- react-text: 867 -->  <!-- /react-text --></p><!-- react-text: 868 -->
+<!-- /react-text --><ul data-reactid="869"><!-- react-text: 870 -->
+<!-- /react-text --><li data-reactid="871"><!-- react-text: 872 -->
+<!-- /react-text --><p data-reactid="873"><code data-reactid="874">data</code><!-- react-text: 875 --> <!-- /react-text --><strong data-reactid="876"><!-- react-text: 877 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="878">object</a><!-- react-text: 879 --> | <!-- /react-text --><a href="#root" data-reactid="880">Root</a><!-- react-text: 881 -->)<!-- /react-text --></strong><!-- react-text: 882 -->  <!-- /react-text --></p><!-- react-text: 883 -->
+<!-- /react-text --></li><!-- react-text: 884 -->
+<!-- /react-text --></ul><!-- react-text: 885 -->
+<!-- /react-text --><p data-reactid="886"><strong data-reactid="887">Examples</strong><!-- react-text: 888 -->  <!-- /react-text --></p><!-- react-text: 889 -->
+<!-- /react-text --><pre data-reactid="890"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="891"><span class="hljs-keyword" data-reactid="892">const</span><!-- react-text: 893 --> a = Root.create().assignDeep({ <!-- /react-text --><span class="hljs-attr" data-reactid="894">a</span><!-- react-text: 895 -->: <!-- /react-text --><span class="hljs-string" data-reactid="896">&#x27;a&#x27;</span><!-- react-text: 897 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="898">b</span><!-- react-text: 899 -->: <!-- /react-text --><span class="hljs-string" data-reactid="900">&#x27;b&#x27;</span><!-- react-text: 901 --> })  <!-- /react-text --></code></pre><!-- react-text: 902 -->
+<!-- /react-text --><p data-reactid="903"><!-- react-text: 904 -->Returns <!-- /react-text --><strong data-reactid="905"><a href="#root" data-reactid="906">Root</a></strong><!-- react-text: 907 -->  <!-- /react-text --></p><!-- react-text: 908 -->
+<!-- /react-text --><h3 data-reactid="909"><a class="anchor" aria-hidden="true" name="isempty" data-reactid="910"></a><a href="#isempty" aria-hidden="true" class="hash-link" data-reactid="911"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="912"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="913"></path></svg></a><!-- react-text: 914 -->isEmpty<!-- /react-text --></h3><!-- react-text: 915 -->
+<!-- /react-text --><p data-reactid="916"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/Root.js#L207-L214" title="Source code on GitHub" data-reactid="917">src/Model/Root.js:207-214</a><!-- react-text: 918 -->  <!-- /react-text --></p><!-- react-text: 919 -->
+<!-- /react-text --><ul data-reactid="920"><!-- react-text: 921 -->
+<!-- /react-text --><li data-reactid="922"><!-- react-text: 923 -->
+<!-- /react-text --><p data-reactid="924"><strong data-reactid="925"><!-- react-text: 926 -->See: <!-- /react-text --><a href="#assign" data-reactid="927">assign</a></strong><!-- react-text: 928 -->  <!-- /react-text --></p><!-- react-text: 929 -->
+<!-- /react-text --></li><!-- react-text: 930 -->
+<!-- /react-text --></ul><!-- react-text: 931 -->
+<!-- /react-text --><p data-reactid="932">判断当前实例是否内容为空  </p><!-- react-text: 933 -->
+<!-- /react-text --><p data-reactid="934"><strong data-reactid="935">Examples</strong><!-- react-text: 936 -->  <!-- /react-text --></p><!-- react-text: 937 -->
+<!-- /react-text --><pre data-reactid="938"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="939"><!-- react-text: 940 -->Root.create().isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="941">// true  </span><!-- react-text: 942 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="943">a</span><!-- react-text: 944 -->: <!-- /react-text --><span class="hljs-string" data-reactid="945">&#x27;&#x27;</span><!-- react-text: 946 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="947">b</span><!-- react-text: 948 -->: [] }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="949">// true  </span><!-- react-text: 950 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="951">a</span><!-- react-text: 952 -->: <!-- /react-text --><span class="hljs-string" data-reactid="953">&#x27;&#x27;</span><!-- react-text: 954 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="955">b</span><!-- react-text: 956 -->: [], <!-- /react-text --><span class="hljs-attr" data-reactid="957">c</span><!-- react-text: 958 -->: Root.create() }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="959">// true  </span><!-- react-text: 960 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="961">a</span><!-- react-text: 962 -->: <!-- /react-text --><span class="hljs-string" data-reactid="963">&#x27;a&#x27;</span><!-- react-text: 964 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="965">b</span><!-- react-text: 966 -->: [] }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="967">// false  </span><!-- react-text: 968 -->
+Root.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="969">a</span><!-- react-text: 970 -->: <!-- /react-text --><span class="hljs-string" data-reactid="971">&#x27;&#x27;</span><!-- react-text: 972 -->, <!-- /react-text --><span class="hljs-attr" data-reactid="973">b</span><!-- react-text: 974 -->: [<!-- /react-text --><span class="hljs-string" data-reactid="975">&#x27;a&#x27;</span><!-- react-text: 976 -->] }).isEmpty() <!-- /react-text --><span class="hljs-comment" data-reactid="977">// false  </span></code></pre><!-- react-text: 978 -->
+<!-- /react-text --><p data-reactid="979"><!-- react-text: 980 -->Returns <!-- /react-text --><strong data-reactid="981"><a href="#root" data-reactid="982">Root</a></strong><!-- react-text: 983 -->  <!-- /react-text --></p><!-- react-text: 984 -->
+<!-- /react-text --><h2 data-reactid="985"><a class="anchor" aria-hidden="true" name="symbolic" data-reactid="986"></a><a href="#symbolic" aria-hidden="true" class="hash-link" data-reactid="987"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="988"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="989"></path></svg></a><!-- react-text: 990 -->Symbolic<!-- /react-text --></h2><!-- react-text: 991 -->
+<!-- /react-text --><p data-reactid="992"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/ViewRoot.js#L19-L24" title="Source code on GitHub" data-reactid="993">src/Model/ViewRoot.js:19-24</a><!-- react-text: 994 -->  <!-- /react-text --></p><!-- react-text: 995 -->
+<!-- /react-text --><ul data-reactid="996"><!-- react-text: 997 -->
+<!-- /react-text --><li data-reactid="998"><!-- react-text: 999 -->
+<!-- /react-text --><p data-reactid="1000"><strong data-reactid="1001">See: {SymbolicLink}</strong><!-- react-text: 1002 -->  <!-- /react-text --></p><!-- react-text: 1003 -->
+<!-- /react-text --></li><!-- react-text: 1004 -->
+<!-- /react-text --></ul><!-- react-text: 1005 -->
+<!-- /react-text --><p data-reactid="1006">用于创建链接对象  </p><!-- react-text: 1007 -->
+<!-- /react-text --><p data-reactid="1008"><strong data-reactid="1009">Parameters</strong><!-- react-text: 1010 -->  <!-- /react-text --></p><!-- react-text: 1011 -->
+<!-- /react-text --><ul data-reactid="1012"><!-- react-text: 1013 -->
+<!-- /react-text --><li data-reactid="1014"><!-- react-text: 1015 -->
+<!-- /react-text --><p data-reactid="1016"><code data-reactid="1017">ref</code><!-- react-text: 1018 -->  {Object}  <!-- /react-text --></p><!-- react-text: 1019 -->
+<!-- /react-text --></li><!-- react-text: 1020 -->
+<!-- /react-text --><li data-reactid="1021"><!-- react-text: 1022 -->
+<!-- /react-text --><p data-reactid="1023"><code data-reactid="1024">path</code><!-- react-text: 1025 -->  {String}  <!-- /react-text --></p><!-- react-text: 1026 -->
+<!-- /react-text --></li><!-- react-text: 1027 -->
+<!-- /react-text --></ul><!-- react-text: 1028 -->
+<!-- /react-text --><p data-reactid="1029"><!-- react-text: 1030 -->Returns <!-- /react-text --><strong data-reactid="1031"><a href="#symbolic" data-reactid="1032">Symbolic</a></strong><!-- react-text: 1033 -->  <!-- /react-text --></p><!-- react-text: 1034 -->
+<!-- /react-text --><h2 data-reactid="1035"><a class="anchor" aria-hidden="true" name="symbolic-1" data-reactid="1036"></a><a href="#symbolic-1" aria-hidden="true" class="hash-link" data-reactid="1037"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1038"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1039"></path></svg></a><!-- react-text: 1040 -->Symbolic<!-- /react-text --></h2><!-- react-text: 1041 -->
+<!-- /react-text --><p data-reactid="1042"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/SymbolicLink.js#L22-L27" title="Source code on GitHub" data-reactid="1043">src/Model/SymbolicLink.js:22-27</a><!-- react-text: 1044 -->  <!-- /react-text --></p><!-- react-text: 1045 -->
+<!-- /react-text --><ul data-reactid="1046"><!-- react-text: 1047 -->
+<!-- /react-text --><li data-reactid="1048"><!-- react-text: 1049 -->
+<!-- /react-text --><p data-reactid="1050"><strong data-reactid="1051">See: {SymbolicLink}</strong><!-- react-text: 1052 -->  <!-- /react-text --></p><!-- react-text: 1053 -->
+<!-- /react-text --></li><!-- react-text: 1054 -->
+<!-- /react-text --></ul><!-- react-text: 1055 -->
+<!-- /react-text --><p data-reactid="1056">用于创建链接对象  </p><!-- react-text: 1057 -->
+<!-- /react-text --><p data-reactid="1058"><strong data-reactid="1059">Parameters</strong><!-- react-text: 1060 -->  <!-- /react-text --></p><!-- react-text: 1061 -->
+<!-- /react-text --><ul data-reactid="1062"><!-- react-text: 1063 -->
+<!-- /react-text --><li data-reactid="1064"><!-- react-text: 1065 -->
+<!-- /react-text --><p data-reactid="1066"><code data-reactid="1067">ref</code><!-- react-text: 1068 -->  {Object}  <!-- /react-text --></p><!-- react-text: 1069 -->
+<!-- /react-text --></li><!-- react-text: 1070 -->
+<!-- /react-text --><li data-reactid="1071"><!-- react-text: 1072 -->
+<!-- /react-text --><p data-reactid="1073"><code data-reactid="1074">path</code><!-- react-text: 1075 -->  {String}  <!-- /react-text --></p><!-- react-text: 1076 -->
+<!-- /react-text --></li><!-- react-text: 1077 -->
+<!-- /react-text --></ul><!-- react-text: 1078 -->
+<!-- /react-text --><p data-reactid="1079"><!-- react-text: 1080 -->Returns <!-- /react-text --><strong data-reactid="1081"><a href="#symbolic" data-reactid="1082">Symbolic</a></strong><!-- react-text: 1083 -->  <!-- /react-text --></p><!-- react-text: 1084 -->
+<!-- /react-text --><h2 data-reactid="1085"><a class="anchor" aria-hidden="true" name="symboliccustom" data-reactid="1086"></a><a href="#symboliccustom" aria-hidden="true" class="hash-link" data-reactid="1087"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1088"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1089"></path></svg></a><!-- react-text: 1090 -->SymbolicCustom<!-- /react-text --></h2><!-- react-text: 1091 -->
+<!-- /react-text --><p data-reactid="1092"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/ViewRoot.js#L40-L45" title="Source code on GitHub" data-reactid="1093">src/Model/ViewRoot.js:40-45</a><!-- react-text: 1094 -->  <!-- /react-text --></p><!-- react-text: 1095 -->
+<!-- /react-text --><p data-reactid="1096"><strong data-reactid="1097">Extends Symbolic</strong><!-- react-text: 1098 -->  <!-- /react-text --></p><!-- react-text: 1099 -->
+<!-- /react-text --><ul data-reactid="1100"><!-- react-text: 1101 -->
+<!-- /react-text --><li data-reactid="1102"><!-- react-text: 1103 -->
+<!-- /react-text --><p data-reactid="1104"><strong data-reactid="1105">See: {SymbolicLink}</strong><!-- react-text: 1106 -->  <!-- /react-text --></p><!-- react-text: 1107 -->
+<!-- /react-text --></li><!-- react-text: 1108 -->
+<!-- /react-text --></ul><!-- react-text: 1109 -->
+<!-- /react-text --><p data-reactid="1110">用于自定义的链接关系  </p><!-- react-text: 1111 -->
+<!-- /react-text --><p data-reactid="1112"><strong data-reactid="1113">Parameters</strong><!-- react-text: 1114 -->  <!-- /react-text --></p><!-- react-text: 1115 -->
+<!-- /react-text --><ul data-reactid="1116"><!-- react-text: 1117 -->
+<!-- /react-text --><li data-reactid="1118"><!-- react-text: 1119 -->
+<!-- /react-text --><p data-reactid="1120"><code data-reactid="1121">descriptor</code><!-- react-text: 1122 -->  {object}  <!-- /react-text --></p><!-- react-text: 1123 -->
+<!-- /react-text --></li><!-- react-text: 1124 -->
+<!-- /react-text --></ul><!-- react-text: 1125 -->
+<!-- /react-text --><p data-reactid="1126"><strong data-reactid="1127">Examples</strong><!-- react-text: 1128 -->  <!-- /react-text --></p><!-- react-text: 1129 -->
+<!-- /react-text --><pre data-reactid="1130"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1131"><!-- react-text: 1132 -->SymbolicCustom({  
+  get() {}  
+  set() {}  
+}, <!-- /react-text --><span class="hljs-string" data-reactid="1133">&#x27;value&#x27;</span><!-- react-text: 1134 -->)  <!-- /react-text --></code></pre><!-- react-text: 1135 -->
+<!-- /react-text --><p data-reactid="1136"><!-- react-text: 1137 -->Returns <!-- /react-text --><strong data-reactid="1138"><a href="#symboliccustom" data-reactid="1139">SymbolicCustom</a></strong><!-- react-text: 1140 -->  <!-- /react-text --></p><!-- react-text: 1141 -->
+<!-- /react-text --><h2 data-reactid="1142"><a class="anchor" aria-hidden="true" name="symboliccustom-1" data-reactid="1143"></a><a href="#symboliccustom-1" aria-hidden="true" class="hash-link" data-reactid="1144"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1145"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1146"></path></svg></a><!-- react-text: 1147 -->SymbolicCustom<!-- /react-text --></h2><!-- react-text: 1148 -->
+<!-- /react-text --><p data-reactid="1149"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/SymbolicLink.js#L43-L48" title="Source code on GitHub" data-reactid="1150">src/Model/SymbolicLink.js:43-48</a><!-- react-text: 1151 -->  <!-- /react-text --></p><!-- react-text: 1152 -->
+<!-- /react-text --><p data-reactid="1153"><strong data-reactid="1154">Extends Symbolic</strong><!-- react-text: 1155 -->  <!-- /react-text --></p><!-- react-text: 1156 -->
+<!-- /react-text --><ul data-reactid="1157"><!-- react-text: 1158 -->
+<!-- /react-text --><li data-reactid="1159"><!-- react-text: 1160 -->
+<!-- /react-text --><p data-reactid="1161"><strong data-reactid="1162">See: {SymbolicLink}</strong><!-- react-text: 1163 -->  <!-- /react-text --></p><!-- react-text: 1164 -->
+<!-- /react-text --></li><!-- react-text: 1165 -->
+<!-- /react-text --></ul><!-- react-text: 1166 -->
+<!-- /react-text --><p data-reactid="1167">用于自定义的链接关系  </p><!-- react-text: 1168 -->
+<!-- /react-text --><p data-reactid="1169"><strong data-reactid="1170">Parameters</strong><!-- react-text: 1171 -->  <!-- /react-text --></p><!-- react-text: 1172 -->
+<!-- /react-text --><ul data-reactid="1173"><!-- react-text: 1174 -->
+<!-- /react-text --><li data-reactid="1175"><!-- react-text: 1176 -->
+<!-- /react-text --><p data-reactid="1177"><code data-reactid="1178">descriptor</code><!-- react-text: 1179 -->  {object}  <!-- /react-text --></p><!-- react-text: 1180 -->
+<!-- /react-text --></li><!-- react-text: 1181 -->
+<!-- /react-text --></ul><!-- react-text: 1182 -->
+<!-- /react-text --><p data-reactid="1183"><strong data-reactid="1184">Examples</strong><!-- react-text: 1185 -->  <!-- /react-text --></p><!-- react-text: 1186 -->
+<!-- /react-text --><pre data-reactid="1187"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1188"><!-- react-text: 1189 -->SymbolicCustom({  
+  get() {}  
+  set() {}  
+}, <!-- /react-text --><span class="hljs-string" data-reactid="1190">&#x27;value&#x27;</span><!-- react-text: 1191 -->)  <!-- /react-text --></code></pre><!-- react-text: 1192 -->
+<!-- /react-text --><p data-reactid="1193"><!-- react-text: 1194 -->Returns <!-- /react-text --><strong data-reactid="1195"><a href="#symboliccustom" data-reactid="1196">SymbolicCustom</a></strong><!-- react-text: 1197 -->  <!-- /react-text --></p><!-- react-text: 1198 -->
+<!-- /react-text --><h2 data-reactid="1199"><a class="anchor" aria-hidden="true" name="symboliclink" data-reactid="1200"></a><a href="#symboliclink" aria-hidden="true" class="hash-link" data-reactid="1201"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1202"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1203"></path></svg></a><!-- react-text: 1204 -->SymbolicLink<!-- /react-text --></h2><!-- react-text: 1205 -->
+<!-- /react-text --><p data-reactid="1206"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/ViewRoot.js#L80-L99" title="Source code on GitHub" data-reactid="1207">src/Model/ViewRoot.js:80-99</a><!-- react-text: 1208 -->  <!-- /react-text --></p><!-- react-text: 1209 -->
+<!-- /react-text --><p data-reactid="1210"><strong data-reactid="1211">Extends Root</strong><!-- react-text: 1212 -->  <!-- /react-text --></p><!-- react-text: 1213 -->
+<!-- /react-text --><p data-reactid="1214">用于链接自己的引用到其他的地方  </p><!-- react-text: 1215 -->
+<!-- /react-text --><p data-reactid="1216"><strong data-reactid="1217">Examples</strong><!-- react-text: 1218 -->  <!-- /react-text --></p><!-- react-text: 1219 -->
+<!-- /react-text --><pre data-reactid="1220"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1221"><span class="hljs-keyword" data-reactid="1222">import</span><!-- react-text: 1223 --> { SymbolicLink, Root } <!-- /react-text --><span class="hljs-keyword" data-reactid="1224">from</span><!-- react-text: 1225 --> <!-- /react-text --><span class="hljs-string" data-reactid="1226">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 1227 -->  
+<!-- /react-text --><span class="hljs-class" data-reactid="1228"><span class="hljs-keyword" data-reactid="1229">class</span><!-- react-text: 1230 --> <!-- /react-text --><span class="hljs-title" data-reactid="1231">Model</span><!-- react-text: 1232 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1233">extends</span><!-- react-text: 1234 --> <!-- /react-text --><span class="hljs-title" data-reactid="1235">SymbolicLink</span><!-- react-text: 1236 --> <!-- /react-text --></span><!-- react-text: 1237 -->{  
+  @observable title = <!-- /react-text --><span class="hljs-string" data-reactid="1238">&#x27;modelTitle&#x27;</span><!-- react-text: 1239 -->  
+}  
+  
+<!-- /react-text --><span class="hljs-class" data-reactid="1240"><span class="hljs-keyword" data-reactid="1241">class</span><!-- react-text: 1242 --> <!-- /react-text --><span class="hljs-title" data-reactid="1243">Parent</span><!-- react-text: 1244 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1245">extends</span><!-- react-text: 1246 --> <!-- /react-text --><span class="hljs-title" data-reactid="1247">Root</span><!-- react-text: 1248 --> <!-- /react-text --></span><!-- react-text: 1249 -->{  
+   model = Model.create().setSymbolic(<!-- /react-text --><span class="hljs-string" data-reactid="1250">&#x27;title&#x27;</span><!-- react-text: 1251 -->, Symbolic(<!-- /react-text --><span class="hljs-keyword" data-reactid="1252">this</span><!-- react-text: 1253 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1254">&#x27;title&#x27;</span><!-- react-text: 1255 -->))  
+  
+   @observable title = <!-- /react-text --><span class="hljs-string" data-reactid="1256">&#x27;abc&#x27;</span><!-- react-text: 1257 -->  
+}  
+  
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1258">const</span><!-- react-text: 1259 --> parent = Parent.create()  
+parent.model.title === parent.title <!-- /react-text --><span class="hljs-comment" data-reactid="1260">// true  </span><!-- react-text: 1261 -->
+parent.title === <!-- /react-text --><span class="hljs-string" data-reactid="1262">&#x27;abc&#x27;</span><!-- react-text: 1263 --> <!-- /react-text --><span class="hljs-comment" data-reactid="1264">// true  </span></code></pre><!-- react-text: 1265 -->
+<!-- /react-text --><h3 data-reactid="1266"><a class="anchor" aria-hidden="true" name="setsymbolic" data-reactid="1267"></a><a href="#setsymbolic" aria-hidden="true" class="hash-link" data-reactid="1268"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1269"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1270"></path></svg></a><!-- react-text: 1271 -->setSymbolic<!-- /react-text --></h3><!-- react-text: 1272 -->
+<!-- /react-text --><p data-reactid="1273"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/ViewRoot.js#L91-L98" title="Source code on GitHub" data-reactid="1274">src/Model/ViewRoot.js:91-98</a><!-- react-text: 1275 -->  <!-- /react-text --></p><!-- react-text: 1276 -->
+<!-- /react-text --><p data-reactid="1277">单独设置 Symbolic  </p><!-- react-text: 1278 -->
+<!-- /react-text --><p data-reactid="1279"><strong data-reactid="1280">Parameters</strong><!-- react-text: 1281 -->  <!-- /react-text --></p><!-- react-text: 1282 -->
+<!-- /react-text --><ul data-reactid="1283"><!-- react-text: 1284 -->
+<!-- /react-text --><li data-reactid="1285"><!-- react-text: 1286 -->
+<!-- /react-text --><p data-reactid="1287"><code data-reactid="1288">path</code><!-- react-text: 1289 -->  {String|Array}  <!-- /react-text --></p><!-- react-text: 1290 -->
+<!-- /react-text --></li><!-- react-text: 1291 -->
+<!-- /react-text --><li data-reactid="1292"><!-- react-text: 1293 -->
+<!-- /react-text --><p data-reactid="1294"><code data-reactid="1295">symbolic</code><!-- react-text: 1296 -->  {Symbolic}  <!-- /react-text --></p><!-- react-text: 1297 -->
+<!-- /react-text --></li><!-- react-text: 1298 -->
+<!-- /react-text --></ul><!-- react-text: 1299 -->
+<!-- /react-text --><p data-reactid="1300"><strong data-reactid="1301">Examples</strong><!-- react-text: 1302 -->  <!-- /react-text --></p><!-- react-text: 1303 -->
+<!-- /react-text --><pre data-reactid="1304"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1305"><!-- react-text: 1306 -->model.setSymbolic(<!-- /react-text --><span class="hljs-string" data-reactid="1307">&#x27;title&#x27;</span><!-- react-text: 1308 -->, Symbolic(<!-- /react-text --><span class="hljs-keyword" data-reactid="1309">this</span><!-- react-text: 1310 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1311">&#x27;abc&#x27;</span><!-- react-text: 1312 -->))  <!-- /react-text --></code></pre><!-- react-text: 1313 -->
+<!-- /react-text --><p data-reactid="1314"><!-- react-text: 1315 -->Returns <!-- /react-text --><strong data-reactid="1316"><a href="#root" data-reactid="1317">Root</a></strong><!-- react-text: 1318 -->  <!-- /react-text --></p><!-- react-text: 1319 -->
+<!-- /react-text --><h3 data-reactid="1320"><a class="anchor" aria-hidden="true" name="setsymbolic-1" data-reactid="1321"></a><a href="#setsymbolic-1" aria-hidden="true" class="hash-link" data-reactid="1322"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1323"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1324"></path></svg></a><!-- react-text: 1325 -->setSymbolic<!-- /react-text --></h3><!-- react-text: 1326 -->
+<!-- /react-text --><p data-reactid="1327"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/SymbolicLink.js#L94-L98" title="Source code on GitHub" data-reactid="1328">src/Model/SymbolicLink.js:94-98</a><!-- react-text: 1329 -->  <!-- /react-text --></p><!-- react-text: 1330 -->
+<!-- /react-text --><p data-reactid="1331">单独设置 Symbolic  </p><!-- react-text: 1332 -->
+<!-- /react-text --><p data-reactid="1333"><strong data-reactid="1334">Parameters</strong><!-- react-text: 1335 -->  <!-- /react-text --></p><!-- react-text: 1336 -->
+<!-- /react-text --><ul data-reactid="1337"><!-- react-text: 1338 -->
+<!-- /react-text --><li data-reactid="1339"><!-- react-text: 1340 -->
+<!-- /react-text --><p data-reactid="1341"><code data-reactid="1342">path</code><!-- react-text: 1343 -->  {String|Array}  <!-- /react-text --></p><!-- react-text: 1344 -->
+<!-- /react-text --></li><!-- react-text: 1345 -->
+<!-- /react-text --><li data-reactid="1346"><!-- react-text: 1347 -->
+<!-- /react-text --><p data-reactid="1348"><code data-reactid="1349">symbolic</code><!-- react-text: 1350 -->  {Symbolic}  <!-- /react-text --></p><!-- react-text: 1351 -->
+<!-- /react-text --></li><!-- react-text: 1352 -->
+<!-- /react-text --></ul><!-- react-text: 1353 -->
+<!-- /react-text --><p data-reactid="1354"><strong data-reactid="1355">Examples</strong><!-- react-text: 1356 -->  <!-- /react-text --></p><!-- react-text: 1357 -->
+<!-- /react-text --><pre data-reactid="1358"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1359"><!-- react-text: 1360 -->model.setSymbolic(<!-- /react-text --><span class="hljs-string" data-reactid="1361">&#x27;title&#x27;</span><!-- react-text: 1362 -->, Symbolic(<!-- /react-text --><span class="hljs-keyword" data-reactid="1363">this</span><!-- react-text: 1364 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1365">&#x27;abc&#x27;</span><!-- react-text: 1366 -->))  <!-- /react-text --></code></pre><!-- react-text: 1367 -->
+<!-- /react-text --><p data-reactid="1368"><!-- react-text: 1369 -->Returns <!-- /react-text --><strong data-reactid="1370"><a href="#root" data-reactid="1371">Root</a></strong><!-- react-text: 1372 -->  <!-- /react-text --></p><!-- react-text: 1373 -->
+<!-- /react-text --><h2 data-reactid="1374"><a class="anchor" aria-hidden="true" name="symboliclink-1" data-reactid="1375"></a><a href="#symboliclink-1" aria-hidden="true" class="hash-link" data-reactid="1376"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1377"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1378"></path></svg></a><!-- react-text: 1379 -->SymbolicLink<!-- /react-text --></h2><!-- react-text: 1380 -->
+<!-- /react-text --><p data-reactid="1381"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/SymbolicLink.js#L83-L99" title="Source code on GitHub" data-reactid="1382">src/Model/SymbolicLink.js:83-99</a><!-- react-text: 1383 -->  <!-- /react-text --></p><!-- react-text: 1384 -->
+<!-- /react-text --><p data-reactid="1385"><strong data-reactid="1386">Extends Root</strong><!-- react-text: 1387 -->  <!-- /react-text --></p><!-- react-text: 1388 -->
+<!-- /react-text --><p data-reactid="1389">用于链接自己的引用到其他的地方  </p><!-- react-text: 1390 -->
+<!-- /react-text --><p data-reactid="1391"><strong data-reactid="1392">Examples</strong><!-- react-text: 1393 -->  <!-- /react-text --></p><!-- react-text: 1394 -->
+<!-- /react-text --><pre data-reactid="1395"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1396"><span class="hljs-keyword" data-reactid="1397">import</span><!-- react-text: 1398 --> { SymbolicLink, Root } <!-- /react-text --><span class="hljs-keyword" data-reactid="1399">from</span><!-- react-text: 1400 --> <!-- /react-text --><span class="hljs-string" data-reactid="1401">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 1402 -->  
+<!-- /react-text --><span class="hljs-class" data-reactid="1403"><span class="hljs-keyword" data-reactid="1404">class</span><!-- react-text: 1405 --> <!-- /react-text --><span class="hljs-title" data-reactid="1406">Model</span><!-- react-text: 1407 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1408">extends</span><!-- react-text: 1409 --> <!-- /react-text --><span class="hljs-title" data-reactid="1410">SymbolicLink</span><!-- react-text: 1411 --> <!-- /react-text --></span><!-- react-text: 1412 -->{  
+  @observable title = <!-- /react-text --><span class="hljs-string" data-reactid="1413">&#x27;modelTitle&#x27;</span><!-- react-text: 1414 -->  
+}  
+  
+<!-- /react-text --><span class="hljs-class" data-reactid="1415"><span class="hljs-keyword" data-reactid="1416">class</span><!-- react-text: 1417 --> <!-- /react-text --><span class="hljs-title" data-reactid="1418">Parent</span><!-- react-text: 1419 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1420">extends</span><!-- react-text: 1421 --> <!-- /react-text --><span class="hljs-title" data-reactid="1422">Root</span><!-- react-text: 1423 --> <!-- /react-text --></span><!-- react-text: 1424 -->{  
+   model = Model.create().setSymbolic(<!-- /react-text --><span class="hljs-string" data-reactid="1425">&#x27;title&#x27;</span><!-- react-text: 1426 -->, Symbolic(<!-- /react-text --><span class="hljs-keyword" data-reactid="1427">this</span><!-- react-text: 1428 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1429">&#x27;title&#x27;</span><!-- react-text: 1430 -->))  
+  
+   @observable title = <!-- /react-text --><span class="hljs-string" data-reactid="1431">&#x27;abc&#x27;</span><!-- react-text: 1432 -->  
+}  
+  
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1433">const</span><!-- react-text: 1434 --> parent = Parent.create()  
+parent.model.title === parent.title <!-- /react-text --><span class="hljs-comment" data-reactid="1435">// true  </span><!-- react-text: 1436 -->
+parent.title === <!-- /react-text --><span class="hljs-string" data-reactid="1437">&#x27;abc&#x27;</span><!-- react-text: 1438 --> <!-- /react-text --><span class="hljs-comment" data-reactid="1439">// true  </span></code></pre><!-- react-text: 1440 -->
+<!-- /react-text --><h3 data-reactid="1441"><a class="anchor" aria-hidden="true" name="setsymbolic-2" data-reactid="1442"></a><a href="#setsymbolic-2" aria-hidden="true" class="hash-link" data-reactid="1443"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1444"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1445"></path></svg></a><!-- react-text: 1446 -->setSymbolic<!-- /react-text --></h3><!-- react-text: 1447 -->
+<!-- /react-text --><p data-reactid="1448"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/ViewRoot.js#L91-L98" title="Source code on GitHub" data-reactid="1449">src/Model/ViewRoot.js:91-98</a><!-- react-text: 1450 -->  <!-- /react-text --></p><!-- react-text: 1451 -->
+<!-- /react-text --><p data-reactid="1452">单独设置 Symbolic  </p><!-- react-text: 1453 -->
+<!-- /react-text --><p data-reactid="1454"><strong data-reactid="1455">Parameters</strong><!-- react-text: 1456 -->  <!-- /react-text --></p><!-- react-text: 1457 -->
+<!-- /react-text --><ul data-reactid="1458"><!-- react-text: 1459 -->
+<!-- /react-text --><li data-reactid="1460"><!-- react-text: 1461 -->
+<!-- /react-text --><p data-reactid="1462"><code data-reactid="1463">path</code><!-- react-text: 1464 -->  {String|Array}  <!-- /react-text --></p><!-- react-text: 1465 -->
+<!-- /react-text --></li><!-- react-text: 1466 -->
+<!-- /react-text --><li data-reactid="1467"><!-- react-text: 1468 -->
+<!-- /react-text --><p data-reactid="1469"><code data-reactid="1470">symbolic</code><!-- react-text: 1471 -->  {Symbolic}  <!-- /react-text --></p><!-- react-text: 1472 -->
+<!-- /react-text --></li><!-- react-text: 1473 -->
+<!-- /react-text --></ul><!-- react-text: 1474 -->
+<!-- /react-text --><p data-reactid="1475"><strong data-reactid="1476">Examples</strong><!-- react-text: 1477 -->  <!-- /react-text --></p><!-- react-text: 1478 -->
+<!-- /react-text --><pre data-reactid="1479"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1480"><!-- react-text: 1481 -->model.setSymbolic(<!-- /react-text --><span class="hljs-string" data-reactid="1482">&#x27;title&#x27;</span><!-- react-text: 1483 -->, Symbolic(<!-- /react-text --><span class="hljs-keyword" data-reactid="1484">this</span><!-- react-text: 1485 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1486">&#x27;abc&#x27;</span><!-- react-text: 1487 -->))  <!-- /react-text --></code></pre><!-- react-text: 1488 -->
+<!-- /react-text --><p data-reactid="1489"><!-- react-text: 1490 -->Returns <!-- /react-text --><strong data-reactid="1491"><a href="#root" data-reactid="1492">Root</a></strong><!-- react-text: 1493 -->  <!-- /react-text --></p><!-- react-text: 1494 -->
+<!-- /react-text --><h3 data-reactid="1495"><a class="anchor" aria-hidden="true" name="setsymbolic-3" data-reactid="1496"></a><a href="#setsymbolic-3" aria-hidden="true" class="hash-link" data-reactid="1497"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1498"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1499"></path></svg></a><!-- react-text: 1500 -->setSymbolic<!-- /react-text --></h3><!-- react-text: 1501 -->
+<!-- /react-text --><p data-reactid="1502"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/Model/SymbolicLink.js#L94-L98" title="Source code on GitHub" data-reactid="1503">src/Model/SymbolicLink.js:94-98</a><!-- react-text: 1504 -->  <!-- /react-text --></p><!-- react-text: 1505 -->
+<!-- /react-text --><p data-reactid="1506">单独设置 Symbolic  </p><!-- react-text: 1507 -->
+<!-- /react-text --><p data-reactid="1508"><strong data-reactid="1509">Parameters</strong><!-- react-text: 1510 -->  <!-- /react-text --></p><!-- react-text: 1511 -->
+<!-- /react-text --><ul data-reactid="1512"><!-- react-text: 1513 -->
+<!-- /react-text --><li data-reactid="1514"><!-- react-text: 1515 -->
+<!-- /react-text --><p data-reactid="1516"><code data-reactid="1517">path</code><!-- react-text: 1518 -->  {String|Array}  <!-- /react-text --></p><!-- react-text: 1519 -->
+<!-- /react-text --></li><!-- react-text: 1520 -->
+<!-- /react-text --><li data-reactid="1521"><!-- react-text: 1522 -->
+<!-- /react-text --><p data-reactid="1523"><code data-reactid="1524">symbolic</code><!-- react-text: 1525 -->  {Symbolic}  <!-- /react-text --></p><!-- react-text: 1526 -->
+<!-- /react-text --></li><!-- react-text: 1527 -->
+<!-- /react-text --></ul><!-- react-text: 1528 -->
+<!-- /react-text --><p data-reactid="1529"><strong data-reactid="1530">Examples</strong><!-- react-text: 1531 -->  <!-- /react-text --></p><!-- react-text: 1532 -->
+<!-- /react-text --><pre data-reactid="1533"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1534"><!-- react-text: 1535 -->model.setSymbolic(<!-- /react-text --><span class="hljs-string" data-reactid="1536">&#x27;title&#x27;</span><!-- react-text: 1537 -->, Symbolic(<!-- /react-text --><span class="hljs-keyword" data-reactid="1538">this</span><!-- react-text: 1539 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1540">&#x27;abc&#x27;</span><!-- react-text: 1541 -->))  <!-- /react-text --></code></pre><!-- react-text: 1542 -->
+<!-- /react-text --><p data-reactid="1543"><!-- react-text: 1544 -->Returns <!-- /react-text --><strong data-reactid="1545"><a href="#root" data-reactid="1546">Root</a></strong><!-- react-text: 1547 -->  <!-- /react-text --></p><!-- react-text: 1548 -->
+<!-- /react-text --><h1 data-reactid="1549"><a class="anchor" aria-hidden="true" name="utilities" data-reactid="1550"></a><a href="#utilities" aria-hidden="true" class="hash-link" data-reactid="1551"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1552"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1553"></path></svg></a><!-- react-text: 1554 -->Utilities<!-- /react-text --></h1><!-- react-text: 1555 -->
+<!-- /react-text --><!-- react-text: 1556 -->  
+<!-- /react-text --><h2 data-reactid="1557"><a class="anchor" aria-hidden="true" name="symboliclink-2" data-reactid="1558"></a><a href="#symboliclink-2" aria-hidden="true" class="hash-link" data-reactid="1559"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1560"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1561"></path></svg></a><!-- react-text: 1562 -->symbolicLink<!-- /react-text --></h2><!-- react-text: 1563 -->
+<!-- /react-text --><p data-reactid="1564"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/utils/symbolicLink.js#L27-L74" title="Source code on GitHub" data-reactid="1565">src/utils/symbolicLink.js:27-74</a><!-- react-text: 1566 -->  <!-- /react-text --></p><!-- react-text: 1567 -->
+<!-- /react-text --><ul data-reactid="1568"><!-- react-text: 1569 -->
+<!-- /react-text --><li data-reactid="1570"><!-- react-text: 1571 -->
+<!-- /react-text --><p data-reactid="1572"><strong data-reactid="1573"><!-- react-text: 1574 -->See: <!-- /react-text --><a href="/react-mobx-vm/api/others#symboliclink" data-reactid="1575">SymbolicLink</a></strong><!-- react-text: 1576 -->  <!-- /react-text --></p><!-- react-text: 1577 -->
+<!-- /react-text --></li><!-- react-text: 1578 -->
+<!-- /react-text --></ul><!-- react-text: 1579 -->
+<!-- /react-text --><p data-reactid="1580"><!-- react-text: 1581 -->用于建立 target 与外接的连接，类似于<!-- /react-text --><a href="https://en.wikipedia.org/wiki/Symbolic_link" data-reactid="1582">Symbolic Link</a><!-- react-text: 1583 -->.  <!-- /react-text --></p><!-- react-text: 1584 -->
+<!-- /react-text --><p data-reactid="1585"><strong data-reactid="1586">Parameters</strong><!-- react-text: 1587 -->  <!-- /react-text --></p><!-- react-text: 1588 -->
+<!-- /react-text --><ul data-reactid="1589"><!-- react-text: 1590 -->
+<!-- /react-text --><li data-reactid="1591"><!-- react-text: 1592 -->
+<!-- /react-text --><p data-reactid="1593"><code data-reactid="1594">target</code><!-- react-text: 1595 -->  <!-- /react-text --></p><!-- react-text: 1596 -->
+<!-- /react-text --></li><!-- react-text: 1597 -->
+<!-- /react-text --><li data-reactid="1598"><!-- react-text: 1599 -->
+<!-- /react-text --><p data-reactid="1600"><code data-reactid="1601">config</code><!-- react-text: 1602 -->  <!-- /react-text --></p><!-- react-text: 1603 -->
+<!-- /react-text --></li><!-- react-text: 1604 -->
+<!-- /react-text --></ul><!-- react-text: 1605 -->
+<!-- /react-text --><p data-reactid="1606"><strong data-reactid="1607">Examples</strong><!-- react-text: 1608 -->  <!-- /react-text --></p><!-- react-text: 1609 -->
+<!-- /react-text --><pre data-reactid="1610"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1611"><span class="hljs-keyword" data-reactid="1612">let</span><!-- react-text: 1613 --> host = { <!-- /react-text --><span class="hljs-attr" data-reactid="1614">a</span><!-- react-text: 1615 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1616">&#x27;a&#x27;</span><!-- react-text: 1617 --> }  
+ <!-- /react-text --><span class="hljs-keyword" data-reactid="1618">const</span><!-- react-text: 1619 --> proxy = { <!-- /react-text --><span class="hljs-attr" data-reactid="1620">a</span><!-- react-text: 1621 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1622">&#x27;x&#x27;</span><!-- react-text: 1623 --> }  
+ host = symbolic(host, {  
+   <!-- /react-text --><span class="hljs-string" data-reactid="1624">&#x27;a&#x27;</span><!-- react-text: 1625 -->: Symbolic(proxy, <!-- /react-text --><span class="hljs-string" data-reactid="1626">&#x27;a&#x27;</span><!-- react-text: 1627 -->)  
+ })  
+ host.a === <!-- /react-text --><span class="hljs-string" data-reactid="1628">&#x27;x&#x27;</span><!-- react-text: 1629 -->  <!-- /react-text --></code></pre><!-- react-text: 1630 -->
+<!-- /react-text --><!-- react-text: 1631 -->  
+<!-- /react-text --><h2 data-reactid="1632"><a class="anchor" aria-hidden="true" name="h" data-reactid="1633"></a><a href="#h" aria-hidden="true" class="hash-link" data-reactid="1634"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1635"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1636"></path></svg></a><!-- react-text: 1637 -->h<!-- /react-text --></h2><!-- react-text: 1638 -->
+<!-- /react-text --><p data-reactid="1639"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/renderer/mixedRenderer.js#L40-L54" title="Source code on GitHub" data-reactid="1640">src/renderer/mixedRenderer.js:40-54</a><!-- react-text: 1641 -->  <!-- /react-text --></p><!-- react-text: 1642 -->
+<!-- /react-text --><p data-reactid="1643"><!-- react-text: 1644 -->可以渲染 Vm 实例的方法，类似于 <!-- /react-text --><code data-reactid="1645">React.createElement</code><!-- react-text: 1646 -->  <!-- /react-text --></p><!-- react-text: 1647 -->
+<!-- /react-text --><p data-reactid="1648"><strong data-reactid="1649">Parameters</strong><!-- react-text: 1650 -->  <!-- /react-text --></p><!-- react-text: 1651 -->
+<!-- /react-text --><ul data-reactid="1652"><!-- react-text: 1653 -->
+<!-- /react-text --><li data-reactid="1654"><!-- react-text: 1655 -->
+<!-- /react-text --><p data-reactid="1656"><code data-reactid="1657">model</code><!-- react-text: 1658 --> <!-- /react-text --><strong data-reactid="1659"><!-- react-text: 1660 -->(VmInstance | ReactComponent | <!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="1661">string</a><!-- react-text: 1662 -->)<!-- /react-text --></strong><!-- react-text: 1663 -->  <!-- /react-text --></p><!-- react-text: 1664 -->
+<!-- /react-text --></li><!-- react-text: 1665 -->
+<!-- /react-text --><li data-reactid="1666"><!-- react-text: 1667 -->
+<!-- /react-text --><p data-reactid="1668"><code data-reactid="1669">propsOrClassName</code><!-- react-text: 1670 --> <!-- /react-text --><strong data-reactid="1671"><!-- react-text: 1672 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="1673">string</a><!-- react-text: 1674 --> | <!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="1675">object</a><!-- react-text: 1676 -->)<!-- /react-text --></strong><!-- react-text: 1677 -->  (optional, default <!-- /react-text --><code data-reactid="1678">{}</code><!-- react-text: 1679 -->)  <!-- /react-text --></p><!-- react-text: 1680 -->
+<!-- /react-text --></li><!-- react-text: 1681 -->
+<!-- /react-text --><li data-reactid="1682"><!-- react-text: 1683 -->
+<!-- /react-text --><p data-reactid="1684"><code data-reactid="1685">props</code><!-- react-text: 1686 --> <!-- /react-text --><strong data-reactid="1687"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="1688">object</a></strong><!-- react-text: 1689 -->  (optional, default <!-- /react-text --><code data-reactid="1690">null</code><!-- react-text: 1691 -->)  <!-- /react-text --></p><!-- react-text: 1692 -->
+<!-- /react-text --></li><!-- react-text: 1693 -->
+<!-- /react-text --></ul><!-- react-text: 1694 -->
+<!-- /react-text --><p data-reactid="1695"><strong data-reactid="1696">Examples</strong><!-- react-text: 1697 -->  <!-- /react-text --></p><!-- react-text: 1698 -->
+<!-- /react-text --><pre data-reactid="1699"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1700"><!-- react-text: 1701 -->h(model, <!-- /react-text --><span class="hljs-string" data-reactid="1702">&#x27;class-name&#x27;</span><!-- react-text: 1703 -->, {},  
+ <!-- /react-text --><span class="hljs-comment" data-reactid="1704">// children  </span><!-- react-text: 1705 -->
+ <!-- /react-text --><span class="hljs-string" data-reactid="1706">&#x27;1&#x27;</span><!-- react-text: 1707 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1708">&#x27;2&#x27;</span><!-- react-text: 1709 -->  
+);  
+h.div({}, <!-- /react-text --><span class="hljs-string" data-reactid="1710">&#x27;inner&#x27;</span><!-- react-text: 1711 -->)  
+h(<!-- /react-text --><span class="hljs-string" data-reactid="1712">&#x27;div&#x27;</span><!-- react-text: 1713 -->, {}, <!-- /react-text --><span class="hljs-string" data-reactid="1714">&#x27;inner&#x27;</span><!-- react-text: 1715 -->)  
+h(<!-- /react-text --><span class="hljs-string" data-reactid="1716">&#x27;div&#x27;</span><!-- react-text: 1717 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1718">&#x27;classname&#x27;</span><!-- react-text: 1719 -->, {}, <!-- /react-text --><span class="hljs-string" data-reactid="1720">&#x27;inner&#x27;</span><!-- react-text: 1721 -->)  
+h(Component, <!-- /react-text --><span class="hljs-string" data-reactid="1722">&#x27;classname&#x27;</span><!-- react-text: 1723 -->, {},  
+   h.span()  
+)  <!-- /react-text --></code></pre><!-- react-text: 1724 -->
+<!-- /react-text --><p data-reactid="1725"><!-- react-text: 1726 -->Returns <!-- /react-text --><strong data-reactid="1727">ReactElement</strong><!-- react-text: 1728 -->  <!-- /react-text --></p><!-- react-text: 1729 -->
+<!-- /react-text --><h1 data-reactid="1730"><a class="anchor" aria-hidden="true" name="extension" data-reactid="1731"></a><a href="#extension" aria-hidden="true" class="hash-link" data-reactid="1732"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1733"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1734"></path></svg></a><!-- react-text: 1735 -->Extension<!-- /react-text --></h1><!-- react-text: 1736 -->
+<!-- /react-text --><p data-reactid="1737">一些额外的扩展</p><!-- react-text: 1738 -->
+<!-- /react-text --><!-- react-text: 1739 -->  
+<!-- /react-text --><h2 data-reactid="1740"><a class="anchor" aria-hidden="true" name="providerfactory" data-reactid="1741"></a><a href="#providerfactory" aria-hidden="true" class="hash-link" data-reactid="1742"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1743"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1744"></path></svg></a><!-- react-text: 1745 -->providerFactory<!-- /react-text --></h2><!-- react-text: 1746 -->
+<!-- /react-text --><p data-reactid="1747"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/extension/providerFactory.js#L25-L35" title="Source code on GitHub" data-reactid="1748">src/extension/providerFactory.js:25-35</a><!-- react-text: 1749 -->  <!-- /react-text --></p><!-- react-text: 1750 -->
+<!-- /react-text --><p data-reactid="1751">用于产生一个 Provider，传入一个全局的 store  </p><!-- react-text: 1752 -->
+<!-- /react-text --><p data-reactid="1753"><strong data-reactid="1754">Examples</strong><!-- react-text: 1755 -->  <!-- /react-text --></p><!-- react-text: 1756 -->
+<!-- /react-text --><pre data-reactid="1757"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1758"><span class="hljs-keyword" data-reactid="1759">const</span><!-- react-text: 1760 --> app = AppVM.create()  
+<!-- /react-text --><span class="hljs-keyword" data-reactid="1761">const</span><!-- react-text: 1762 --> Provider = providerFactory(app)  
+  
+ReactDOM.render(  
+   <!-- /react-text --><span class="xml" data-reactid="1763"><span class="hljs-tag" data-reactid="1764"><!-- react-text: 1765 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="1766">Provider</span><!-- react-text: 1767 -->&gt;<!-- /react-text --></span><!-- react-text: 1768 -->  
+     {...}  
+   <!-- /react-text --><span class="hljs-tag" data-reactid="1769"><!-- react-text: 1770 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1771">Provider</span><!-- react-text: 1772 -->&gt;<!-- /react-text --></span></span><!-- react-text: 1773 -->,  
+   <!-- /react-text --><span class="hljs-built_in" data-reactid="1774">window</span><!-- react-text: 1775 -->.root  
+)  <!-- /react-text --></code></pre><!-- react-text: 1776 -->
+<!-- /react-text --><!-- react-text: 1777 -->  
+<!-- /react-text --><h2 data-reactid="1778"><a class="anchor" aria-hidden="true" name="router" data-reactid="1779"></a><a href="#router" aria-hidden="true" class="hash-link" data-reactid="1780"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1781"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1782"></path></svg></a><!-- react-text: 1783 -->Router<!-- /react-text --></h2><!-- react-text: 1784 -->
+<!-- /react-text --><p data-reactid="1785"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/srcPackages/RouterV3.js#L19-L29" title="Source code on GitHub" data-reactid="1786">srcPackages/RouterV3.js:19-29</a><!-- react-text: 1787 -->  <!-- /react-text --></p><!-- react-text: 1788 -->
+<!-- /react-text --><p data-reactid="1789"><!-- react-text: 1790 -->如果你依赖了 <!-- /react-text --><strong data-reactid="1791">react-router v3</strong><!-- react-text: 1792 -->，那么可以使用该 Router 定义，而不是 react-router 的 Router<!-- /react-text --><br data-reactid="1793"/><!-- react-text: 1794 -->
+<!-- /react-text --><strong data-reactid="1795">注意</strong><!-- react-text: 1796 -->: 请用以下方式引入<!-- /react-text --><br data-reactid="1797"/><!-- react-text: 1798 -->
+<!-- /react-text --><code data-reactid="1799">import Router from &#x27;react-mobx-vm/packages/RouterV3&#x27;</code><!-- react-text: 1800 -->  <!-- /react-text --></p><!-- react-text: 1801 -->
+<!-- /react-text --><h2 data-reactid="1802"><a class="anchor" aria-hidden="true" name="routercontext" data-reactid="1803"></a><a href="#routercontext" aria-hidden="true" class="hash-link" data-reactid="1804"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1805"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1806"></path></svg></a><!-- react-text: 1807 -->RouterContext<!-- /react-text --></h2><!-- react-text: 1808 -->
+<!-- /react-text --><p data-reactid="1809"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/srcPackages/RouterContextV3.js#L18-L47" title="Source code on GitHub" data-reactid="1810">srcPackages/RouterContextV3.js:18-47</a><!-- react-text: 1811 -->  <!-- /react-text --></p><!-- react-text: 1812 -->
+<!-- /react-text --><p data-reactid="1813"><!-- react-text: 1814 -->如果你依赖了 <!-- /react-text --><strong data-reactid="1815">react-router v3</strong><!-- react-text: 1816 -->，那么可以使用该 RouterContext 定义，而不是 react-router 的 RouterContext<!-- /react-text --><br data-reactid="1817"/><!-- react-text: 1818 -->
+<!-- /react-text --><strong data-reactid="1819">注意</strong><!-- react-text: 1820 -->: 请用以下方式引入<!-- /react-text --><br data-reactid="1821"/><!-- react-text: 1822 -->
+<!-- /react-text --><code data-reactid="1823">import RouterContext from &#x27;react-mobx-vm/packages/RouterContextV3&#x27;</code><!-- react-text: 1824 -->  <!-- /react-text --></p><!-- react-text: 1825 -->
+<!-- /react-text --></article></div><div class="docs-prevnext" data-reactid="1826"><a class="docs-prev button" href="/react-mobx-vm/api/decorator" data-reactid="1827">← 修饰器相关</a><a class="docs-next button" href="/react-mobx-vm/examples/react-data-binding-based-on-mobx" data-reactid="1828">binding的来由 →</a></div></div></div></div></div><footer class="nav-footer" data-reactid="1829"><a href="https://github.com/be-fe/react-mobx-vm" target="_blank" class="fbOpenSource" data-reactid="1830"><img src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="1831"/></a><section class="copyright" data-reactid="1832"><p style="margin-bottom:5px;" data-reactid="1833">Copyright © 2018 - Built by Picidae</p><!-- react-text: 1834 -->Powered by <!-- /react-text --><a href="https://github.com/picidaejs/picidae-theme-haier" target="_blank" data-reactid="1835">🍔 Haier</a><!-- react-text: 1836 -->.<!-- /react-text --></section></footer></div>
+</div>
+<script src="/react-mobx-vm/PICIDAE_COMMON.js"></script>
+<script src="/react-mobx-vm/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

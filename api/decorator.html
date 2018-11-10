@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 修饰器相关 - React Mobx VM </title>
+    <link rel="stylesheet" href="/react-mobx-vm/style.css">
+    <style type="text/css"> footer .copyright {
+  color: rgba(255, 255, 255, .4)
+}
+footer.nav-footer {
+  background-color: #808080
+}
+.showcaseSection .prose h1,
+.productShowcaseSection h2,
+nav.toc .toggleNav ul li a.navItemActive,
+.container .wrapper h3,
+.container .wrapper h2,
+.homeContainer,
+h1, h2, h3, h4,
+a,
+.container .wrapper h4,
+nav.toc .toggleNav ul li a:hover, nav.toc .toggleNav ul li a:focus {
+  color: #2265b1
+}
+body {
+  color: #393939
+}
+blockquote {
+  border-left-color: #bcd5f2;
+  background-color: #e3edfa;
+}
+code {
+  box-shadow: 2px 0 #e7f0fa, -2px 0 #e7f0fa;
+  background-color: #e7f0fa
+}
+.fixedHeaderContainer,
+.button:hover,
+nav.toc .toggleNav .navGroup.navGroupActive h3,
+.navigationSlider .slidingNav ul li > a:focus,
+.navigationSlider .slidingNav ul li > a:hover,
+.navigationSlider .slidingNav ul li > a,
+.mainContainer .wrapper .post .docPagination,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header .algolia-docsearch-suggestion--highlight,
+ul#languages-dropdown-items {
+  background-color: #2265b1
+}
+.navigationSlider .slidingNav ul {
+  background-color: #2265b1
+}
+.highlightBackground {
+  background-color: #2265b1
+}
+.button {
+  color: #2265b1;
+  border-color: #2265b1;
+}
+pre code {
+  border-left-color: #2265b1;
+}
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--title .algolia-docsearch-suggestion--highlight,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--subcategory-column .algolia-docsearch-suggestion--highlight,
+.darkBackground a,
+.darkBackground code {
+  color: #2f7ed7
+}
+@media only screen and (max-width: 735px) {
+  ul#languages-dropdown-items,
+  .reactNavSearchWrapper input#doc-search-input:focus, .reactNavSearchWrapper input#doc-search-input:active {
+    background-color: #2265b1
+  }
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #dd2f3d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #dd2f3d, 0 0 5px #dd2f3d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #dd2f3d;
+  border-left-color: #dd2f3d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} </style>
+</head>
+<body>
+<div id="__root__">
+    <div class="" data-reactroot="" data-reactid="1" data-react-checksum="1371508933"><!-- react-empty: 2 --><div class="fixedHeaderContainer" data-reactid="3"><div class="headerWrapper wrapper" data-reactid="4"><header data-reactid="5"><a href="/react-mobx-vm/" data-reactid="6"><img class="logo" src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="7"/><h2 class="headerTitle" data-reactid="8">React Mobx VM</h2></a><div class="navigationWrapper navigationSlider" data-reactid="9"><nav class="slidingNav" data-reactid="10"><ul class="nav-site nav-site-internal" data-reactid="11"><li data-reactid="12"><a href="/react-mobx-vm/guide/" data-reactid="13">指引</a></li><li data-reactid="14"><a href="/react-mobx-vm/api/decorator" data-reactid="15">API</a></li><li data-reactid="16"><a href="https://github.com/be-fe/react-mobx-vm" target="_self" data-reactid="17">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher" data-reactid="18"><div class="docMainWrapper wrapper" data-reactid="19"><!-- react-empty: 20 --><div class="container docsNavContainer" data-reactid="21"><nav class="toc" data-reactid="22"><div class="toggleNav" data-reactid="23"><section class="navWrapper wrapper" data-reactid="24"><div class="navBreadcrumb wrapper" data-reactid="25"><div class="navToggle" data-reactid="26"><i data-reactid="27"></i></div><h2 data-reactid="28"><i data-reactid="29">&gt;</i><span data-reactid="30">API</span></h2></div><div class="navGroups" data-reactid="31"><div class="navGroupActive navGroup" data-reactid="32"><h3 data-reactid="33">指引</h3><ul data-reactid="34"><li class="navListItem" data-reactid="35"><a class="" href="/react-mobx-vm/guide/index" data-reactid="36">什么是 react-mobx-vm ？</a></li><li class="navListItem" data-reactid="37"><a class="" href="/react-mobx-vm/guide/contrast" data-reactid="38">对比于 Redux 和 Mobx State Tree</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="39"><h3 data-reactid="40">API</h3><ul data-reactid="41"><li class="navListItem navItemActive" data-reactid="42"><a class="navItemActive" href="/react-mobx-vm/api/decorator" data-reactid="43">修饰器相关</a></li><li class="navListItem" data-reactid="44"><a class="" href="/react-mobx-vm/api/others" data-reactid="45">其他相关</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="46"><h3 data-reactid="47">可编辑的例子</h3><ul data-reactid="48"><li class="navListItem" data-reactid="49"><a class="" href="/react-mobx-vm/examples/react-data-binding-based-on-mobx" data-reactid="50">binding的来由</a></li><li class="navListItem" data-reactid="51"><a class="" href="/react-mobx-vm/examples/binding" data-reactid="52">binding</a></li><li class="navListItem" data-reactid="53"><a class="" href="/react-mobx-vm/examples/inject-collect" data-reactid="54">inject &amp; collect</a></li><li class="navListItem" data-reactid="55"><a class="" href="/react-mobx-vm/examples/url-sync" data-reactid="56">urlSync</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="57"><h3 data-reactid="58">高阶说明</h3><ul data-reactid="59"><li class="navListItem" data-reactid="60"><a class="" href="/react-mobx-vm/advanced/life-cycle" data-reactid="61">生命周期</a></li><li class="navListItem" data-reactid="62"><a class="" href="/react-mobx-vm/advanced/mixed-renderer" data-reactid="63">怎么用 JSX 渲染 VM？</a></li></ul></div></div></section></div></nav></div><div class="container mainContainer" data-reactid="64"><div class="wrapper" data-reactid="65"><div class="post" data-reactid="66"><header class="postHeader" data-reactid="67"><a href="https://github.com/be-fe/react-mobx-vm/blob/master/_site/docs/api/decorator.md" class="edit-page-link button" target="_blank" data-reactid="68">编辑</a><h1 data-reactid="69">修饰器相关</h1></header><article data-reactid="70"><div class="picidae-toc" data-reactid="71"><!-- react-text: 72 -->
+<!-- /react-text --><ul data-reactid="73"><!-- react-text: 74 -->
+<!-- /react-text --><li data-reactid="75"><!-- react-text: 76 -->
+<!-- /react-text --><a href="#autorun" data-reactid="77">autorun</a><!-- react-text: 78 -->
+<!-- /react-text --></li><!-- react-text: 79 -->
+<!-- /react-text --><li data-reactid="80"><!-- react-text: 81 -->
+<!-- /react-text --><a href="#bindable" data-reactid="82">bindable</a><!-- react-text: 83 -->
+<!-- /react-text --></li><!-- react-text: 84 -->
+<!-- /react-text --><li data-reactid="85"><!-- react-text: 86 -->
+<!-- /react-text --><a href="#binding" data-reactid="87">binding</a><!-- react-text: 88 -->
+<!-- /react-text --></li><!-- react-text: 89 -->
+<!-- /react-text --><li data-reactid="90"><!-- react-text: 91 -->
+<!-- /react-text --><a href="#bindview" data-reactid="92">bindView</a><!-- react-text: 93 -->
+<!-- /react-text --></li><!-- react-text: 94 -->
+<!-- /react-text --><li data-reactid="95"><!-- react-text: 96 -->
+<!-- /react-text --><a href="#collect" data-reactid="97">collect</a><!-- react-text: 98 -->
+<!-- /react-text --></li><!-- react-text: 99 -->
+<!-- /react-text --><li data-reactid="100"><!-- react-text: 101 -->
+<!-- /react-text --><a href="#default_options" data-reactid="102">DEFAULT_OPTIONS</a><!-- react-text: 103 -->
+<!-- /react-text --></li><!-- react-text: 104 -->
+<!-- /react-text --><li data-reactid="105"><!-- react-text: 106 -->
+<!-- /react-text --><a href="#inject" data-reactid="107">inject</a><!-- react-text: 108 -->
+<!-- /react-text --></li><!-- react-text: 109 -->
+<!-- /react-text --><li data-reactid="110"><!-- react-text: 111 -->
+<!-- /react-text --><a href="#injectext" data-reactid="112">injectExt</a><!-- react-text: 113 -->
+<!-- /react-text --></li><!-- react-text: 114 -->
+<!-- /react-text --><li data-reactid="115"><!-- react-text: 116 -->
+<!-- /react-text --><a href="#isviewmodelcomponent" data-reactid="117">isViewModelComponent</a><!-- react-text: 118 -->
+<!-- /react-text --></li><!-- react-text: 119 -->
+<!-- /react-text --><li data-reactid="120"><!-- react-text: 121 -->
+<!-- /react-text --><a href="#mapping" data-reactid="122">mapping</a><!-- react-text: 123 -->
+<!-- /react-text --></li><!-- react-text: 124 -->
+<!-- /react-text --><li data-reactid="125"><!-- react-text: 126 -->
+<!-- /react-text --><a href="#reactautorun" data-reactid="127">reactAutorun</a><!-- react-text: 128 -->
+<!-- /react-text --></li><!-- react-text: 129 -->
+<!-- /react-text --><li data-reactid="130"><!-- react-text: 131 -->
+<!-- /react-text --><a href="#reaction" data-reactid="132">reaction</a><!-- react-text: 133 -->
+<!-- /react-text --></li><!-- react-text: 134 -->
+<!-- /react-text --><li data-reactid="135"><!-- react-text: 136 -->
+<!-- /react-text --><a href="#reactreaction" data-reactid="137">reactReaction</a><!-- react-text: 138 -->
+<!-- /react-text --></li><!-- react-text: 139 -->
+<!-- /react-text --><li data-reactid="140"><!-- react-text: 141 -->
+<!-- /react-text --><a href="#reactstoragesync" data-reactid="142">reactStorageSync</a><!-- react-text: 143 -->
+<!-- /react-text --></li><!-- react-text: 144 -->
+<!-- /react-text --><li data-reactid="145"><!-- react-text: 146 -->
+<!-- /react-text --><a href="#reacturlsync" data-reactid="147">reactUrlSync</a><!-- react-text: 148 -->
+<!-- /react-text --></li><!-- react-text: 149 -->
+<!-- /react-text --><li data-reactid="150"><!-- react-text: 151 -->
+<!-- /react-text --><a href="#registerurlsync" data-reactid="152">registerUrlSync</a><!-- react-text: 153 -->
+<!-- /react-text --></li><!-- react-text: 154 -->
+<!-- /react-text --><li data-reactid="155"><!-- react-text: 156 -->
+<!-- /react-text --><a href="#stateinout" data-reactid="157">stateInOut</a><!-- react-text: 158 -->
+<!-- /react-text --></li><!-- react-text: 159 -->
+<!-- /react-text --><li data-reactid="160"><!-- react-text: 161 -->
+<!-- /react-text --><a href="#stateless" data-reactid="162">stateless</a><!-- react-text: 163 -->
+<!-- /react-text --></li><!-- react-text: 164 -->
+<!-- /react-text --><li data-reactid="165"><!-- react-text: 166 -->
+<!-- /react-text --><a href="#storagesync" data-reactid="167">storageSync</a><!-- react-text: 168 -->
+<!-- /react-text --></li><!-- react-text: 169 -->
+<!-- /react-text --><li data-reactid="170"><!-- react-text: 171 -->
+<!-- /react-text --><a href="#urlsync" data-reactid="172">urlSync</a><!-- react-text: 173 -->
+<!-- /react-text --></li><!-- react-text: 174 -->
+<!-- /react-text --></ul><!-- react-text: 175 -->
+<!-- /react-text --></div><!-- react-text: 176 -->
+<!-- /react-text --><hr data-reactid="177"/><!-- react-text: 178 -->
+<!-- /react-text --><!-- react-text: 179 -->  
+<!-- /react-text --><h2 data-reactid="180"><a class="anchor" aria-hidden="true" name="autorun" data-reactid="181"></a><a href="#autorun" aria-hidden="true" class="hash-link" data-reactid="182"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="183"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="184"></path></svg></a><!-- react-text: 185 -->autorun<!-- /react-text --></h2><!-- react-text: 186 -->
+<!-- /react-text --><p data-reactid="187"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/autorun/index.js#L33-L38" title="Source code on GitHub" data-reactid="188">src/decorator/autorun/index.js:33-38</a><!-- react-text: 189 -->  <!-- /react-text --></p><!-- react-text: 190 -->
+<!-- /react-text --><p data-reactid="191">监听数据发生改变之后，将会触发该成员方法，不同于 reaction  </p><!-- react-text: 192 -->
+<!-- /react-text --><p data-reactid="193"><strong data-reactid="194">Examples</strong><!-- react-text: 195 -->  <!-- /react-text --></p><!-- react-text: 196 -->
+<!-- /react-text --><pre data-reactid="197"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="198"><!-- react-text: 199 -->@bindView(View)  
+<!-- /react-text --><span class="hljs-class" data-reactid="200"><span class="hljs-keyword" data-reactid="201">class</span><!-- react-text: 202 --> <!-- /react-text --><span class="hljs-title" data-reactid="203">Model</span><!-- react-text: 204 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="205">extends</span><!-- react-text: 206 --> <!-- /react-text --><span class="hljs-title" data-reactid="207">Root</span><!-- react-text: 208 --> <!-- /react-text --></span><!-- react-text: 209 -->{  
+   @observable val = <!-- /react-text --><span class="hljs-string" data-reactid="210">&#x27;123&#x27;</span><!-- react-text: 211 -->  
+   @observable deep = { <!-- /react-text --><span class="hljs-attr" data-reactid="212">key</span><!-- react-text: 213 -->: <!-- /react-text --><span class="hljs-string" data-reactid="214">&#x27;123&#x27;</span><!-- react-text: 215 --> }  
+  
+   @autorun  
+   autorunMethod(dispose) {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="216">// 当 `this.val`  </span><!-- react-text: 217 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="218">// 发生改变之后，将会触发该方法  </span><!-- react-text: 219 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="220">// 与`reaction`不同的是，它第一次初始化时会被触发  </span><!-- react-text: 221 -->
+     <!-- /react-text --><span class="hljs-built_in" data-reactid="222">console</span><!-- react-text: 223 -->.log(<!-- /react-text --><span class="hljs-keyword" data-reactid="224">this</span><!-- react-text: 225 -->.val)  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="226">// 调用 dispose 则会销毁掉该监听  </span><!-- react-text: 227 -->
+     dispose &amp;&amp; dispose()  
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 228 -->
+<!-- /react-text --><h2 data-reactid="229"><a class="anchor" aria-hidden="true" name="bindable" data-reactid="230"></a><a href="#bindable" aria-hidden="true" class="hash-link" data-reactid="231"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="232"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="233"></path></svg></a><!-- react-text: 234 -->bindable<!-- /react-text --></h2><!-- react-text: 235 -->
+<!-- /react-text --><p data-reactid="236"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/binding/bindable.js#L201-L222" title="Source code on GitHub" data-reactid="237">src/decorator/binding/bindable.js:201-222</a><!-- react-text: 238 -->  <!-- /react-text --></p><!-- react-text: 239 -->
+<!-- /react-text --><ul data-reactid="240"><!-- react-text: 241 -->
+<!-- /react-text --><li data-reactid="242"><!-- react-text: 243 -->
+<!-- /react-text --><p data-reactid="244"><strong data-reactid="245"><!-- react-text: 246 -->See: <!-- /react-text --><a href="/react-mobx-vm/examples/binding#bindable" data-reactid="247">examples/binding#bindable</a></strong><!-- react-text: 248 -->  <!-- /react-text --></p><!-- react-text: 249 -->
+<!-- /react-text --></li><!-- react-text: 250 -->
+<!-- /react-text --></ul><!-- react-text: 251 -->
+<!-- /react-text --><p data-reactid="252"><!-- react-text: 253 -->搭配<!-- /react-text --><a href="#binding" data-reactid="254">binding</a><!-- react-text: 255 -->使用，可以定义自己的 binding 规则  <!-- /react-text --></p><!-- react-text: 256 -->
+<!-- /react-text --><p data-reactid="257"><strong data-reactid="258">Parameters</strong><!-- react-text: 259 -->  <!-- /react-text --></p><!-- react-text: 260 -->
+<!-- /react-text --><ul data-reactid="261"><!-- react-text: 262 -->
+<!-- /react-text --><li data-reactid="263"><!-- react-text: 264 -->
+<!-- /react-text --><p data-reactid="265"><code data-reactid="266">options</code><!-- react-text: 267 -->  {object} (optional, default <!-- /react-text --><code data-reactid="268">DEFAULT_OPTIONS</code><!-- react-text: 269 -->)  <!-- /react-text --></p><!-- react-text: 270 -->
+<!-- /react-text --><ul data-reactid="271"><!-- react-text: 272 -->
+<!-- /react-text --><li data-reactid="273"><code data-reactid="274">options.cond</code><!-- react-text: 275 -->  {function} props =&gt; boolean<!-- /react-text --><br data-reactid="276"/><!-- react-text: 277 -->
+是否匹配上 (optional, default <!-- /react-text --><code data-reactid="278">null</code><!-- react-text: 279 -->)  <!-- /react-text --></li><!-- react-text: 280 -->
+<!-- /react-text --><li data-reactid="281"><code data-reactid="282">options.prop</code><!-- react-text: 283 -->  {[[propName: string, transform: function] | string]}<!-- /react-text --><br data-reactid="284"/><!-- react-text: 285 -->
+需要绑定的属性定义，可以通过 transform 进行转换 (optional, default <!-- /react-text --><code data-reactid="286">[&#x27;value&#x27;]</code><!-- react-text: 287 -->)  <!-- /react-text --></li><!-- react-text: 288 -->
+<!-- /react-text --><li data-reactid="289"><code data-reactid="290">options.event</code><!-- react-text: 291 -->  {[[propName: string, handler: function] | string]}<!-- /react-text --><br data-reactid="292"/><!-- react-text: 293 -->
+需要绑定的属性定义，可以通过 transform 进行转换 (optional, default <!-- /react-text --><code data-reactid="294">[&#x27;onChange&#x27;]</code><!-- react-text: 295 -->)  <!-- /react-text --></li><!-- react-text: 296 -->
+<!-- /react-text --></ul><!-- react-text: 297 -->
+<!-- /react-text --></li><!-- react-text: 298 -->
+<!-- /react-text --><li data-reactid="299"><!-- react-text: 300 -->
+<!-- /react-text --><p data-reactid="301"><code data-reactid="302">tagName</code><!-- react-text: 303 -->  {String | ReactComponent}<!-- /react-text --><br data-reactid="304"/><!-- react-text: 305 -->
+被绑定的组件，可以为 HTML标签名 或 ReactComponent  <!-- /react-text --></p><!-- react-text: 306 -->
+<!-- /react-text --></li><!-- react-text: 307 -->
+<!-- /react-text --></ul><!-- react-text: 308 -->
+<!-- /react-text --><p data-reactid="309"><strong data-reactid="310">Examples</strong><!-- react-text: 311 -->  <!-- /react-text --></p><!-- react-text: 312 -->
+<!-- /react-text --><pre data-reactid="313"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="314"><!-- react-text: 315 -->bindable([{  
+   <!-- /react-text --><span class="hljs-attr" data-reactid="316">cond</span><!-- react-text: 317 -->: <!-- /react-text --><span class="hljs-function" data-reactid="318"><span class="hljs-keyword" data-reactid="319">function</span><!-- react-text: 320 --> (<!-- /react-text --><span class="hljs-params" data-reactid="321">props</span><!-- react-text: 322 -->) <!-- /react-text --></span><!-- react-text: 323 -->{  
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="324">return</span><!-- react-text: 325 --> props.type === <!-- /react-text --><span class="hljs-string" data-reactid="326">&#x27;checkbox&#x27;</span><!-- react-text: 327 -->  
+   },  
+   <!-- /react-text --><span class="hljs-attr" data-reactid="328">prop</span><!-- react-text: 329 -->: [  
+     [<!-- /react-text --><span class="hljs-string" data-reactid="330">&#x27;checked&#x27;</span><!-- react-text: 331 -->, <!-- /react-text --><span class="hljs-function" data-reactid="332"><span class="hljs-keyword" data-reactid="333">function</span><!-- react-text: 334 --> (<!-- /react-text --><span class="hljs-params" data-reactid="335">modelValue, propVal, props</span><!-- react-text: 336 -->) <!-- /react-text --></span><!-- react-text: 337 -->{  
+       <!-- /react-text --><span class="hljs-keyword" data-reactid="338">return</span><!-- react-text: 339 --> modelValue.includes(props.name)  
+     }]  
+   ],  
+   <!-- /react-text --><span class="hljs-attr" data-reactid="340">event</span><!-- react-text: 341 -->: [  
+     [<!-- /react-text --><span class="hljs-string" data-reactid="342">&#x27;onChange&#x27;</span><!-- react-text: 343 -->, <!-- /react-text --><span class="hljs-function" data-reactid="344"><span class="hljs-keyword" data-reactid="345">function</span><!-- react-text: 346 --> (<!-- /react-text --><span class="hljs-params" data-reactid="347">[evt], ctx</span><!-- react-text: 348 -->) <!-- /react-text --></span><!-- react-text: 349 -->{  
+       <!-- /react-text --><span class="hljs-keyword" data-reactid="350">const</span><!-- react-text: 351 --> { <!-- /react-text --><span class="hljs-attr" data-reactid="352">target</span><!-- react-text: 353 -->: { name, checked } } = evt  
+       <!-- /react-text --><span class="hljs-keyword" data-reactid="354">const</span><!-- react-text: 355 --> list = ctx.get()  
+       <!-- /react-text --><span class="hljs-keyword" data-reactid="356">let</span><!-- react-text: 357 --> i = list.indexOf(name)  
+       i &gt;= <!-- /react-text --><span class="hljs-number" data-reactid="358">0</span><!-- react-text: 359 --> &amp;&amp; list.splice(i, <!-- /react-text --><span class="hljs-number" data-reactid="360">1</span><!-- react-text: 361 -->)  
+       <!-- /react-text --><span class="hljs-keyword" data-reactid="362">if</span><!-- react-text: 363 --> (checked) {  
+         list.push(name)  
+       }  
+     }]  
+   ]  
+ }].concat(DEFAULT_OPTIONS), <!-- /react-text --><span class="hljs-string" data-reactid="364">&#x27;input&#x27;</span><!-- react-text: 365 -->)  
+  
+ <!-- /react-text --><span class="hljs-class" data-reactid="366"><span class="hljs-keyword" data-reactid="367">class</span><!-- react-text: 368 --> <!-- /react-text --><span class="hljs-title" data-reactid="369">Scope</span><!-- react-text: 370 --> <!-- /react-text --></span><!-- react-text: 371 -->{  
+   @observable value = <!-- /react-text --><span class="hljs-string" data-reactid="372">&#x27;val&#x27;</span><!-- react-text: 373 -->  
+   @observable checkedList = []  
+ }  
+ <!-- /react-text --><span class="hljs-keyword" data-reactid="374">const</span><!-- react-text: 375 --> scope = <!-- /react-text --><span class="hljs-keyword" data-reactid="376">new</span><!-- react-text: 377 --> Scope  
+  
+ @observer  
+ <!-- /react-text --><span class="hljs-class" data-reactid="378"><span class="hljs-keyword" data-reactid="379">class</span><!-- react-text: 380 --> <!-- /react-text --><span class="hljs-title" data-reactid="381">View</span><!-- react-text: 382 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="383">extends</span><!-- react-text: 384 --> <!-- /react-text --><span class="hljs-title" data-reactid="385">React</span><!-- react-text: 386 -->.<!-- /react-text --><span class="hljs-title" data-reactid="387">Component</span><!-- react-text: 388 --> <!-- /react-text --></span><!-- react-text: 389 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="390">return</span><!-- react-text: 391 --> (  
+       <!-- /react-text --><span class="xml" data-reactid="392"><span class="hljs-tag" data-reactid="393"><!-- react-text: 394 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="395">div</span><!-- react-text: 396 -->&gt;<!-- /react-text --></span><!-- react-text: 397 -->  
+         {binding(scope)(  
+           <!-- /react-text --></span><!-- react-text: 398 -->&lt;input type=&quot;text&quot; id=&quot;text&quot; data-bind=&quot;value&quot; data-scope={scope}/&gt;,  
+           &lt;input type=&quot;checkbox&quot; id=&quot;a_0&quot; data-bind=&quot;checkedList&quot; name={&#x27;a&#x27;}/&gt;,  
+           &lt;input type=&quot;checkbox&quot; id=&quot;a_1&quot; data-bind=&quot;checkedList&quot; name={&#x27;a&#x27;}/&gt;,  
+           &lt;input type=&quot;checkbox&quot; id=&quot;b_0&quot; data-bind=&quot;checkedList&quot; name={&#x27;b&#x27;}/&gt;,  
+         )}  
+         &lt;input id=&quot;test&quot; data-bind=&quot;value&quot;/&gt;  
+       &lt;/div&gt;  
+     )  
+   }  
+ }  <!-- /react-text --></code></pre><!-- react-text: 399 -->
+<!-- /react-text --><p data-reactid="400"><!-- react-text: 401 -->Returns <!-- /react-text --><strong data-reactid="402">Bindable</strong><!-- react-text: 403 -->  <!-- /react-text --></p><!-- react-text: 404 -->
+<!-- /react-text --><h2 data-reactid="405"><a class="anchor" aria-hidden="true" name="binding" data-reactid="406"></a><a href="#binding" aria-hidden="true" class="hash-link" data-reactid="407"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="408"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="409"></path></svg></a><!-- react-text: 410 -->binding<!-- /react-text --></h2><!-- react-text: 411 -->
+<!-- /react-text --><p data-reactid="412"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/binding/index.js#L175-L217" title="Source code on GitHub" data-reactid="413">src/decorator/binding/index.js:175-217</a><!-- react-text: 414 -->  <!-- /react-text --></p><!-- react-text: 415 -->
+<!-- /react-text --><p data-reactid="416"><!-- react-text: 417 -->简易的双向绑定写法，默认绑定 <!-- /react-text --><code data-reactid="418">value/onChange</code><!-- react-text: 419 --> 的一个闭环  <!-- /react-text --></p><!-- react-text: 420 -->
+<!-- /react-text --><p data-reactid="421"><strong data-reactid="422">Examples</strong><!-- react-text: 423 -->  <!-- /react-text --></p><!-- react-text: 424 -->
+<!-- /react-text --><pre data-reactid="425"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="426"><!-- react-text: 427 -->@bindView(View)  
+<!-- /react-text --><span class="hljs-class" data-reactid="428"><span class="hljs-keyword" data-reactid="429">class</span><!-- react-text: 430 --> <!-- /react-text --><span class="hljs-title" data-reactid="431">Model</span><!-- react-text: 432 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="433">extends</span><!-- react-text: 434 --> <!-- /react-text --><span class="hljs-title" data-reactid="435">Root</span><!-- react-text: 436 --> <!-- /react-text --></span><!-- react-text: 437 -->{  
+   @observable abc = <!-- /react-text --><span class="hljs-string" data-reactid="438">&#x27;123&#x27;</span><!-- react-text: 439 -->  
+}  
+<!-- /react-text --><span class="hljs-comment" data-reactid="440">// 一劳永逸的用法  </span><!-- react-text: 441 -->
+@binding  
+<!-- /react-text --><span class="hljs-class" data-reactid="442"><span class="hljs-keyword" data-reactid="443">class</span><!-- react-text: 444 --> <!-- /react-text --><span class="hljs-title" data-reactid="445">View</span><!-- react-text: 446 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="447">extends</span><!-- react-text: 448 --> <!-- /react-text --><span class="hljs-title" data-reactid="449">React</span><!-- react-text: 450 -->.<!-- /react-text --><span class="hljs-title" data-reactid="451">Component</span><!-- react-text: 452 --> <!-- /react-text --></span><!-- react-text: 453 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="454">return</span><!-- react-text: 455 --> (  
+       <!-- /react-text --><span class="xml" data-reactid="456"><span class="hljs-tag" data-reactid="457"><!-- react-text: 458 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="459">div</span><!-- react-text: 460 -->&gt;<!-- /react-text --></span><!-- react-text: 461 -->  
+         <!-- /react-text --></span><!-- react-text: 462 -->&lt;input data-bind=&quot;abc&quot; /&gt;  
+       &lt;/div&gt;<!-- /react-text --><span class="xml" data-reactid="463">  
+     )  
+   }  
+}  
+  
+class View extends React.Component {  
+   // 在成员方法里面修饰  
+   @binding  
+   renderSomething() {  
+     // return ...  
+   }  
+   // 在getter方法里面修饰  
+   @binding  
+   get Something() {  
+     // return ...  
+   }  
+   render() {  
+     // 或者绑定指定的 react-element  
+     return (  
+       </span><!-- react-text: 464 -->&lt;div&gt;  
+         {binding(this.local)(  
+           &lt;input data-bind=&quot;abc&quot; /&gt;  
+         )}  
+         // 或者直接传入 element  
+         // 注意：需要绑定 `data-scope` 作用域  
+         {binding(&lt;input data-bind=&quot;abc&quot; data-scope={this.local} /&gt;)}  
+       &lt;/div&gt;  
+     )  
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 465 -->
+<!-- /react-text --><h2 data-reactid="466"><a class="anchor" aria-hidden="true" name="bindview" data-reactid="467"></a><a href="#bindview" aria-hidden="true" class="hash-link" data-reactid="468"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="469"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="470"></path></svg></a><!-- react-text: 471 -->bindView<!-- /react-text --></h2><!-- react-text: 472 -->
+<!-- /react-text --><p data-reactid="473"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/bindView.js#L38-L60" title="Source code on GitHub" data-reactid="474">src/decorator/bindView.js:38-60</a><!-- react-text: 475 -->  <!-- /react-text --></p><!-- react-text: 476 -->
+<!-- /react-text --><p data-reactid="477">用于绑定 ViewModel 中与 Model 中对应的 View  </p><!-- react-text: 478 -->
+<!-- /react-text --><p data-reactid="479"><strong data-reactid="480">Parameters</strong><!-- react-text: 481 -->  <!-- /react-text --></p><!-- react-text: 482 -->
+<!-- /react-text --><ul data-reactid="483"><!-- react-text: 484 -->
+<!-- /react-text --><li data-reactid="485"><!-- react-text: 486 -->
+<!-- /react-text --><p data-reactid="487"><code data-reactid="488">View</code><!-- react-text: 489 --> <!-- /react-text --><strong data-reactid="490"><!-- react-text: 491 -->(<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="492">Function</a><!-- react-text: 493 --> | ReactClass)<!-- /react-text --></strong><!-- react-text: 494 -->  <!-- /react-text --></p><!-- react-text: 495 -->
+<!-- /react-text --></li><!-- react-text: 496 -->
+<!-- /react-text --></ul><!-- react-text: 497 -->
+<!-- /react-text --><p data-reactid="498"><strong data-reactid="499">Examples</strong><!-- react-text: 500 -->  <!-- /react-text --></p><!-- react-text: 501 -->
+<!-- /react-text --><pre data-reactid="502"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="503"><span class="hljs-class" data-reactid="504"><span class="hljs-keyword" data-reactid="505">class</span><!-- react-text: 506 --> <!-- /react-text --><span class="hljs-title" data-reactid="507">View</span><!-- react-text: 508 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="509">extends</span><!-- react-text: 510 --> <!-- /react-text --><span class="hljs-title" data-reactid="511">React</span><!-- react-text: 512 -->.<!-- /react-text --><span class="hljs-title" data-reactid="513">Component</span><!-- react-text: 514 --> <!-- /react-text --></span><!-- react-text: 515 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="516">this</span><!-- react-text: 517 -->.local.abc === <!-- /react-text --><span class="hljs-string" data-reactid="518">&#x27;abc&#x27;</span><!-- react-text: 519 --> <!-- /react-text --><span class="hljs-comment" data-reactid="520">// true  </span><!-- react-text: 521 -->
+     <!-- /react-text --><span class="hljs-keyword" data-reactid="522">this</span><!-- react-text: 523 -->.local.cde === <!-- /react-text --><span class="hljs-string" data-reactid="524">&#x27;cde&#x27;</span><!-- react-text: 525 --> <!-- /react-text --><span class="hljs-comment" data-reactid="526">// true  </span><!-- react-text: 527 -->
+   }  
+}  
+@bindView(View)  
+<!-- /react-text --><span class="hljs-class" data-reactid="528"><span class="hljs-keyword" data-reactid="529">class</span><!-- react-text: 530 --> <!-- /react-text --><span class="hljs-title" data-reactid="531">Model</span><!-- react-text: 532 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="533">extends</span><!-- react-text: 534 --> <!-- /react-text --><span class="hljs-title" data-reactid="535">Root</span><!-- react-text: 536 --> <!-- /react-text --></span><!-- react-text: 537 -->{  
+   @observable abc = <!-- /react-text --><span class="hljs-string" data-reactid="538">&#x27;abc&#x27;</span><!-- react-text: 539 -->  
+   cde = <!-- /react-text --><span class="hljs-string" data-reactid="540">&#x27;cde&#x27;</span><!-- react-text: 541 -->  
+   <!-- /react-text --><span class="hljs-comment" data-reactid="542">// ...  </span><!-- react-text: 543 -->
+}  <!-- /react-text --></code></pre><!-- react-text: 544 -->
+<!-- /react-text --><p data-reactid="545"><!-- react-text: 546 -->Returns <!-- /react-text --><strong data-reactid="547"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="548">function</a></strong><!-- react-text: 549 --> Model =&gt; BindedViewModel  <!-- /react-text --></p><!-- react-text: 550 -->
+<!-- /react-text --><h2 data-reactid="551"><a class="anchor" aria-hidden="true" name="collect" data-reactid="552"></a><a href="#collect" aria-hidden="true" class="hash-link" data-reactid="553"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="554"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="555"></path></svg></a><!-- react-text: 556 -->collect<!-- /react-text --></h2><!-- react-text: 557 -->
+<!-- /react-text --><p data-reactid="558"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/collect.js#L77-L126" title="Source code on GitHub" data-reactid="559">src/decorator/collect.js:77-126</a><!-- react-text: 560 -->  <!-- /react-text --></p><!-- react-text: 561 -->
+<!-- /react-text --><p data-reactid="562"><!-- react-text: 563 -->收集全局 Store 的数据，一般在需要修改其他页面数据的时候使用；<!-- /react-text --><br data-reactid="564"/><!-- react-text: 565 -->
+并且在使用了 webpack <!-- /react-text --><strong data-reactid="566">异步加载VM</strong><!-- react-text: 567 -->，搭配 <!-- /react-text --><code data-reactid="568">collect</code><!-- react-text: 569 --> 使用。  <!-- /react-text --></p><!-- react-text: 570 -->
+<!-- /react-text --><ol data-reactid="571"><!-- react-text: 572 -->
+<!-- /react-text --><li data-reactid="573"><!-- react-text: 574 -->
+<!-- /react-text --><p data-reactid="575"><!-- react-text: 576 -->支持直接调用 <!-- /react-text --><code data-reactid="577">const someVM = await collect(this.app.someVM)</code><!-- react-text: 578 -->  <!-- /react-text --></p><!-- react-text: 579 -->
+<!-- /react-text --></li><!-- react-text: 580 -->
+<!-- /react-text --><li data-reactid="581"><!-- react-text: 582 -->
+<!-- /react-text --><p data-reactid="583">支持修饰器形式调用  </p><!-- react-text: 584 -->
+<!-- /react-text --></li><!-- react-text: 585 -->
+<!-- /react-text --></ol><!-- react-text: 586 -->
+<!-- /react-text --><p data-reactid="587"><strong data-reactid="588">Parameters</strong><!-- react-text: 589 -->  <!-- /react-text --></p><!-- react-text: 590 -->
+<!-- /react-text --><ul data-reactid="591"><!-- react-text: 592 -->
+<!-- /react-text --><li data-reactid="593"><!-- react-text: 594 -->
+<!-- /react-text --><p data-reactid="595"><code data-reactid="596">paths</code><!-- react-text: 597 --> <!-- /react-text --><strong data-reactid="598"><!-- react-text: 599 -->...<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="600">string</a></strong><!-- react-text: 601 -->  <!-- /react-text --></p><!-- react-text: 602 -->
+<!-- /react-text --></li><!-- react-text: 603 -->
+<!-- /react-text --></ul><!-- react-text: 604 -->
+<!-- /react-text --><p data-reactid="605"><strong data-reactid="606">Examples</strong><!-- react-text: 607 -->  <!-- /react-text --></p><!-- react-text: 608 -->
+<!-- /react-text --><p data-reactid="609"><em data-reactid="610">app.js</em><!-- react-text: 611 -->  <!-- /react-text --></p><!-- react-text: 612 -->
+<!-- /react-text --><pre data-reactid="613"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="614"><!-- react-text: 615 -->@bindView(ContainerView)  
+<!-- /react-text --><span class="hljs-keyword" data-reactid="616">export</span><!-- react-text: 617 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="618">default</span><!-- react-text: 619 --> <!-- /react-text --><span class="hljs-class" data-reactid="620"><span class="hljs-keyword" data-reactid="621">class</span><!-- react-text: 622 --> <!-- /react-text --><span class="hljs-title" data-reactid="623">App</span><!-- react-text: 624 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="625">extends</span><!-- react-text: 626 --> <!-- /react-text --><span class="hljs-title" data-reactid="627">Root</span><!-- react-text: 628 --> <!-- /react-text --></span><!-- react-text: 629 -->{  
+   <!-- /react-text --><span class="hljs-comment" data-reactid="630">// 懒加载，代码分割  </span><!-- react-text: 631 -->
+   editVM = <!-- /react-text --><span class="hljs-function" data-reactid="632"><span class="hljs-params" data-reactid="633">()</span><!-- react-text: 634 --> =&gt;<!-- /react-text --></span><!-- react-text: 635 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="636">new</span><!-- react-text: 637 --> Primise(<!-- /react-text --><span class="hljs-function" data-reactid="638"><span class="hljs-params" data-reactid="639">resolve</span><!-- react-text: 640 --> =&gt;<!-- /react-text --></span><!-- react-text: 641 --> {  
+     <!-- /react-text --><span class="hljs-built_in" data-reactid="642">require</span><!-- react-text: 643 -->.ensure([], () =&gt; resolve(<!-- /react-text --><span class="hljs-built_in" data-reactid="644">require</span><!-- react-text: 645 -->(<!-- /react-text --><span class="hljs-string" data-reactid="646">&#x27;./editVM&#x27;</span><!-- react-text: 647 -->)))  
+   })  
+   viewVM = <!-- /react-text --><span class="hljs-function" data-reactid="648"><span class="hljs-params" data-reactid="649">()</span><!-- react-text: 650 --> =&gt;<!-- /react-text --></span><!-- react-text: 651 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="652">new</span><!-- react-text: 653 --> Primise(<!-- /react-text --><span class="hljs-function" data-reactid="654"><span class="hljs-params" data-reactid="655">resolve</span><!-- react-text: 656 --> =&gt;<!-- /react-text --></span><!-- react-text: 657 --> {  
+     <!-- /react-text --><span class="hljs-built_in" data-reactid="658">require</span><!-- react-text: 659 -->.ensure([], () =&gt; resolve(<!-- /react-text --><span class="hljs-built_in" data-reactid="660">require</span><!-- react-text: 661 -->(<!-- /react-text --><span class="hljs-string" data-reactid="662">&#x27;./viewVM&#x27;</span><!-- react-text: 663 -->)))  
+   })  
+}  <!-- /react-text --></code></pre><!-- react-text: 664 -->
+<!-- /react-text --><p data-reactid="665"><em data-reactid="666">routes.js</em><!-- react-text: 667 -->  <!-- /react-text --></p><!-- react-text: 668 -->
+<!-- /react-text --><pre data-reactid="669"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="670"><span class="hljs-keyword" data-reactid="671">export</span><!-- react-text: 672 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="673">default</span><!-- react-text: 674 --> {  
+   <!-- /react-text --><span class="hljs-attr" data-reactid="675">path</span><!-- react-text: 676 -->: <!-- /react-text --><span class="hljs-string" data-reactid="677">&#x27;/&#x27;</span><!-- react-text: 678 -->,  
+   <!-- /react-text --><span class="hljs-attr" data-reactid="679">component</span><!-- react-text: 680 -->: app,  
+   <!-- /react-text --><span class="hljs-attr" data-reactid="681">indexRoute</span><!-- react-text: 682 -->: {  
+     <!-- /react-text --><span class="hljs-attr" data-reactid="683">getComponent</span><!-- react-text: 684 -->: app.editVM  
+   },  
+   <!-- /react-text --><span class="hljs-attr" data-reactid="685">childRoutes</span><!-- react-text: 686 -->: [  
+     {  
+       <!-- /react-text --><span class="hljs-attr" data-reactid="687">path</span><!-- react-text: 688 -->: <!-- /react-text --><span class="hljs-string" data-reactid="689">&#x27;view&#x27;</span><!-- react-text: 690 -->,  
+       <!-- /react-text --><span class="hljs-attr" data-reactid="691">getComponent</span><!-- react-text: 692 -->: app.viewVM  
+     }  
+   ]  
+}  <!-- /react-text --></code></pre><!-- react-text: 693 -->
+<!-- /react-text --><p data-reactid="694"><em data-reactid="695">View.js</em><!-- react-text: 696 -->  <!-- /react-text --></p><!-- react-text: 697 -->
+<!-- /react-text --><pre data-reactid="698"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="699"><!-- react-text: 700 -->@collect(<!-- /react-text --><span class="hljs-string" data-reactid="701">&#x27;editVM&#x27;</span><!-- react-text: 702 -->, <!-- /react-text --><span class="hljs-string" data-reactid="703">&#x27;viewVM&#x27;</span><!-- react-text: 704 -->)  
+<!-- /react-text --><span class="hljs-keyword" data-reactid="705">export</span><!-- react-text: 706 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="707">default</span><!-- react-text: 708 --> <!-- /react-text --><span class="hljs-class" data-reactid="709"><span class="hljs-keyword" data-reactid="710">class</span><!-- react-text: 711 --> <!-- /react-text --><span class="hljs-title" data-reactid="712">View</span><!-- react-text: 713 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="714">extends</span><!-- react-text: 715 --> <!-- /react-text --><span class="hljs-title" data-reactid="716">React</span><!-- react-text: 717 -->.<!-- /react-text --><span class="hljs-title" data-reactid="718">Component</span><!-- react-text: 719 --> <!-- /react-text --></span><!-- react-text: 720 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="721">// 在这可以直接使用  </span><!-- react-text: 722 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="723">// this.app.editVM  </span><!-- react-text: 724 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="725">// this.app.viewVM  </span><!-- react-text: 726 -->
+   }  
+  
+   <!-- /react-text --><span class="hljs-comment" data-reactid="727">// 在下面的生命周期中，不能直接使用  </span><!-- react-text: 728 -->
+   <!-- /react-text --><span class="hljs-comment" data-reactid="729">// 需要 await collect(this.app.editVM) 来异步使用  </span><!-- react-text: 730 -->
+   <!-- /react-text --><span class="hljs-keyword" data-reactid="731">constructor</span><!-- react-text: 732 -->() {}  
+   componentDidMount() {}  
+   componentWillMount() {}  
+}  <!-- /react-text --></code></pre><!-- react-text: 733 -->
+<!-- /react-text --><h2 data-reactid="734"><a class="anchor" aria-hidden="true" name="default_options" data-reactid="735"></a><a href="#default_options" aria-hidden="true" class="hash-link" data-reactid="736"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="737"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="738"></path></svg></a><!-- react-text: 739 -->DEFAULT_OPTIONS<!-- /react-text --></h2><!-- react-text: 740 -->
+<!-- /react-text --><p data-reactid="741"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/binding/bindable.js#L62-L69" title="Source code on GitHub" data-reactid="742">src/decorator/binding/bindable.js:62-69</a><!-- react-text: 743 -->  <!-- /react-text --></p><!-- react-text: 744 -->
+<!-- /react-text --><ul data-reactid="745"><!-- react-text: 746 -->
+<!-- /react-text --><li data-reactid="747"><!-- react-text: 748 -->
+<!-- /react-text --><p data-reactid="749"><strong data-reactid="750"><!-- react-text: 751 -->See: <!-- /react-text --><a href="#bindable" data-reactid="752">bindable</a></strong><!-- react-text: 753 -->  <!-- /react-text --></p><!-- react-text: 754 -->
+<!-- /react-text --></li><!-- react-text: 755 -->
+<!-- /react-text --></ul><!-- react-text: 756 -->
+<!-- /react-text --><p data-reactid="757">如果你需要写一些自定义的 bindable 规则，可能你需要用到默认的配置  </p><!-- react-text: 758 -->
+<!-- /react-text --><h2 data-reactid="759"><a class="anchor" aria-hidden="true" name="inject" data-reactid="760"></a><a href="#inject" aria-hidden="true" class="hash-link" data-reactid="761"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="762"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="763"></path></svg></a><!-- react-text: 764 -->inject<!-- /react-text --></h2><!-- react-text: 765 -->
+<!-- /react-text --><p data-reactid="766"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/injectInverseInherit.js#L52-L66" title="Source code on GitHub" data-reactid="767">src/decorator/injectInverseInherit.js:52-66</a><!-- react-text: 768 -->  <!-- /react-text --></p><!-- react-text: 769 -->
+<!-- /react-text --><p data-reactid="770">视图上注入全局 store  </p><!-- react-text: 771 -->
+<!-- /react-text --><p data-reactid="772"><strong data-reactid="773">Parameters</strong><!-- react-text: 774 -->  <!-- /react-text --></p><!-- react-text: 775 -->
+<!-- /react-text --><ul data-reactid="776"><!-- react-text: 777 -->
+<!-- /react-text --><li data-reactid="778"><!-- react-text: 779 -->
+<!-- /react-text --><p data-reactid="780"><code data-reactid="781">props</code><!-- react-text: 782 --> <!-- /react-text --><strong data-reactid="783"><!-- react-text: 784 -->...<!-- /react-text --><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="785">string</a></strong><!-- react-text: 786 -->  (optional, default <!-- /react-text --><code data-reactid="787">[&#x27;app&#x27;]</code><!-- react-text: 788 -->)  <!-- /react-text --></p><!-- react-text: 789 -->
+<!-- /react-text --></li><!-- react-text: 790 -->
+<!-- /react-text --></ul><!-- react-text: 791 -->
+<!-- /react-text --><p data-reactid="792"><strong data-reactid="793">Examples</strong><!-- react-text: 794 -->  <!-- /react-text --></p><!-- react-text: 795 -->
+<!-- /react-text --><pre data-reactid="796"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="797"><!-- react-text: 798 -->@inject  
+<!-- /react-text --><span class="hljs-class" data-reactid="799"><span class="hljs-keyword" data-reactid="800">class</span><!-- react-text: 801 --> <!-- /react-text --><span class="hljs-title" data-reactid="802">View</span><!-- react-text: 803 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="804">extends</span><!-- react-text: 805 --> <!-- /react-text --><span class="hljs-title" data-reactid="806">React</span><!-- react-text: 807 -->.<!-- /react-text --><span class="hljs-title" data-reactid="808">Component</span><!-- react-text: 809 --> <!-- /react-text --></span><!-- react-text: 810 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="811">// this.app  </span><!-- react-text: 812 -->
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 813 -->
+<!-- /react-text --><p data-reactid="814"><!-- react-text: 815 -->Returns <!-- /react-text --><strong data-reactid="816"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="817">function</a></strong><!-- react-text: 818 --> (ReactComponent) =&gt; InjectedComponent  <!-- /react-text --></p><!-- react-text: 819 -->
+<!-- /react-text --><h2 data-reactid="820"><a class="anchor" aria-hidden="true" name="injectext" data-reactid="821"></a><a href="#injectext" aria-hidden="true" class="hash-link" data-reactid="822"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="823"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="824"></path></svg></a><!-- react-text: 825 -->injectExt<!-- /react-text --></h2><!-- react-text: 826 -->
+<!-- /react-text --><p data-reactid="827"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/injectExt.js#L28-L48" title="Source code on GitHub" data-reactid="828">src/decorator/injectExt.js:28-48</a><!-- react-text: 829 -->  <!-- /react-text --></p><!-- react-text: 830 -->
+<!-- /react-text --><p data-reactid="831">注入全局 store，并且可以进行一些额外操作.  </p><!-- react-text: 832 -->
+<!-- /react-text --><p data-reactid="833"><strong data-reactid="834">Parameters</strong><!-- react-text: 835 -->  <!-- /react-text --></p><!-- react-text: 836 -->
+<!-- /react-text --><ul data-reactid="837"><!-- react-text: 838 -->
+<!-- /react-text --><li data-reactid="839"><!-- react-text: 840 -->
+<!-- /react-text --><p data-reactid="841"><code data-reactid="842">name</code><!-- react-text: 843 --> <!-- /react-text --><strong data-reactid="844"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="845">string</a></strong><!-- react-text: 846 -->  (optional, default <!-- /react-text --><code data-reactid="847">&#x27;app&#x27;</code><!-- react-text: 848 -->)  <!-- /react-text --></p><!-- react-text: 849 -->
+<!-- /react-text --></li><!-- react-text: 850 -->
+<!-- /react-text --><li data-reactid="851"><!-- react-text: 852 -->
+<!-- /react-text --><p data-reactid="853"><code data-reactid="854">action</code><!-- react-text: 855 --> <!-- /react-text --><strong data-reactid="856"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="857">function</a></strong><!-- react-text: 858 -->  <!-- /react-text --></p><!-- react-text: 859 -->
+<!-- /react-text --></li><!-- react-text: 860 -->
+<!-- /react-text --></ul><!-- react-text: 861 -->
+<!-- /react-text --><p data-reactid="862"><strong data-reactid="863">Examples</strong><!-- react-text: 864 -->  <!-- /react-text --></p><!-- react-text: 865 -->
+<!-- /react-text --><pre data-reactid="866"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="867"><!-- react-text: 868 -->@injectExt(<!-- /react-text --><span class="hljs-function" data-reactid="869"><span class="hljs-params" data-reactid="870">app</span><!-- react-text: 871 --> =&gt;<!-- /react-text --></span><!-- react-text: 872 --> {  
+  <!-- /react-text --><span class="hljs-comment" data-reactid="873">// some action here  </span><!-- react-text: 874 -->
+})  
+<!-- /react-text --><span class="hljs-class" data-reactid="875"><span class="hljs-keyword" data-reactid="876">class</span><!-- react-text: 877 --> <!-- /react-text --><span class="hljs-title" data-reactid="878">View</span><!-- react-text: 879 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="880">extends</span><!-- react-text: 881 --> <!-- /react-text --><span class="hljs-title" data-reactid="882">React</span><!-- react-text: 883 -->.<!-- /react-text --><span class="hljs-title" data-reactid="884">Component</span><!-- react-text: 885 --> <!-- /react-text --></span><!-- react-text: 886 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="887">// this.app  </span><!-- react-text: 888 -->
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 889 -->
+<!-- /react-text --><p data-reactid="890"><!-- react-text: 891 -->Returns <!-- /react-text --><strong data-reactid="892"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="893">function</a></strong><!-- react-text: 894 --> (ReactComponent) =&gt; InjectedComponent  <!-- /react-text --></p><!-- react-text: 895 -->
+<!-- /react-text --><h2 data-reactid="896"><a class="anchor" aria-hidden="true" name="isviewmodelcomponent" data-reactid="897"></a><a href="#isviewmodelcomponent" aria-hidden="true" class="hash-link" data-reactid="898"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="899"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="900"></path></svg></a><!-- react-text: 901 -->isViewModelComponent<!-- /react-text --></h2><!-- react-text: 902 -->
+<!-- /react-text --><p data-reactid="903"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/modelComp.js#L15-L17" title="Source code on GitHub" data-reactid="904">src/decorator/modelComp.js:15-17</a><!-- react-text: 905 -->  <!-- /react-text --></p><!-- react-text: 906 -->
+<!-- /react-text --><p data-reactid="907">判断React Class是否为 ViewModal Component  </p><!-- react-text: 908 -->
+<!-- /react-text --><p data-reactid="909"><strong data-reactid="910">Parameters</strong><!-- react-text: 911 -->  <!-- /react-text --></p><!-- react-text: 912 -->
+<!-- /react-text --><ul data-reactid="913"><!-- react-text: 914 -->
+<!-- /react-text --><li data-reactid="915"><!-- react-text: 916 -->
+<!-- /react-text --><p data-reactid="917"><code data-reactid="918">Comp</code><!-- react-text: 919 -->  {ReactClass}  <!-- /react-text --></p><!-- react-text: 920 -->
+<!-- /react-text --></li><!-- react-text: 921 -->
+<!-- /react-text --></ul><!-- react-text: 922 -->
+<!-- /react-text --><p data-reactid="923"><!-- react-text: 924 -->Returns <!-- /react-text --><strong data-reactid="925"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean" data-reactid="926">boolean</a></strong><!-- react-text: 927 -->  <!-- /react-text --></p><!-- react-text: 928 -->
+<!-- /react-text --><h2 data-reactid="929"><a class="anchor" aria-hidden="true" name="mapping" data-reactid="930"></a><a href="#mapping" aria-hidden="true" class="hash-link" data-reactid="931"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="932"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="933"></path></svg></a><!-- react-text: 934 -->mapping<!-- /react-text --></h2><!-- react-text: 935 -->
+<!-- /react-text --><p data-reactid="936"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/mapping.js#L56-L83" title="Source code on GitHub" data-reactid="937">src/decorator/mapping.js:56-83</a><!-- react-text: 938 -->  <!-- /react-text --></p><!-- react-text: 939 -->
+<!-- /react-text --><p data-reactid="940">将 View 层的 props 同步映射至 model  </p><!-- react-text: 941 -->
+<!-- /react-text --><p data-reactid="942"><strong data-reactid="943">Parameters</strong><!-- react-text: 944 -->  <!-- /react-text --></p><!-- react-text: 945 -->
+<!-- /react-text --><ul data-reactid="946"><!-- react-text: 947 -->
+<!-- /react-text --><li data-reactid="948"><!-- react-text: 949 -->
+<!-- /react-text --><p data-reactid="950"><code data-reactid="951">mapper</code><!-- react-text: 952 -->  {[mapper] | {propName, modelName: string} | string}  <!-- /react-text --></p><!-- react-text: 953 -->
+<!-- /react-text --></li><!-- react-text: 954 -->
+<!-- /react-text --></ul><!-- react-text: 955 -->
+<!-- /react-text --><p data-reactid="956"><strong data-reactid="957">Examples</strong><!-- react-text: 958 -->  <!-- /react-text --></p><!-- react-text: 959 -->
+<!-- /react-text --><pre data-reactid="960"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="961"><!-- react-text: 962 -->@mapping([<!-- /react-text --><span class="hljs-string" data-reactid="963">&#x27;abc.d&#x27;</span><!-- react-text: 964 -->, { <!-- /react-text --><span class="hljs-string" data-reactid="965">&#x27;prop&#x27;</span><!-- react-text: 966 -->: <!-- /react-text --><span class="hljs-string" data-reactid="967">&#x27;model&#x27;</span><!-- react-text: 968 --> }])  
+<!-- /react-text --><span class="hljs-class" data-reactid="969"><span class="hljs-keyword" data-reactid="970">class</span><!-- react-text: 971 --> <!-- /react-text --><span class="hljs-title" data-reactid="972">View</span><!-- react-text: 973 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="974">extends</span><!-- react-text: 975 --> <!-- /react-text --><span class="hljs-title" data-reactid="976">React</span><!-- react-text: 977 -->.<!-- /react-text --><span class="hljs-title" data-reactid="978">Component</span><!-- react-text: 979 --> <!-- /react-text --></span><!-- react-text: 980 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="981">// this.local.abc.d === this.props.abc.d  </span><!-- react-text: 982 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="983">// this.local.model === this.props.prop  </span><!-- react-text: 984 -->
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 985 -->
+<!-- /react-text --><p data-reactid="986"><!-- react-text: 987 -->Returns <!-- /react-text --><strong data-reactid="988"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="989">function</a></strong><!-- react-text: 990 --> View =&gt; MappingView  <!-- /react-text --></p><!-- react-text: 991 -->
+<!-- /react-text --><h2 data-reactid="992"><a class="anchor" aria-hidden="true" name="reactautorun" data-reactid="993"></a><a href="#reactautorun" aria-hidden="true" class="hash-link" data-reactid="994"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="995"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="996"></path></svg></a><!-- react-text: 997 -->reactAutorun<!-- /react-text --></h2><!-- react-text: 998 -->
+<!-- /react-text --><p data-reactid="999"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/autorun/react.js#L10-L14" title="Source code on GitHub" data-reactid="1000">src/decorator/autorun/react.js:10-14</a><!-- react-text: 1001 -->  <!-- /react-text --></p><!-- react-text: 1002 -->
+<!-- /react-text --><p data-reactid="1003">发生改变之后，将会触发该成员方法  </p><!-- react-text: 1004 -->
+<!-- /react-text --><p data-reactid="1005"><strong data-reactid="1006">Examples</strong><!-- react-text: 1007 -->  <!-- /react-text --></p><!-- react-text: 1008 -->
+<!-- /react-text --><pre data-reactid="1009"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1010"><span class="hljs-class" data-reactid="1011"><span class="hljs-keyword" data-reactid="1012">class</span><!-- react-text: 1013 --> <!-- /react-text --><span class="hljs-title" data-reactid="1014">View</span><!-- react-text: 1015 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1016">extends</span><!-- react-text: 1017 --> <!-- /react-text --><span class="hljs-title" data-reactid="1018">React</span><!-- react-text: 1019 -->.<!-- /react-text --><span class="hljs-title" data-reactid="1020">Component</span><!-- react-text: 1021 --> <!-- /react-text --></span><!-- react-text: 1022 -->{  
+   @observable val = <!-- /react-text --><span class="hljs-string" data-reactid="1023">&#x27;123&#x27;</span><!-- react-text: 1024 -->  
+   @observable deep = { <!-- /react-text --><span class="hljs-attr" data-reactid="1025">key</span><!-- react-text: 1026 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1027">&#x27;123&#x27;</span><!-- react-text: 1028 --> }  
+  
+   @autorun  
+   autorunMethod(dispose) {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1029">// 当 `this.val`  </span><!-- react-text: 1030 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1031">// 发生改变之后，将会触发该方法  </span><!-- react-text: 1032 -->
+     <!-- /react-text --><span class="hljs-built_in" data-reactid="1033">console</span><!-- react-text: 1034 -->.log(<!-- /react-text --><span class="hljs-keyword" data-reactid="1035">this</span><!-- react-text: 1036 -->.val)  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1037">// 调用 dispose 则会销毁掉该监听  </span><!-- react-text: 1038 -->
+     dispose &amp;&amp; dispose()  
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 1039 -->
+<!-- /react-text --><h2 data-reactid="1040"><a class="anchor" aria-hidden="true" name="reaction" data-reactid="1041"></a><a href="#reaction" aria-hidden="true" class="hash-link" data-reactid="1042"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1043"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1044"></path></svg></a><!-- react-text: 1045 -->reaction<!-- /react-text --></h2><!-- react-text: 1046 -->
+<!-- /react-text --><p data-reactid="1047"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/reaction/index.js#L30-L33" title="Source code on GitHub" data-reactid="1048">src/decorator/reaction/index.js:30-33</a><!-- react-text: 1049 -->  <!-- /react-text --></p><!-- react-text: 1050 -->
+<!-- /react-text --><p data-reactid="1051">发生改变之后，将会触发该成员方法  </p><!-- react-text: 1052 -->
+<!-- /react-text --><p data-reactid="1053"><strong data-reactid="1054">Examples</strong><!-- react-text: 1055 -->  <!-- /react-text --></p><!-- react-text: 1056 -->
+<!-- /react-text --><pre data-reactid="1057"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1058"><!-- react-text: 1059 -->@bindView(View)  
+<!-- /react-text --><span class="hljs-class" data-reactid="1060"><span class="hljs-keyword" data-reactid="1061">class</span><!-- react-text: 1062 --> <!-- /react-text --><span class="hljs-title" data-reactid="1063">Model</span><!-- react-text: 1064 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1065">extends</span><!-- react-text: 1066 --> <!-- /react-text --><span class="hljs-title" data-reactid="1067">Root</span><!-- react-text: 1068 --> <!-- /react-text --></span><!-- react-text: 1069 -->{  
+   @observable val = <!-- /react-text --><span class="hljs-string" data-reactid="1070">&#x27;123&#x27;</span><!-- react-text: 1071 -->  
+   @observable deep = { <!-- /react-text --><span class="hljs-attr" data-reactid="1072">key</span><!-- react-text: 1073 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1074">&#x27;123&#x27;</span><!-- react-text: 1075 --> }  
+  
+   @reaction(<!-- /react-text --><span class="hljs-string" data-reactid="1076">&#x27;val&#x27;</span><!-- react-text: 1077 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1078">&#x27;deep.key&#x27;</span><!-- react-text: 1079 -->)  
+   reactionMethod(val, deepKey, dispose) {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1080">// 当 `this.val` `this.deep.key`  </span><!-- react-text: 1081 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1082">// 发生改变之后，将会触发该方法  </span><!-- react-text: 1083 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1084">// 与`autorun`不同的是，它第一次不会被触发  </span><!-- react-text: 1085 -->
+  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1086">// 调用 dispose 则会销毁掉该监听  </span><!-- react-text: 1087 -->
+     dispose &amp;&amp; dispose()  
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 1088 -->
+<!-- /react-text --><h2 data-reactid="1089"><a class="anchor" aria-hidden="true" name="reactreaction" data-reactid="1090"></a><a href="#reactreaction" aria-hidden="true" class="hash-link" data-reactid="1091"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1092"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1093"></path></svg></a><!-- react-text: 1094 -->reactReaction<!-- /react-text --></h2><!-- react-text: 1095 -->
+<!-- /react-text --><p data-reactid="1096"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/reaction/react.js#L29-L32" title="Source code on GitHub" data-reactid="1097">src/decorator/reaction/react.js:29-32</a><!-- react-text: 1098 -->  <!-- /react-text --></p><!-- react-text: 1099 -->
+<!-- /react-text --><p data-reactid="1100">发生改变之后，将会触发该成员方法  </p><!-- react-text: 1101 -->
+<!-- /react-text --><p data-reactid="1102"><strong data-reactid="1103">Examples</strong><!-- react-text: 1104 -->  <!-- /react-text --></p><!-- react-text: 1105 -->
+<!-- /react-text --><pre data-reactid="1106"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1107"><span class="hljs-class" data-reactid="1108"><span class="hljs-keyword" data-reactid="1109">class</span><!-- react-text: 1110 --> <!-- /react-text --><span class="hljs-title" data-reactid="1111">View</span><!-- react-text: 1112 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1113">extends</span><!-- react-text: 1114 --> <!-- /react-text --><span class="hljs-title" data-reactid="1115">React</span><!-- react-text: 1116 -->.<!-- /react-text --><span class="hljs-title" data-reactid="1117">Component</span><!-- react-text: 1118 --> <!-- /react-text --></span><!-- react-text: 1119 -->{  
+   @observable val = <!-- /react-text --><span class="hljs-string" data-reactid="1120">&#x27;123&#x27;</span><!-- react-text: 1121 -->  
+   @observable deep = { <!-- /react-text --><span class="hljs-attr" data-reactid="1122">key</span><!-- react-text: 1123 -->: <!-- /react-text --><span class="hljs-string" data-reactid="1124">&#x27;123&#x27;</span><!-- react-text: 1125 --> }  
+  
+   @reaction(<!-- /react-text --><span class="hljs-string" data-reactid="1126">&#x27;val&#x27;</span><!-- react-text: 1127 -->, <!-- /react-text --><span class="hljs-string" data-reactid="1128">&#x27;deep.key&#x27;</span><!-- react-text: 1129 -->)  
+   reactionMethod(val, deepKey, dispose) {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1130">// 当 `this.val` `this.deep.key`  </span><!-- react-text: 1131 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1132">// 发生改变之后，将会触发该方法  </span><!-- react-text: 1133 -->
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1134">// 与`autorun`不同的是，它第一次不会被触发  </span><!-- react-text: 1135 -->
+  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1136">// 调用 dispose 则会销毁掉该监听  </span><!-- react-text: 1137 -->
+     dispose &amp;&amp; dispose()  
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 1138 -->
+<!-- /react-text --><h2 data-reactid="1139"><a class="anchor" aria-hidden="true" name="reactstoragesync" data-reactid="1140"></a><a href="#reactstoragesync" aria-hidden="true" class="hash-link" data-reactid="1141"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1142"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1143"></path></svg></a><!-- react-text: 1144 -->reactStorageSync<!-- /react-text --></h2><!-- react-text: 1145 -->
+<!-- /react-text --><p data-reactid="1146"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/storageSync/react.js#L11-L15" title="Source code on GitHub" data-reactid="1147">src/decorator/storageSync/react.js:11-15</a><!-- react-text: 1148 -->  <!-- /react-text --></p><!-- react-text: 1149 -->
+<!-- /react-text --><p data-reactid="1150">View 层的数据（localStorage）存储同步  </p><!-- react-text: 1151 -->
+<!-- /react-text --><p data-reactid="1152"><strong data-reactid="1153">Parameters</strong><!-- react-text: 1154 -->  <!-- /react-text --></p><!-- react-text: 1155 -->
+<!-- /react-text --><ul data-reactid="1156"><!-- react-text: 1157 -->
+<!-- /react-text --><li data-reactid="1158"><!-- react-text: 1159 -->
+<!-- /react-text --><p data-reactid="1160"><code data-reactid="1161">storageKey</code><!-- react-text: 1162 -->  {string} (optional, default <!-- /react-text --><code data-reactid="1163">property</code><!-- react-text: 1164 -->)  <!-- /react-text --></p><!-- react-text: 1165 -->
+<!-- /react-text --></li><!-- react-text: 1166 -->
+<!-- /react-text --><li data-reactid="1167"><!-- react-text: 1168 -->
+<!-- /react-text --><p data-reactid="1169"><code data-reactid="1170">options</code><!-- react-text: 1171 -->  {string} 参考<!-- /react-text --><a href="#reacturlsync" data-reactid="1172">reactUrlSync</a><!-- react-text: 1173 -->  <!-- /react-text --></p><!-- react-text: 1174 -->
+<!-- /react-text --></li><!-- react-text: 1175 -->
+<!-- /react-text --></ul><!-- react-text: 1176 -->
+<!-- /react-text --><h2 data-reactid="1177"><a class="anchor" aria-hidden="true" name="reacturlsync" data-reactid="1178"></a><a href="#reacturlsync" aria-hidden="true" class="hash-link" data-reactid="1179"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1180"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1181"></path></svg></a><!-- react-text: 1182 -->reactUrlSync<!-- /react-text --></h2><!-- react-text: 1183 -->
+<!-- /react-text --><p data-reactid="1184"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/urlSync/react.js#L11-L15" title="Source code on GitHub" data-reactid="1185">src/decorator/urlSync/react.js:11-15</a><!-- react-text: 1186 -->  <!-- /react-text --></p><!-- react-text: 1187 -->
+<!-- /react-text --><p data-reactid="1188"><!-- react-text: 1189 -->用于同步状态至 URL，不同于 <!-- /react-text --><a href="#urlsync" data-reactid="1190"><code data-reactid="1191">urlSync</code></a><!-- react-text: 1192 --> 的地方是，<!-- /react-text --><code data-reactid="1193">reactUrlSync</code><!-- react-text: 1194 --> 用于 react 视图层  <!-- /react-text --></p><!-- react-text: 1195 -->
+<!-- /react-text --><p data-reactid="1196"><strong data-reactid="1197">Parameters</strong><!-- react-text: 1198 -->  <!-- /react-text --></p><!-- react-text: 1199 -->
+<!-- /react-text --><ul data-reactid="1200"><!-- react-text: 1201 -->
+<!-- /react-text --><li data-reactid="1202"><!-- react-text: 1203 -->
+<!-- /react-text --><p data-reactid="1204"><code data-reactid="1205">urlKey</code><!-- react-text: 1206 -->  {string} - 状态对应URL上的 key (optional, default <!-- /react-text --><code data-reactid="1207">property</code><!-- react-text: 1208 -->)  <!-- /react-text --></p><!-- react-text: 1209 -->
+<!-- /react-text --></li><!-- react-text: 1210 -->
+<!-- /react-text --><li data-reactid="1211"><!-- react-text: 1212 -->
+<!-- /react-text --><p data-reactid="1213"><code data-reactid="1214">options</code><!-- react-text: 1215 -->  {Object} - 选项  <!-- /react-text --></p><!-- react-text: 1216 -->
+<!-- /react-text --><ul data-reactid="1217"><!-- react-text: 1218 -->
+<!-- /react-text --><li data-reactid="1219"><code data-reactid="1220">options.initialWrite</code><!-- react-text: 1221 -->  {boolean}<!-- /react-text --><br data-reactid="1222"/><!-- react-text: 1223 -->
+是否在第一次加载时候，将状态值写至 URL (optional, default <!-- /react-text --><code data-reactid="1224">false</code><!-- react-text: 1225 -->)  <!-- /react-text --></li><!-- react-text: 1226 -->
+<!-- /react-text --></ul><!-- react-text: 1227 -->
+<!-- /react-text --></li><!-- react-text: 1228 -->
+<!-- /react-text --></ul><!-- react-text: 1229 -->
+<!-- /react-text --><p data-reactid="1230"><strong data-reactid="1231">Examples</strong><!-- react-text: 1232 -->  <!-- /react-text --></p><!-- react-text: 1233 -->
+<!-- /react-text --><pre data-reactid="1234"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1235"><span class="hljs-class" data-reactid="1236"><span class="hljs-keyword" data-reactid="1237">class</span><!-- react-text: 1238 --> <!-- /react-text --><span class="hljs-title" data-reactid="1239">View</span><!-- react-text: 1240 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1241">extends</span><!-- react-text: 1242 --> <!-- /react-text --><span class="hljs-title" data-reactid="1243">React</span><!-- react-text: 1244 -->.<!-- /react-text --><span class="hljs-title" data-reactid="1245">Component</span><!-- react-text: 1246 --> <!-- /react-text --></span><!-- react-text: 1247 -->{  
+     @reactUrlSync  
+     @observable sync = <!-- /react-text --><span class="hljs-string" data-reactid="1248">&#x27;abc&#x27;</span><!-- react-text: 1249 -->  
+ }  <!-- /react-text --></code></pre><!-- react-text: 1250 -->
+<!-- /react-text --><h2 data-reactid="1251"><a class="anchor" aria-hidden="true" name="registerurlsync" data-reactid="1252"></a><a href="#registerurlsync" aria-hidden="true" class="hash-link" data-reactid="1253"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1254"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1255"></path></svg></a><!-- react-text: 1256 -->registerUrlSync<!-- /react-text --></h2><!-- react-text: 1257 -->
+<!-- /react-text --><p data-reactid="1258"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/urlSync/core.js#L39-L41" title="Source code on GitHub" data-reactid="1259">src/decorator/urlSync/core.js:39-41</a><!-- react-text: 1260 -->  <!-- /react-text --></p><!-- react-text: 1261 -->
+<!-- /react-text --><p data-reactid="1262"><strong data-reactid="1263">Parameters</strong><!-- react-text: 1264 -->  <!-- /react-text --></p><!-- react-text: 1265 -->
+<!-- /react-text --><ul data-reactid="1266"><!-- react-text: 1267 -->
+<!-- /react-text --><li data-reactid="1268"><!-- react-text: 1269 -->
+<!-- /react-text --><p data-reactid="1270"><code data-reactid="1271">history</code><!-- react-text: 1272 --> <!-- /react-text --><strong data-reactid="1273">RouterHistory</strong><!-- react-text: 1274 --> <!-- /react-text --><a href="https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/history.md" data-reactid="1275">See more information</a><!-- react-text: 1276 -->  <!-- /react-text --></p><!-- react-text: 1277 -->
+<!-- /react-text --></li><!-- react-text: 1278 -->
+<!-- /react-text --></ul><!-- react-text: 1279 -->
+<!-- /react-text --><p data-reactid="1280"><strong data-reactid="1281">Examples</strong><!-- react-text: 1282 -->  <!-- /react-text --></p><!-- react-text: 1283 -->
+<!-- /react-text --><pre data-reactid="1284"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1285"><span class="hljs-keyword" data-reactid="1286">import</span><!-- react-text: 1287 --> { hashHistory, Router } <!-- /react-text --><span class="hljs-keyword" data-reactid="1288">from</span><!-- react-text: 1289 --> <!-- /react-text --><span class="hljs-string" data-reactid="1290">&#x27;react-router&#x27;</span><!-- react-text: 1291 -->  
+registerUrlSync(hashHistory)  
+  
+&lt;Router routes={routes} history={hashHistory} /&gt;  <!-- /react-text --></code></pre><!-- react-text: 1292 -->
+<!-- /react-text --><h2 data-reactid="1293"><a class="anchor" aria-hidden="true" name="stateinout" data-reactid="1294"></a><a href="#stateinout" aria-hidden="true" class="hash-link" data-reactid="1295"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1296"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1297"></path></svg></a><!-- react-text: 1298 -->stateInOut<!-- /react-text --></h2><!-- react-text: 1299 -->
+<!-- /react-text --><p data-reactid="1300"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/stateInOut.js#L25-L80" title="Source code on GitHub" data-reactid="1301">src/decorator/stateInOut.js:25-80</a><!-- react-text: 1302 -->  <!-- /react-text --></p><!-- react-text: 1303 -->
+<!-- /react-text --><p data-reactid="1304"><!-- react-text: 1305 -->绑定 Model 至 View 中，将会挂载一些 View 的<!-- /react-text --><a href="/react-mobx-vm/advanced/life-cycle" data-reactid="1306">生命周期</a><!-- react-text: 1307 -->至 Model 中  <!-- /react-text --></p><!-- react-text: 1308 -->
+<!-- /react-text --><p data-reactid="1309"><strong data-reactid="1310">Parameters</strong><!-- react-text: 1311 -->  <!-- /react-text --></p><!-- react-text: 1312 -->
+<!-- /react-text --><ul data-reactid="1313"><!-- react-text: 1314 -->
+<!-- /react-text --><li data-reactid="1315"><!-- react-text: 1316 -->
+<!-- /react-text --><p data-reactid="1317"><code data-reactid="1318">StateClass</code><!-- react-text: 1319 --> <!-- /react-text --><strong data-reactid="1320"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="1321">function</a></strong><!-- react-text: 1322 -->  <!-- /react-text --></p><!-- react-text: 1323 -->
+<!-- /react-text --></li><!-- react-text: 1324 -->
+<!-- /react-text --><li data-reactid="1325"><!-- react-text: 1326 -->
+<!-- /react-text --><p data-reactid="1327"><code data-reactid="1328">keyName</code><!-- react-text: 1329 --> <!-- /react-text --><strong data-reactid="1330"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String" data-reactid="1331">string</a></strong><!-- react-text: 1332 -->  (optional, default <!-- /react-text --><code data-reactid="1333">&#x27;local&#x27;</code><!-- react-text: 1334 -->)  <!-- /react-text --></p><!-- react-text: 1335 -->
+<!-- /react-text --></li><!-- react-text: 1336 -->
+<!-- /react-text --><li data-reactid="1337"><!-- react-text: 1338 -->
+<!-- /react-text --><p data-reactid="1339"><code data-reactid="1340">initData</code><!-- react-text: 1341 --> <!-- /react-text --><strong data-reactid="1342"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object" data-reactid="1343">object</a></strong><!-- react-text: 1344 -->  (optional, default <!-- /react-text --><code data-reactid="1345">{}</code><!-- react-text: 1346 -->)  <!-- /react-text --></p><!-- react-text: 1347 -->
+<!-- /react-text --></li><!-- react-text: 1348 -->
+<!-- /react-text --></ul><!-- react-text: 1349 -->
+<!-- /react-text --><p data-reactid="1350"><strong data-reactid="1351">Examples</strong><!-- react-text: 1352 -->  <!-- /react-text --></p><!-- react-text: 1353 -->
+<!-- /react-text --><pre data-reactid="1354"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1355"><!-- react-text: 1356 -->@stateInOut(StateClass)  
+<!-- /react-text --><span class="hljs-class" data-reactid="1357"><span class="hljs-keyword" data-reactid="1358">class</span><!-- react-text: 1359 --> <!-- /react-text --><span class="hljs-title" data-reactid="1360">View</span><!-- react-text: 1361 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1362">extends</span><!-- react-text: 1363 --> <!-- /react-text --><span class="hljs-title" data-reactid="1364">React</span><!-- react-text: 1365 -->.<!-- /react-text --><span class="hljs-title" data-reactid="1366">Component</span><!-- react-text: 1367 --> <!-- /react-text --></span><!-- react-text: 1368 -->{  
+   render() {  
+     <!-- /react-text --><span class="hljs-comment" data-reactid="1369">// this.local 可以访问 StateClass 的实例  </span><!-- react-text: 1370 -->
+   }  
+}  <!-- /react-text --></code></pre><!-- react-text: 1371 -->
+<!-- /react-text --><p data-reactid="1372"><!-- react-text: 1373 -->Returns <!-- /react-text --><strong data-reactid="1374"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="1375">function</a></strong><!-- react-text: 1376 --> View =&gt; View  <!-- /react-text --></p><!-- react-text: 1377 -->
+<!-- /react-text --><h2 data-reactid="1378"><a class="anchor" aria-hidden="true" name="stateless" data-reactid="1379"></a><a href="#stateless" aria-hidden="true" class="hash-link" data-reactid="1380"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1381"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1382"></path></svg></a><!-- react-text: 1383 -->stateless<!-- /react-text --></h2><!-- react-text: 1384 -->
+<!-- /react-text --><p data-reactid="1385"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/stateless.js#L19-L23" title="Source code on GitHub" data-reactid="1386">src/decorator/stateless.js:19-23</a><!-- react-text: 1387 -->  <!-- /react-text --></p><!-- react-text: 1388 -->
+<!-- /react-text --><p data-reactid="1389">用于书写一些无组件自身状态的简单组件  </p><!-- react-text: 1390 -->
+<!-- /react-text --><p data-reactid="1391"><strong data-reactid="1392">Parameters</strong><!-- react-text: 1393 -->  <!-- /react-text --></p><!-- react-text: 1394 -->
+<!-- /react-text --><ul data-reactid="1395"><!-- react-text: 1396 -->
+<!-- /react-text --><li data-reactid="1397"><!-- react-text: 1398 -->
+<!-- /react-text --><p data-reactid="1399"><code data-reactid="1400">func</code><!-- react-text: 1401 -->  {function} (local, props) =&gt; ReactElement  <!-- /react-text --></p><!-- react-text: 1402 -->
+<!-- /react-text --></li><!-- react-text: 1403 -->
+<!-- /react-text --><li data-reactid="1404"><!-- react-text: 1405 -->
+<!-- /react-text --><p data-reactid="1406"><code data-reactid="1407">localKey</code><!-- react-text: 1408 -->  {string} (optional, default <!-- /react-text --><code data-reactid="1409">&#x27;local&#x27;</code><!-- react-text: 1410 -->)  <!-- /react-text --></p><!-- react-text: 1411 -->
+<!-- /react-text --></li><!-- react-text: 1412 -->
+<!-- /react-text --></ul><!-- react-text: 1413 -->
+<!-- /react-text --><p data-reactid="1414"><strong data-reactid="1415">Examples</strong><!-- react-text: 1416 -->  <!-- /react-text --></p><!-- react-text: 1417 -->
+<!-- /react-text --><pre data-reactid="1418"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1419"><span class="hljs-keyword" data-reactid="1420">export</span><!-- react-text: 1421 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1422">default</span><!-- react-text: 1423 --> stateless(<!-- /react-text --><span class="hljs-function" data-reactid="1424"><!-- react-text: 1425 -->(<!-- /react-text --><span class="hljs-params" data-reactid="1426">local, props</span><!-- react-text: 1427 -->) =&gt;<!-- /react-text --></span><!-- react-text: 1428 -->  
+  &lt;div&gt;<!-- /react-text --><span class="xml" data-reactid="1429"><span class="hljs-tag" data-reactid="1430"><!-- react-text: 1431 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="1432">div</span><!-- react-text: 1433 -->&gt;<!-- /react-text --></span></span><!-- react-text: 1434 -->  
+)  <!-- /react-text --></code></pre><!-- react-text: 1435 -->
+<!-- /react-text --><p data-reactid="1436"><!-- react-text: 1437 -->Returns <!-- /react-text --><strong data-reactid="1438"><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function" data-reactid="1439">function</a></strong><!-- react-text: 1440 --> props =&gt; ReactElement  <!-- /react-text --></p><!-- react-text: 1441 -->
+<!-- /react-text --><h2 data-reactid="1442"><a class="anchor" aria-hidden="true" name="storagesync" data-reactid="1443"></a><a href="#storagesync" aria-hidden="true" class="hash-link" data-reactid="1444"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1445"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1446"></path></svg></a><!-- react-text: 1447 -->storageSync<!-- /react-text --></h2><!-- react-text: 1448 -->
+<!-- /react-text --><p data-reactid="1449"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/storageSync/state.js#L11-L15" title="Source code on GitHub" data-reactid="1450">src/decorator/storageSync/state.js:11-15</a><!-- react-text: 1451 -->  <!-- /react-text --></p><!-- react-text: 1452 -->
+<!-- /react-text --><p data-reactid="1453">Model层的数据（localStorage）存储同步  </p><!-- react-text: 1454 -->
+<!-- /react-text --><p data-reactid="1455"><strong data-reactid="1456">Parameters</strong><!-- react-text: 1457 -->  <!-- /react-text --></p><!-- react-text: 1458 -->
+<!-- /react-text --><ul data-reactid="1459"><!-- react-text: 1460 -->
+<!-- /react-text --><li data-reactid="1461"><!-- react-text: 1462 -->
+<!-- /react-text --><p data-reactid="1463"><code data-reactid="1464">storageKey</code><!-- react-text: 1465 -->  {string} (optional, default <!-- /react-text --><code data-reactid="1466">property</code><!-- react-text: 1467 -->)  <!-- /react-text --></p><!-- react-text: 1468 -->
+<!-- /react-text --></li><!-- react-text: 1469 -->
+<!-- /react-text --><li data-reactid="1470"><!-- react-text: 1471 -->
+<!-- /react-text --><p data-reactid="1472"><code data-reactid="1473">options</code><!-- react-text: 1474 -->  {string} 参考<!-- /react-text --><a href="#reacturlsync" data-reactid="1475">reactUrlSync</a><!-- react-text: 1476 -->  <!-- /react-text --></p><!-- react-text: 1477 -->
+<!-- /react-text --></li><!-- react-text: 1478 -->
+<!-- /react-text --></ul><!-- react-text: 1479 -->
+<!-- /react-text --><p data-reactid="1480"><strong data-reactid="1481">Examples</strong><!-- react-text: 1482 -->  <!-- /react-text --></p><!-- react-text: 1483 -->
+<!-- /react-text --><pre data-reactid="1484"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1485"><span class="hljs-class" data-reactid="1486"><span class="hljs-keyword" data-reactid="1487">class</span><!-- react-text: 1488 --> <!-- /react-text --><span class="hljs-title" data-reactid="1489">Model</span><!-- react-text: 1490 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1491">extends</span><!-- react-text: 1492 --> <!-- /react-text --><span class="hljs-title" data-reactid="1493">Root</span><!-- react-text: 1494 --> <!-- /react-text --></span><!-- react-text: 1495 -->{  
+   @storageSync  
+   @observable data = { <!-- /react-text --><span class="hljs-attr" data-reactid="1496">arr</span><!-- react-text: 1497 -->: [<!-- /react-text --><span class="hljs-number" data-reactid="1498">1</span><!-- react-text: 1499 -->, <!-- /react-text --><span class="hljs-number" data-reactid="1500">2</span><!-- react-text: 1501 -->, <!-- /react-text --><span class="hljs-number" data-reactid="1502">3</span><!-- react-text: 1503 -->] }  
+}  
+<!-- /react-text --><span class="hljs-comment" data-reactid="1504">// 在修改了 `model.data` 之后，查看 `localStorage` 中的数据  </span></code></pre><!-- react-text: 1505 -->
+<!-- /react-text --><h2 data-reactid="1506"><a class="anchor" aria-hidden="true" name="urlsync" data-reactid="1507"></a><a href="#urlsync" aria-hidden="true" class="hash-link" data-reactid="1508"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="1509"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="1510"></path></svg></a><!-- react-text: 1511 -->urlSync<!-- /react-text --></h2><!-- react-text: 1512 -->
+<!-- /react-text --><p data-reactid="1513"><a href="https://github.com/be-fe/react-mobx-vm/blob/2138b241540679e784e641a40781b5fdec56fd37/src/decorator/urlSync/state.js#L11-L15" title="Source code on GitHub" data-reactid="1514">src/decorator/urlSync/state.js:11-15</a><!-- react-text: 1515 -->  <!-- /react-text --></p><!-- react-text: 1516 -->
+<!-- /react-text --><p data-reactid="1517">用于同步状态至 URL  </p><!-- react-text: 1518 -->
+<!-- /react-text --><p data-reactid="1519"><strong data-reactid="1520">Examples</strong><!-- react-text: 1521 -->  <!-- /react-text --></p><!-- react-text: 1522 -->
+<!-- /react-text --><pre data-reactid="1523"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="1524"><span class="hljs-class" data-reactid="1525"><span class="hljs-keyword" data-reactid="1526">class</span><!-- react-text: 1527 --> <!-- /react-text --><span class="hljs-title" data-reactid="1528">Model</span><!-- react-text: 1529 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="1530">extends</span><!-- react-text: 1531 --> <!-- /react-text --><span class="hljs-title" data-reactid="1532">Root</span><!-- react-text: 1533 --> <!-- /react-text --></span><!-- react-text: 1534 -->{  
+  @urlSync  
+  @observable sync = <!-- /react-text --><span class="hljs-string" data-reactid="1535">&#x27;abc&#x27;</span><!-- react-text: 1536 -->  
+  <!-- /react-text --><span class="hljs-comment" data-reactid="1537">// 未使用 @observable 修饰, urlSync会自动将其转为 observable  </span><!-- react-text: 1538 -->
+  @urlSync(<!-- /react-text --><span class="hljs-string" data-reactid="1539">&#x27;g&#x27;</span><!-- react-text: 1540 -->)  
+  value = <!-- /react-text --><span class="hljs-string" data-reactid="1541">&#x27;abcdef&#x27;</span><!-- react-text: 1542 -->  
+}  <!-- /react-text --></code></pre><!-- react-text: 1543 -->
+<!-- /react-text --></article></div><div class="docs-prevnext" data-reactid="1544"><a class="docs-prev button" href="/react-mobx-vm/guide/contrast" data-reactid="1545">← 对比于 Redux 和 Mobx State Tree</a><a class="docs-next button" href="/react-mobx-vm/api/others" data-reactid="1546">其他相关 →</a></div></div></div></div></div><footer class="nav-footer" data-reactid="1547"><a href="https://github.com/be-fe/react-mobx-vm" target="_blank" class="fbOpenSource" data-reactid="1548"><img src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="1549"/></a><section class="copyright" data-reactid="1550"><p style="margin-bottom:5px;" data-reactid="1551">Copyright © 2018 - Built by Picidae</p><!-- react-text: 1552 -->Powered by <!-- /react-text --><a href="https://github.com/picidaejs/picidae-theme-haier" target="_blank" data-reactid="1553">🍔 Haier</a><!-- react-text: 1554 -->.<!-- /react-text --></section></footer></div>
+</div>
+<script src="/react-mobx-vm/PICIDAE_COMMON.js"></script>
+<script src="/react-mobx-vm/PICIDAE_ENTRY.js"></script>
+</body>
+</html>

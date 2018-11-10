@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 对比于 Redux 和 Mobx State Tree - React Mobx VM </title>
+    <link rel="stylesheet" href="/react-mobx-vm/style.css">
+    <style type="text/css"> footer .copyright {
+  color: rgba(255, 255, 255, .4)
+}
+footer.nav-footer {
+  background-color: #808080
+}
+.showcaseSection .prose h1,
+.productShowcaseSection h2,
+nav.toc .toggleNav ul li a.navItemActive,
+.container .wrapper h3,
+.container .wrapper h2,
+.homeContainer,
+h1, h2, h3, h4,
+a,
+.container .wrapper h4,
+nav.toc .toggleNav ul li a:hover, nav.toc .toggleNav ul li a:focus {
+  color: #2265b1
+}
+body {
+  color: #393939
+}
+blockquote {
+  border-left-color: #bcd5f2;
+  background-color: #e3edfa;
+}
+code {
+  box-shadow: 2px 0 #e7f0fa, -2px 0 #e7f0fa;
+  background-color: #e7f0fa
+}
+.fixedHeaderContainer,
+.button:hover,
+nav.toc .toggleNav .navGroup.navGroupActive h3,
+.navigationSlider .slidingNav ul li > a:focus,
+.navigationSlider .slidingNav ul li > a:hover,
+.navigationSlider .slidingNav ul li > a,
+.mainContainer .wrapper .post .docPagination,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--category-header .algolia-docsearch-suggestion--highlight,
+ul#languages-dropdown-items {
+  background-color: #2265b1
+}
+.navigationSlider .slidingNav ul {
+  background-color: #2265b1
+}
+.highlightBackground {
+  background-color: #2265b1
+}
+.button {
+  color: #2265b1;
+  border-color: #2265b1;
+}
+pre code {
+  border-left-color: #2265b1;
+}
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--title .algolia-docsearch-suggestion--highlight,
+.navSearchWrapper .ds-dropdown-menu .algolia-docsearch-suggestion--subcategory-column .algolia-docsearch-suggestion--highlight,
+.darkBackground a,
+.darkBackground code {
+  color: #2f7ed7
+}
+@media only screen and (max-width: 735px) {
+  ul#languages-dropdown-items,
+  .reactNavSearchWrapper input#doc-search-input:focus, .reactNavSearchWrapper input#doc-search-input:active {
+    background-color: #2265b1
+  }
+}
+
+/* Make clicks pass-through */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: #dd2f3d;
+
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+}
+
+/* Fancy blur effect */
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #dd2f3d, 0 0 5px #dd2f3d;
+  opacity: 1.0;
+
+  -webkit-transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+  display: block;
+  position: fixed;
+  z-index: 1031;
+  top: 15px;
+  right: 15px;
+}
+
+#nprogress .spinner-icon {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+
+  border: solid 2px transparent;
+  border-top-color: #dd2f3d;
+  border-left-color: #dd2f3d;
+  border-radius: 50%;
+
+  -webkit-animation: nprogress-spinner 400ms linear infinite;
+          animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+  overflow: hidden;
+  position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+  position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes nprogress-spinner {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} </style>
+</head>
+<body>
+<div id="__root__">
+    <div class="" data-reactroot="" data-reactid="1" data-react-checksum="1037706854"><!-- react-empty: 2 --><div class="fixedHeaderContainer" data-reactid="3"><div class="headerWrapper wrapper" data-reactid="4"><header data-reactid="5"><a href="/react-mobx-vm/" data-reactid="6"><img class="logo" src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="7"/><h2 class="headerTitle" data-reactid="8">React Mobx VM</h2></a><div class="navigationWrapper navigationSlider" data-reactid="9"><nav class="slidingNav" data-reactid="10"><ul class="nav-site nav-site-internal" data-reactid="11"><li data-reactid="12"><a href="/react-mobx-vm/guide/" data-reactid="13">指引</a></li><li data-reactid="14"><a href="/react-mobx-vm/api/decorator" data-reactid="15">API</a></li><li data-reactid="16"><a href="https://github.com/be-fe/react-mobx-vm" target="_self" data-reactid="17">GitHub</a></li></ul></nav></div></header></div></div><div class="navPusher" data-reactid="18"><div class="docMainWrapper wrapper" data-reactid="19"><!-- react-empty: 20 --><div class="container docsNavContainer" data-reactid="21"><nav class="toc" data-reactid="22"><div class="toggleNav" data-reactid="23"><section class="navWrapper wrapper" data-reactid="24"><div class="navBreadcrumb wrapper" data-reactid="25"><div class="navToggle" data-reactid="26"><i data-reactid="27"></i></div><h2 data-reactid="28"><i data-reactid="29">&gt;</i><span data-reactid="30">Guides</span></h2></div><div class="navGroups" data-reactid="31"><div class="navGroupActive navGroup" data-reactid="32"><h3 data-reactid="33">指引</h3><ul data-reactid="34"><li class="navListItem" data-reactid="35"><a class="" href="/react-mobx-vm/guide/index" data-reactid="36">什么是 react-mobx-vm ？</a></li><li class="navListItem navItemActive" data-reactid="37"><a class="navItemActive" href="/react-mobx-vm/guide/contrast" data-reactid="38">对比于 Redux 和 Mobx State Tree</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="39"><h3 data-reactid="40">API</h3><ul data-reactid="41"><li class="navListItem" data-reactid="42"><a class="" href="/react-mobx-vm/api/decorator" data-reactid="43">修饰器相关</a></li><li class="navListItem" data-reactid="44"><a class="" href="/react-mobx-vm/api/others" data-reactid="45">其他相关</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="46"><h3 data-reactid="47">可编辑的例子</h3><ul data-reactid="48"><li class="navListItem" data-reactid="49"><a class="" href="/react-mobx-vm/examples/react-data-binding-based-on-mobx" data-reactid="50">binding的来由</a></li><li class="navListItem" data-reactid="51"><a class="" href="/react-mobx-vm/examples/binding" data-reactid="52">binding</a></li><li class="navListItem" data-reactid="53"><a class="" href="/react-mobx-vm/examples/inject-collect" data-reactid="54">inject &amp; collect</a></li><li class="navListItem" data-reactid="55"><a class="" href="/react-mobx-vm/examples/url-sync" data-reactid="56">urlSync</a></li></ul></div><div class="navGroupActive navGroup" data-reactid="57"><h3 data-reactid="58">高阶说明</h3><ul data-reactid="59"><li class="navListItem" data-reactid="60"><a class="" href="/react-mobx-vm/advanced/life-cycle" data-reactid="61">生命周期</a></li><li class="navListItem" data-reactid="62"><a class="" href="/react-mobx-vm/advanced/mixed-renderer" data-reactid="63">怎么用 JSX 渲染 VM？</a></li></ul></div></div></section></div></nav></div><div class="container mainContainer" data-reactid="64"><div class="wrapper" data-reactid="65"><div class="post" data-reactid="66"><header class="postHeader" data-reactid="67"><a href="https://github.com/be-fe/react-mobx-vm/blob/master/_site/docs/guide/contrast.md" class="edit-page-link button" target="_blank" data-reactid="68">编辑</a><h1 data-reactid="69">对比于 Redux 和 Mobx State Tree</h1></header><article data-reactid="70"><p data-reactid="71"><!-- react-text: 72 -->以一个简单的 TodoList 应用为例，分别使用 <!-- /react-text --><a href="https://github.com/mobxjs/mobx-state-tree" data-reactid="73">Mobx State Tree</a><!-- react-text: 74 --> 和 React Mobx VM 来实现一下，这样对比起来更明显<!-- /react-text --></p><!-- react-text: 75 -->
+<!-- /react-text --><div class="picidae-toc" data-reactid="76"><!-- react-text: 77 -->
+<!-- /react-text --><ul data-reactid="78"><!-- react-text: 79 -->
+<!-- /react-text --><li data-reactid="80"><!-- react-text: 81 -->
+<!-- /react-text --><a href="#mst-todolist" data-reactid="82">MST TodoList</a><!-- react-text: 83 -->
+<!-- /react-text --></li><!-- react-text: 84 -->
+<!-- /react-text --><li data-reactid="85"><!-- react-text: 86 -->
+<!-- /react-text --><a href="#vm-todolist" data-reactid="87">VM TodoList</a><!-- react-text: 88 -->
+<!-- /react-text --></li><!-- react-text: 89 -->
+<!-- /react-text --></ul><!-- react-text: 90 -->
+<!-- /react-text --></div><!-- react-text: 91 -->
+<!-- /react-text --><hr data-reactid="92"/><!-- react-text: 93 -->
+<!-- /react-text --><h2 data-reactid="94"><a class="anchor" aria-hidden="true" name="mst-todolist" data-reactid="95"></a><a href="#mst-todolist" aria-hidden="true" class="hash-link" data-reactid="96"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="97"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="98"></path></svg></a><!-- react-text: 99 -->MST TodoList<!-- /react-text --></h2><!-- react-text: 100 -->
+<!-- /react-text --><p data-reactid="101">如需实现如下一个简单的 TodoList 应用，使用 MST（Mobx State Tree）应该如何书写呢？</p><!-- react-text: 102 -->
+<!-- /react-text --><ul data-reactid="103"><!-- react-text: 104 -->
+<!-- /react-text --><li data-reactid="105">index.js</li><!-- react-text: 106 -->
+<!-- /react-text --></ul><!-- react-text: 107 -->
+<!-- /react-text --><div class="transformer-react-render-container" data-reactid="108"><div data-id="0" class="transformer-react-render" data-reactid="109"><div data-reactid="110"><input value="" data-reactid="111"/><button data-reactid="112">Add</button><ul data-reactid="113"><li data-reactid="114"><input type="checkbox" data-reactid="115"/><!-- react-text: 116 -->Get Coffee<!-- /react-text --></li><li data-reactid="117"><input type="checkbox" data-reactid="118"/><!-- react-text: 119 -->Write simpler code<!-- /react-text --></li></ul><!-- react-text: 120 -->Tasks left: <!-- /react-text --><!-- react-text: 121 -->2<!-- /react-text --></div></div><pre data-reactid="122"><code class="code-editor hljs language-jsx" data-reactid="123"><div class="prefix-code" data-reactid="124"></div><div spellcheck="true" contenteditable="true" class="edit-content" data-reactid="125"></div></code></pre></div><!-- react-text: 126 -->
+<!-- /react-text --><pre data-reactid="127"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="128"><span class="hljs-keyword" data-reactid="129">import</span><!-- react-text: 130 --> { types } <!-- /react-text --><span class="hljs-keyword" data-reactid="131">from</span><!-- react-text: 132 --> <!-- /react-text --><span class="hljs-string" data-reactid="133">&#x27;mobx-state-tree&#x27;</span><!-- react-text: 134 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="135">export</span><!-- react-text: 136 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="137">const</span><!-- react-text: 138 --> Todo = types
+  .model(<!-- /react-text --><span class="hljs-string" data-reactid="139">&#x27;Todo&#x27;</span><!-- react-text: 140 -->, {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="141">id</span><!-- react-text: 142 -->: types.optional(types.number, () =&gt; <!-- /react-text --><span class="hljs-built_in" data-reactid="143">Math</span><!-- react-text: 144 -->.random()),
+    <!-- /react-text --><span class="hljs-attr" data-reactid="145">title</span><!-- react-text: 146 -->: types.string,
+    <!-- /react-text --><span class="hljs-attr" data-reactid="147">finished</span><!-- react-text: 148 -->: <!-- /react-text --><span class="hljs-literal" data-reactid="149">false</span><!-- react-text: 150 -->
+  })
+  .actions(<!-- /react-text --><span class="hljs-function" data-reactid="151"><span class="hljs-params" data-reactid="152">self</span><!-- react-text: 153 --> =&gt;<!-- /react-text --></span><!-- react-text: 154 --> (
+    {
+      toggle() {
+        self.finished = !self.finished
+      }
+    }
+  ))
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="155">export</span><!-- react-text: 156 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="157">const</span><!-- react-text: 158 --> TodoStore = types
+  .model(<!-- /react-text --><span class="hljs-string" data-reactid="159">&#x27;TodoStore&#x27;</span><!-- react-text: 160 -->, {
+    <!-- /react-text --><span class="hljs-attr" data-reactid="161">todos</span><!-- react-text: 162 -->: types.array(Todo)
+  })
+  .views(<!-- /react-text --><span class="hljs-function" data-reactid="163"><span class="hljs-params" data-reactid="164">self</span><!-- react-text: 165 --> =&gt;<!-- /react-text --></span><!-- react-text: 166 --> (
+    {
+      get unfinishedTodoCount() {
+        <!-- /react-text --><span class="hljs-keyword" data-reactid="167">return</span><!-- react-text: 168 --> self.todos.filter(<!-- /react-text --><span class="hljs-function" data-reactid="169"><span class="hljs-params" data-reactid="170">todo</span><!-- react-text: 171 --> =&gt;<!-- /react-text --></span><!-- react-text: 172 --> !todo.finished).length
+      }
+    }
+  ))
+  .actions(<!-- /react-text --><span class="hljs-function" data-reactid="173"><span class="hljs-params" data-reactid="174">self</span><!-- react-text: 175 --> =&gt;<!-- /react-text --></span><!-- react-text: 176 --> (
+    {
+      addTodo(title) {
+        self.todos.push({ title })
+      }
+    }
+  ))<!-- /react-text --></code></pre><!-- react-text: 177 -->
+<!-- /react-text --><ul data-reactid="178"><!-- react-text: 179 -->
+<!-- /react-text --><li data-reactid="180">../snippets/mst/components/TodoList.js</li><!-- react-text: 181 -->
+<!-- /react-text --></ul><!-- react-text: 182 -->
+<!-- /react-text --><pre data-reactid="183"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="184"><span class="hljs-keyword" data-reactid="185">import</span><!-- react-text: 186 --> { observable } <!-- /react-text --><span class="hljs-keyword" data-reactid="187">from</span><!-- react-text: 188 --> <!-- /react-text --><span class="hljs-string" data-reactid="189">&#x27;mobx&#x27;</span><!-- react-text: 190 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="191">import</span><!-- react-text: 192 --> { observer } <!-- /react-text --><span class="hljs-keyword" data-reactid="193">from</span><!-- react-text: 194 --> <!-- /react-text --><span class="hljs-string" data-reactid="195">&#x27;mobx-react&#x27;</span><!-- react-text: 196 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="197">import</span><!-- react-text: 198 --> * <!-- /react-text --><span class="hljs-keyword" data-reactid="199">as</span><!-- react-text: 200 --> React <!-- /react-text --><span class="hljs-keyword" data-reactid="201">from</span><!-- react-text: 202 --> <!-- /react-text --><span class="hljs-string" data-reactid="203">&#x27;react&#x27;</span><!-- react-text: 204 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="205">import</span><!-- react-text: 206 --> { Todo } <!-- /react-text --><span class="hljs-keyword" data-reactid="207">from</span><!-- react-text: 208 --> <!-- /react-text --><span class="hljs-string" data-reactid="209">&#x27;./Todo&#x27;</span><!-- react-text: 210 -->
+
+@observer
+<!-- /react-text --><span class="hljs-keyword" data-reactid="211">export</span><!-- react-text: 212 --> <!-- /react-text --><span class="hljs-class" data-reactid="213"><span class="hljs-keyword" data-reactid="214">class</span><!-- react-text: 215 --> <!-- /react-text --><span class="hljs-title" data-reactid="216">TodoList</span><!-- react-text: 217 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="218">extends</span><!-- react-text: 219 --> <!-- /react-text --><span class="hljs-title" data-reactid="220">React</span><!-- react-text: 221 -->.<!-- /react-text --><span class="hljs-title" data-reactid="222">Component</span><!-- react-text: 223 --> <!-- /react-text --></span><!-- react-text: 224 -->{
+  @observable newTodoTitle = <!-- /react-text --><span class="hljs-string" data-reactid="225">&#x27;&#x27;</span><!-- react-text: 226 -->
+
+  render() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="227">const</span><!-- react-text: 228 --> { todoStore } = <!-- /react-text --><span class="hljs-keyword" data-reactid="229">this</span><!-- react-text: 230 -->.props
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="231">return</span><!-- react-text: 232 --> (
+      <!-- /react-text --><span class="xml" data-reactid="233"><span class="hljs-tag" data-reactid="234"><!-- react-text: 235 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="236">div</span><!-- react-text: 237 -->&gt;<!-- /react-text --></span><!-- react-text: 238 -->
+        <!-- /react-text --></span><!-- react-text: 239 -->&lt;input value={this.newTodoTitle} onChange={this.handleChange}/&gt;
+        &lt;button onClick={this.handleNewTodoClick}&gt;Add&lt;/button&gt;
+        &lt;ul&gt;
+          {todoStore.todos.map(todo =&gt; &lt;Todo todo={todo} key={todo.id}/&gt;)}
+        &lt;/ul&gt;
+        Tasks left: {todoStore.unfinishedTodoCount}
+      &lt;/div&gt;
+    )
+  }
+
+  handleChange = (e) =&gt; {
+    this.newTodoTitle = e.target.value
+  }
+
+  handleNewTodoClick = (e) =&gt; {
+    e.stopPropagation()
+    this.props.todoStore.addTodo(this.newTodoTitle)
+    this.newTodoTitle = &#x27;&#x27;
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 240 -->
+<!-- /react-text --><ul data-reactid="241"><!-- react-text: 242 -->
+<!-- /react-text --><li data-reactid="243">../snippets/mst/components/Todo.js</li><!-- react-text: 244 -->
+<!-- /react-text --></ul><!-- react-text: 245 -->
+<!-- /react-text --><pre data-reactid="246"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="247"><span class="hljs-keyword" data-reactid="248">import</span><!-- react-text: 249 --> { observer } <!-- /react-text --><span class="hljs-keyword" data-reactid="250">from</span><!-- react-text: 251 --> <!-- /react-text --><span class="hljs-string" data-reactid="252">&#x27;mobx-react&#x27;</span><!-- react-text: 253 -->;
+<!-- /react-text --><span class="hljs-keyword" data-reactid="254">import</span><!-- react-text: 255 --> * <!-- /react-text --><span class="hljs-keyword" data-reactid="256">as</span><!-- react-text: 257 --> React <!-- /react-text --><span class="hljs-keyword" data-reactid="258">from</span><!-- react-text: 259 --> <!-- /react-text --><span class="hljs-string" data-reactid="260">&#x27;react&#x27;</span><!-- react-text: 261 -->;
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="262">export</span><!-- react-text: 263 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="264">const</span><!-- react-text: 265 --> Todo = observer(<!-- /react-text --><span class="hljs-function" data-reactid="266"><!-- react-text: 267 -->(<!-- /react-text --><span class="hljs-params" data-reactid="268">{ todo }</span><!-- react-text: 269 -->) =&gt;<!-- /react-text --></span><!-- react-text: 270 -->
+  &lt;li&gt;
+    <!-- /react-text --><span class="xml" data-reactid="271"><span class="hljs-tag" data-reactid="272"><!-- react-text: 273 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="274">input</span><!-- react-text: 275 -->
+      <!-- /react-text --><span class="hljs-attr" data-reactid="276">type</span><!-- react-text: 277 -->=<!-- /react-text --><span class="hljs-string" data-reactid="278">&quot;checkbox&quot;</span><!-- react-text: 279 -->
+      <!-- /react-text --><span class="hljs-attr" data-reactid="280">checked</span><!-- react-text: 281 -->=<!-- /react-text --><span class="hljs-string" data-reactid="282">{todo.finished}</span><!-- react-text: 283 -->
+      <!-- /react-text --><span class="hljs-attr" data-reactid="284">onClick</span><!-- react-text: 285 -->=<!-- /react-text --><span class="hljs-string" data-reactid="286">{todo.toggle}</span><!-- react-text: 287 -->
+    /&gt;<!-- /react-text --></span><!-- react-text: 288 -->
+    {todo.title}
+  <!-- /react-text --><span class="hljs-tag" data-reactid="289"><!-- react-text: 290 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="291">li</span><!-- react-text: 292 -->&gt;<!-- /react-text --></span></span><!-- react-text: 293 -->,
+);<!-- /react-text --></code></pre><!-- react-text: 294 -->
+<!-- /react-text --><h2 data-reactid="295"><a class="anchor" aria-hidden="true" name="vm-todolist" data-reactid="296"></a><a href="#vm-todolist" aria-hidden="true" class="hash-link" data-reactid="297"><svg aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16" data-reactid="298"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z" data-reactid="299"></path></svg></a><!-- react-text: 300 -->VM TodoList<!-- /react-text --></h2><!-- react-text: 301 -->
+<!-- /react-text --><ul data-reactid="302"><!-- react-text: 303 -->
+<!-- /react-text --><li data-reactid="304">index.js</li><!-- react-text: 305 -->
+<!-- /react-text --></ul><!-- react-text: 306 -->
+<!-- /react-text --><div class="transformer-react-render-container" data-reactid="307"><div data-id="1" class="transformer-react-render" data-reactid="308"><div data-reactid="309"><input value="" data-reactid="310"/><button data-reactid="311">Add</button><ul data-reactid="312"><li data-reactid="313"><input type="checkbox" data-reactid="314"/><!-- react-text: 315 -->Get Coffee<!-- /react-text --></li><li data-reactid="316"><input type="checkbox" data-reactid="317"/><!-- react-text: 318 -->Write simpler code<!-- /react-text --></li></ul><!-- react-text: 319 -->Tasks left: <!-- /react-text --><!-- react-text: 320 -->2<!-- /react-text --></div></div><pre data-reactid="321"><code class="code-editor hljs language-jsx" data-reactid="322"><div class="prefix-code" data-reactid="323"></div><div spellcheck="true" contenteditable="true" class="edit-content" data-reactid="324"></div></code></pre></div><!-- react-text: 325 -->
+<!-- /react-text --><ul data-reactid="326"><!-- react-text: 327 -->
+<!-- /react-text --><li data-reactid="328">../snippets/vm/TodoList/index.js</li><!-- react-text: 329 -->
+<!-- /react-text --></ul><!-- react-text: 330 -->
+<!-- /react-text --><pre data-reactid="331"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="332"><span class="hljs-keyword" data-reactid="333">import</span><!-- react-text: 334 --> {
+  Root,
+  bindView,
+  observable,
+  computed,
+  action
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="335">from</span><!-- react-text: 336 --> <!-- /react-text --><span class="hljs-string" data-reactid="337">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 338 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="339">import</span><!-- react-text: 340 --> View <!-- /react-text --><span class="hljs-keyword" data-reactid="341">from</span><!-- react-text: 342 --> <!-- /react-text --><span class="hljs-string" data-reactid="343">&#x27;./View&#x27;</span><!-- react-text: 344 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="345">import</span><!-- react-text: 346 --> Todo <!-- /react-text --><span class="hljs-keyword" data-reactid="347">from</span><!-- react-text: 348 --> <!-- /react-text --><span class="hljs-string" data-reactid="349">&#x27;../Todo&#x27;</span><!-- react-text: 350 -->
+
+@bindView(View)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="351">export</span><!-- react-text: 352 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="353">default</span><!-- react-text: 354 --> <!-- /react-text --><span class="hljs-class" data-reactid="355"><span class="hljs-keyword" data-reactid="356">class</span><!-- react-text: 357 --> <!-- /react-text --><span class="hljs-title" data-reactid="358">TodoList</span><!-- react-text: 359 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="360">extends</span><!-- react-text: 361 --> <!-- /react-text --><span class="hljs-title" data-reactid="362">Root</span><!-- react-text: 363 --> <!-- /react-text --></span><!-- react-text: 364 -->{
+  @observable todos = []
+  @observable newTodoTitle = <!-- /react-text --><span class="hljs-string" data-reactid="365">&#x27;&#x27;</span><!-- react-text: 366 -->
+  @computed get unfinishedTodoCount() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="367">return</span><!-- react-text: 368 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="369">this</span><!-- react-text: 370 -->.todos.filter(<!-- /react-text --><span class="hljs-function" data-reactid="371"><span class="hljs-params" data-reactid="372">todo</span><!-- react-text: 373 --> =&gt;<!-- /react-text --></span><!-- react-text: 374 --> !todo.finished).length
+  }
+  @action addTodo() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="375">this</span><!-- react-text: 376 -->.todos.push(Todo.create({ <!-- /react-text --><span class="hljs-attr" data-reactid="377">title</span><!-- react-text: 378 -->: <!-- /react-text --><span class="hljs-keyword" data-reactid="379">this</span><!-- react-text: 380 -->.newTodoTitle }))
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 381 -->
+<!-- /react-text --><ul data-reactid="382"><!-- react-text: 383 -->
+<!-- /react-text --><li data-reactid="384">../snippets/vm/TodoList/View.js</li><!-- react-text: 385 -->
+<!-- /react-text --></ul><!-- react-text: 386 -->
+<!-- /react-text --><pre data-reactid="387"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="388"><span class="hljs-keyword" data-reactid="389">import</span><!-- react-text: 390 --> { h, binding } <!-- /react-text --><span class="hljs-keyword" data-reactid="391">from</span><!-- react-text: 392 --> <!-- /react-text --><span class="hljs-string" data-reactid="393">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 394 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="395">import</span><!-- react-text: 396 --> * <!-- /react-text --><span class="hljs-keyword" data-reactid="397">as</span><!-- react-text: 398 --> React <!-- /react-text --><span class="hljs-keyword" data-reactid="399">from</span><!-- react-text: 400 --> <!-- /react-text --><span class="hljs-string" data-reactid="401">&#x27;react&#x27;</span><!-- react-text: 402 -->
+
+@binding
+<!-- /react-text --><span class="hljs-keyword" data-reactid="403">export</span><!-- react-text: 404 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="405">default</span><!-- react-text: 406 --> <!-- /react-text --><span class="hljs-class" data-reactid="407"><span class="hljs-keyword" data-reactid="408">class</span><!-- react-text: 409 --> <!-- /react-text --><span class="hljs-title" data-reactid="410">TodoList</span><!-- react-text: 411 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="412">extends</span><!-- react-text: 413 --> <!-- /react-text --><span class="hljs-title" data-reactid="414">React</span><!-- react-text: 415 -->.<!-- /react-text --><span class="hljs-title" data-reactid="416">Component</span><!-- react-text: 417 --> <!-- /react-text --></span><!-- react-text: 418 -->{
+
+  render() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="419">const</span><!-- react-text: 420 --> todoStore = <!-- /react-text --><span class="hljs-keyword" data-reactid="421">this</span><!-- react-text: 422 -->.local
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="423">return</span><!-- react-text: 424 --> (
+      <!-- /react-text --><span class="xml" data-reactid="425"><span class="hljs-tag" data-reactid="426"><!-- react-text: 427 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="428">div</span><!-- react-text: 429 -->&gt;<!-- /react-text --></span><!-- react-text: 430 -->
+        <!-- /react-text --></span><!-- react-text: 431 -->&lt;input data-bind=&quot;newTodoTitle&quot; /&gt;
+        &lt;button onClick={this.handleNewTodoClick}&gt;Add&lt;/button&gt;
+        &lt;ul&gt;
+          {todoStore.todos.map(todo =&gt; h(todo, { key: todo.id }))}
+        &lt;/ul&gt;
+        Tasks left: {todoStore.unfinishedTodoCount}
+      &lt;/div&gt;<!-- /react-text --><span class="xml" data-reactid="432">
+    )
+  }
+
+  handleNewTodoClick = (e) =&gt; {
+    e.stopPropagation()
+    this.local.addTodo(this.newTodoTitle)
+    this.local.newTodoTitle = &#x27;&#x27;
+  }
+}</span></code></pre><!-- react-text: 433 -->
+<!-- /react-text --><ul data-reactid="434"><!-- react-text: 435 -->
+<!-- /react-text --><li data-reactid="436">../snippets/vm/Todo/index.js</li><!-- react-text: 437 -->
+<!-- /react-text --></ul><!-- react-text: 438 -->
+<!-- /react-text --><pre data-reactid="439"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="440"><span class="hljs-keyword" data-reactid="441">import</span><!-- react-text: 442 --> { Root, bindView, observable, action } <!-- /react-text --><span class="hljs-keyword" data-reactid="443">from</span><!-- react-text: 444 --> <!-- /react-text --><span class="hljs-string" data-reactid="445">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 446 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="447">import</span><!-- react-text: 448 --> View <!-- /react-text --><span class="hljs-keyword" data-reactid="449">from</span><!-- react-text: 450 --> <!-- /react-text --><span class="hljs-string" data-reactid="451">&#x27;./View&#x27;</span><!-- react-text: 452 -->
+
+@bindView(View)
+<!-- /react-text --><span class="hljs-keyword" data-reactid="453">export</span><!-- react-text: 454 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="455">default</span><!-- react-text: 456 --> <!-- /react-text --><span class="hljs-class" data-reactid="457"><span class="hljs-keyword" data-reactid="458">class</span><!-- react-text: 459 --> <!-- /react-text --><span class="hljs-title" data-reactid="460">Todo</span><!-- react-text: 461 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="462">extends</span><!-- react-text: 463 --> <!-- /react-text --><span class="hljs-title" data-reactid="464">Root</span><!-- react-text: 465 --> <!-- /react-text --></span><!-- react-text: 466 -->{
+  @observable id = <!-- /react-text --><span class="hljs-built_in" data-reactid="467">Math</span><!-- react-text: 468 -->.random()
+  @observable title = <!-- /react-text --><span class="hljs-string" data-reactid="469">&#x27;&#x27;</span><!-- react-text: 470 -->
+  @observable finished = <!-- /react-text --><span class="hljs-literal" data-reactid="471">false</span><!-- react-text: 472 -->
+  @action toggle() {
+    <!-- /react-text --><span class="hljs-keyword" data-reactid="473">this</span><!-- react-text: 474 -->.finished = !<!-- /react-text --><span class="hljs-keyword" data-reactid="475">this</span><!-- react-text: 476 -->.finished
+  }
+}<!-- /react-text --></code></pre><!-- react-text: 477 -->
+<!-- /react-text --><ul data-reactid="478"><!-- react-text: 479 -->
+<!-- /react-text --><li data-reactid="480">../snippets/vm/Todo/View.js</li><!-- react-text: 481 -->
+<!-- /react-text --></ul><!-- react-text: 482 -->
+<!-- /react-text --><pre data-reactid="483"><code class="hljs language-javascript" data-query="{}" data-lang="javascript" data-reactid="484"><span class="hljs-keyword" data-reactid="485">import</span><!-- react-text: 486 --> {
+  stateless
+} <!-- /react-text --><span class="hljs-keyword" data-reactid="487">from</span><!-- react-text: 488 --> <!-- /react-text --><span class="hljs-string" data-reactid="489">&#x27;react-mobx-vm&#x27;</span><!-- react-text: 490 -->
+<!-- /react-text --><span class="hljs-keyword" data-reactid="491">import</span><!-- react-text: 492 --> * <!-- /react-text --><span class="hljs-keyword" data-reactid="493">as</span><!-- react-text: 494 --> React <!-- /react-text --><span class="hljs-keyword" data-reactid="495">from</span><!-- react-text: 496 --> <!-- /react-text --><span class="hljs-string" data-reactid="497">&#x27;react&#x27;</span><!-- react-text: 498 -->
+
+<!-- /react-text --><span class="hljs-keyword" data-reactid="499">export</span><!-- react-text: 500 --> <!-- /react-text --><span class="hljs-keyword" data-reactid="501">default</span><!-- react-text: 502 --> stateless(<!-- /react-text --><span class="hljs-function" data-reactid="503"><span class="hljs-params" data-reactid="504">local</span><!-- react-text: 505 --> =&gt;<!-- /react-text --></span><!-- react-text: 506 -->
+  &lt;li&gt;
+    <!-- /react-text --><span class="xml" data-reactid="507"><span class="hljs-tag" data-reactid="508"><!-- react-text: 509 -->&lt;<!-- /react-text --><span class="hljs-name" data-reactid="510">input</span><!-- react-text: 511 -->
+      <!-- /react-text --><span class="hljs-attr" data-reactid="512">type</span><!-- react-text: 513 -->=<!-- /react-text --><span class="hljs-string" data-reactid="514">&quot;checkbox&quot;</span><!-- react-text: 515 -->
+      <!-- /react-text --><span class="hljs-attr" data-reactid="516">checked</span><!-- react-text: 517 -->=<!-- /react-text --><span class="hljs-string" data-reactid="518">{local.finished}</span><!-- react-text: 519 -->
+      <!-- /react-text --><span class="hljs-attr" data-reactid="520">onClick</span><!-- react-text: 521 -->=<!-- /react-text --><span class="hljs-string" data-reactid="522">{local.toggle.bind(local)}</span><!-- react-text: 523 -->
+    /&gt;<!-- /react-text --></span><!-- react-text: 524 -->
+    {local.title}
+  <!-- /react-text --><span class="hljs-tag" data-reactid="525"><!-- react-text: 526 -->&lt;/<!-- /react-text --><span class="hljs-name" data-reactid="527">li</span><!-- react-text: 528 -->&gt;<!-- /react-text --></span></span><!-- react-text: 529 -->
+)<!-- /react-text --></code></pre><!-- react-text: 530 -->
+<!-- /react-text --></article></div><div class="docs-prevnext" data-reactid="531"><a class="docs-prev button" href="/react-mobx-vm/guide/index" data-reactid="532">← 什么是 react-mobx-vm ？</a><a class="docs-next button" href="/react-mobx-vm/api/decorator" data-reactid="533">修饰器相关 →</a></div></div></div></div></div><footer class="nav-footer" data-reactid="534"><a href="https://github.com/be-fe/react-mobx-vm" target="_blank" class="fbOpenSource" data-reactid="535"><img src="https://raw.githubusercontent.com/be-fe/react-mobx-vm/master/logo.svg?sanitize=true" data-reactid="536"/></a><section class="copyright" data-reactid="537"><p style="margin-bottom:5px;" data-reactid="538">Copyright © 2018 - Built by Picidae</p><!-- react-text: 539 -->Powered by <!-- /react-text --><a href="https://github.com/picidaejs/picidae-theme-haier" target="_blank" data-reactid="540">🍔 Haier</a><!-- react-text: 541 -->.<!-- /react-text --></section></footer></div>
+</div>
+<script src="/react-mobx-vm/PICIDAE_COMMON.js"></script>
+<script src="/react-mobx-vm/PICIDAE_ENTRY.js"></script>
+</body>
+</html>
